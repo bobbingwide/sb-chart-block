@@ -1,0 +1,14 @@
+{
+	"name": "oik-sb/chart",
+	"title": "Chart",
+	"category": "widgets",
+	"icon": "list-",
+	"description": "Displays a Chart.",
+	"textdomain": "sb-chart-block",
+	"supports": {
+		"html": false
+	},
+	"editorScript": "file:./build/index.js",
+	"editorStyle": "file:./build/index.css",
+	"style": "file:./build/style-index.css"
+}
