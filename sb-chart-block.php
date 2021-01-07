@@ -12,6 +12,11 @@
  *
  * @package         sb-chart-block
  */
+function sb_chart_loaded() {
+	//add_action( 'init', 'sb_chart_block_block_init' );
+	add_action( 'wp_enqueue_scripts', 'sb_chart_block_enqueue_scripts' );
+	add_shortcode( 'chartjs', 'sb_chart_block_shortcode' );
+}
 
 /**
  * Registers all block assets so that they can be enqueued through the block editor
@@ -70,7 +75,6 @@ function sb_chart_block_block_init() {
 		]
 	) );
 }
-add_action( 'init', 'sb_chart_block_block_init' );
 
 /**
  * Displays a chart
@@ -81,13 +85,49 @@ add_action( 'init', 'sb_chart_block_block_init' );
 function sb_chart_block_dynamic_block( $attributes ) {
 	load_plugin_textdomain( 'sb-chart-block', false, 'sb-chart-block/languages' );
 	$className = isset( $attributes['className']) ? $attributes['className'] : 'wp-block-oik-sb-chart';
-	$html = '<ul class="'. $className . '">';
+	$html = '<div class="'. $className . '">';
 	$html .= sb_chart_block_html( $attributes );
-	$html .= '</ul>';
+	$html .= '</div>';
 	return $html;
 }
 
 function sb_chart_block_html( $attributes ) {
 	$type = $attributes['type'];
-	return "<li>$type chart  goes here </li>";
+	$html = "<h3>$type</h3>";
+	$html .= file_get_contents( __DIR__ . '/tests/data/default-chart.html');
+	return $html;
 }
+
+/**
+ * https://cdnjs.com/libraries/Chart.js
+ * <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw==" crossorigin="anonymous"></script>
+ *
+ * https://www.jsdelivr.com/package/npm/chart.js?path=dist
+ * <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+ */
+function sb_chart_block_enqueue_scripts() {
+	wp_enqueue_script( "chartjs-script", 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js' );
+}
+
+/*
+ * <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.css" integrity="sha512-C7hOmCgGzihKXzyPU/z4nv97W0d9bv4ALuuEbSf6hm93myico9qa0hv4dODThvCsqQUmKmLcJmlpRmCaApr83g==" crossorigin="anonymous" />
+ */
+
+function sb_chart_enqueue_styles() {
+
+}
+
+function sb_chart_block_shortcode( $atts, $content, $tag ) {
+	$attrs = [];
+	$attrs[ 'type'] = bw_array_get( $atts, 'type', 'Line');
+	if ( $content ) {
+		require_once __DIR__ . '/libs/class-sb-chart-block.php';
+		$sb_chart_block = new SB_Chart_Block();
+		$html = $sb_chart_block->render( $atts, $content );
+		return $html;
+	}
+	gob();
+	return sb_chart_block_html( $attrs );
+}
+
+sb_chart_loaded();
