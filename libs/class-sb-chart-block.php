@@ -91,26 +91,27 @@ class SB_chart_block {
 		//return $atts;
 	}
 
+	/**
+	 * Validates the chart type to the values we support.
+	 *
+	 * Note: In Chartist the type had an uppercase first letter.
+	 * In Chart.js it's all lowercase.
+	 *
+	 * @param $type
+	 *
+	 * @return string
+	 */
 	function validate_type( $type ) {
-		//echo $type;
+
+		$type = strtolower( $type );
 		switch ( $type ) {
-			case 'Line':
-			case 'Bar':
-			case 'Pie':
-				break;
 			case 'line':
-				$type='Line';
-				break;
 			case 'bar':
-				$type='Bar';
-				break;
 			case 'pie':
-				$type='Pie';
 				break;
 			default:
-				$type='Line';
+				$type='line';
 		}
-		//echo $type;
 		return $type;
 	}
 
@@ -238,7 +239,8 @@ function get_data() {
 	}
 
 	function get_newChart() {
-		return "var myLineChart = new Chart(ctx, { type: 'line', data: data, options: options });";
+		$type = $this->atts['type'];
+		return "var myLineChart = new Chart(ctx, { type: '$type', data: data, options: options });";
 	}
 
 }
