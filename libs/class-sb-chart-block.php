@@ -145,10 +145,14 @@ class SB_chart_block {
 	function render_html( $atts, $content ) {
 		$this->set_id();
 		$script = $this->get_canvas( $atts );
+		$script .= "\n";
 		$script .= '<script>';
 		$script .= $this->get_ctx();
+		$script .= "\n";
 		$script .= $this->get_data();
+		$script .= "\n";
 		$script .= $this->get_options();
+		$script .= "\n";
 		$script .= $this->get_newChart( $atts );
 		$script.='</script>';
 		return $script;
@@ -202,8 +206,18 @@ function get_data() {
 		$data = "var 		data = {";
 		$data .= "labels:" . json_encode( $this->get_labels() ); //  ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
 		$data .= ',';
-		$data .= "
-			datasets: [{
+		$data .= "\n";
+		$data .= "datasets:" . json_encode( $this->get_datasets() );
+		$data .= "};";
+		$data .= "\n";
+		return $data;
+
+	}
+
+	/**
+	 * We want to return datasets like this.
+	 * Can it be done using json_encode?
+	 * [{
 				label: '# of Votes',
 				data: [12, 19, 3, 5, 2, 3],
 				backgroundColor: [
@@ -223,9 +237,36 @@ function get_data() {
 					'rgba(255, 159, 64, 1)'
 				],
 				borderWidth: 1
-			}] };";
-		return $data;
+			}] ";
+	 */
 
+	function get_datasets() {
+		$datasets=[];
+
+		for ( $index=1; $index < count( $this->series ); $index ++ ) {
+			$dataset                 =new stdClass;
+			$dataset->label          ='# of Votes';
+			$dataset->data           =$this->series[ $index ];
+			$dataset->backgroundColor=[
+			'rgba(255, 99, 132, 0.2)',
+			'rgba(54, 162, 235, 0.2)',
+			'rgba(255, 206, 86, 0.2)',
+			'rgba(75, 192, 192, 0.2)',
+			'rgba(153, 102, 255, 0.2)',
+			'rgba(255, 159, 64, 0.2)'
+			];
+			$dataset->borderColor    =[
+			'rgba(255, 99, 132, 1)',
+			'rgba(54, 162, 235, 1)',
+			'rgba(255, 206, 86, 1)',
+			'rgba(75, 192, 192, 1)',
+			'rgba(153, 102, 255, 1)',
+			'rgba(255, 159, 64, 1)'
+			];
+			$dataset->borderWidth    =1;
+			$datasets[]        =$dataset;
+		}
+		return $datasets;
 	}
 
 	function get_options() {
