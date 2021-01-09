@@ -214,6 +214,12 @@ function get_data() {
 
 	}
 
+	function get_legend( $index ) {
+		$legends = explode( ',', $this->legend );
+		$legend = $legends[ $index ];
+		return $legend;
+	}
+
 	/**
 	 * We want to return datasets like this.
 	 * Can it be done using json_encode?
@@ -245,7 +251,7 @@ function get_data() {
 
 		for ( $index=1; $index < count( $this->series ); $index ++ ) {
 			$dataset                 =new stdClass;
-			$dataset->label          ='# of Votes';
+			$dataset->label          = $this->get_legend( $index );
 			$dataset->data           =$this->series[ $index ];
 			$dataset->backgroundColor=[
 			'rgba(255, 99, 132, 0.2)',
