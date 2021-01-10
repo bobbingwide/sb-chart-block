@@ -260,13 +260,28 @@ function get_data() {
 	 * @return string
 	 */
 	function get_backgroundColor( $index ) {
-		$backgroundColors = $this->get_backgroundColors();
+		$backgroundColors = $this->get_backgroundColors( 0.7 );
 		if( 'pie' === $this->atts['type']) {
 			return $backgroundColors;
 		}
-		$choice = $index % count( $backgroundColors);
-		$backgroundColor = $backgroundColors[ $choice-1 ];
+		$choice = ($index-1) % count( $backgroundColors);
+		$backgroundColor = $backgroundColors[ $choice ];
 		return $backgroundColor;
+	}
+
+	/**
+	 * These are the chart.js border colors.
+	 *
+	 * @param $index
+	 *
+	 * @return string
+	 */
+
+	function get_borderColor( $index ) {
+		$borderColors = $this->get_backgroundColors( 1.0 );
+		$choice = ($index-1) % count( $borderColors );
+		$borderColor = $borderColors[ $choice ];
+		return $borderColor;
 	}
 
 	/**
@@ -287,16 +302,32 @@ function get_data() {
 		return $backgroundColors;
 	}
 
+	function rgba( $hex, $opacity ) {
+		$red = hexdec( substr( $hex, 1,2 ));
+		$green = hexdec( substr( $hex, 3, 2 ));
+		$blue = hexdec( substr( $hex, 5, 2 ));
+		$rgba = "rgba( $red, $green, $blue, $opacity )";
+		return $rgba;
+	}
+
+	function rgbas( $hexes, $opacity ) {
+		$rgbas = [];
+		foreach ( $hexes as $hex ) {
+			$rgbas[] = $this->rgba( $hex, $opacity);
+		}
+		return $rgbas;
+	}
+
 	/**
 	 * Returns the standard Tertiary colors
 	 * @return string[]
 	 */
 	function get_Tertiary_backgroundColors() {
 		$backgroundColors = [
-			'#F1E70D', '#E42426', '#2072B2', '#FDC70F', '#C31A7F', '#1D96BB', '#F28F1F', '#6E398D', '#0A905D', '#EC6224', '#8CBD3F', '#424F9B'
-
+			'#F1E70D', '#E42426', '#2072B2', '#FDC70F', '#C31A7F', '#1D96BB', '#F28F1F', '#6E398D', '#0A905D', '#EC6224', '#424F9B', '#8CBD3F'
 		];
-		return $backgroundColors;
+		$rgbas = $this->rgbas( $backgroundColors, $this->opacity );
+		return $rgbas;
 	}
 
 	/**
@@ -318,14 +349,17 @@ function get_data() {
 		, "#313131" // very-dark-gray
 		, '#FFFFFF' // white
 		];
-		return $backgroundColors;
+		$rgbas = $this->rgbas( $backgroundColors, $this->opacity );
+		return $rgbas;
 	}
 
-	function get_backgroundColors( ) {
+	function get_backgroundColors( $opacity ) {
+		$this->opacity = $opacity;
 		switch ( $this->atts['theme'] ) {
 			case 'Chart':
 				$backgroundColors = $this->get_Chart_backgroundColors();
 				break;
+
 			case 'Visualizer':
 				$backgroundColors = $this->get_Visualizer_backgroundColors();
 				break;
@@ -365,22 +399,10 @@ function get_data() {
 			'#AAAA11',
 			'#6633CC'
 		];
-		return $backgroundColors;
+		$rgbas = $this->rgbas( $backgroundColors, $this->opacity );
+		return $rgbas;
 	}
 
-	function get_borderColor( $index ) {
-		$borderColors=[
-			'rgba(255, 99, 132, 1)',
-			'rgba(54, 162, 235, 1)',
-			'rgba(255, 206, 86, 1)',
-			'rgba(75, 192, 192, 1)',
-			'rgba(153, 102, 255, 1)',
-			'rgba(255, 159, 64, 1)'
-		];
-		$choice = $index % count( $borderColors );
-		$borderColor = $borderColors[ $choice-1 ];
-		return $borderColor;
-	}
 
 	/**
 	 * We want to return datasets like this.
@@ -417,7 +439,7 @@ function get_data() {
 			$dataset->data           =$this->series[ $index ];
 			$dataset->backgroundColor= $this->get_backgroundColor( $index );
 			$dataset->borderColor = $this->get_borderColor( $index );
-			$dataset->borderWidth    =1;
+			$dataset->borderWidth    = 1;
 			$datasets[]        =$dataset;
 		}
 		return $datasets;
