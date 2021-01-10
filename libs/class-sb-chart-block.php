@@ -34,6 +34,8 @@ class SB_chart_block {
 	private $data;
 	private $options;
 
+	private $theme;
+
 	/**
 	 * SB_chart_block constructor.
 	 */
@@ -85,6 +87,7 @@ class SB_chart_block {
 		//$atts['stackBars'] = isset( $atts['stackbars']) ? true : false;
 		//$atts['horizontalBars'] = isset( $atts['horizontalbars']) ? true : false;
 		$atts['class'] = isset( $atts['class'] ) ? $atts['class'] : ''; // ct-golden-section
+		$atts['theme'] = isset( $atts['theme'] ) ? $atts['theme'] : 'Chart';
 		//echo "after";
 		//print_r( $atts );
 		$this->atts = $atts;
@@ -128,6 +131,7 @@ class SB_chart_block {
 	function prepare_content( $content ) {
 		if ( $content ) {
 			$content=trim( $content );
+			$content = html_entity_decode( $content );
 			$content=str_replace( '<br />', '', $content );
 			$lines  =explode( "\n", $content );
 		} else {
@@ -142,20 +146,44 @@ class SB_chart_block {
 
 	}
 
+	/**
+	 * Renders the HTML and script for the chart.
+	 *
+	 * @param $atts
+	 * @param $content
+	 *
+	 * @return string
+	 */
+
 	function render_html( $atts, $content ) {
 		$this->set_id();
-		$script = $this->get_canvas( $atts );
-		$script .= "\n";
+		$html = '<div class="chartjs">';
+		$html .= $this->get_canvas( $atts );
+		$html .= "\r";
+		$script = '';
 		$script .= '<script>';
 		$script .= $this->get_ctx();
-		$script .= "\n";
+		$script .= "\r";
 		$script .= $this->get_data();
-		$script .= "\n";
+		$script .= "\r";
 		$script .= $this->get_options();
-		$script .= "\n";
+		$script .= "\r";
 		$script .= $this->get_newChart( $atts );
 		$script.='</script>';
-		return $script;
+		$script = str_replace( "\r\r", "\r", $script );
+		$html .= $script;
+		$html .= '</div>';
+
+
+		//"chartjs-script",
+
+		//$enqueued = wp_add_inline_script( 'chartjs-script', $script );
+		//if ( !$enqueued ) {
+		//	gob();
+		//} else {
+		//	$html .= '<p>script was enqueued!</p>';
+		//}
+		return $html;
 	}
 
 	function set_id() {
@@ -202,14 +230,18 @@ class SB_chart_block {
 	}
 
 
+	/**
+	 * We have to be careful we don't get two "\r"s together!
+	 * @return string
+	 */
 function get_data() {
 		$data = "var 		data = {";
 		$data .= "labels:" . json_encode( $this->get_labels() ); //  ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
 		$data .= ',';
-		$data .= "\n";
+		$data .= "\r";
 		$data .= "datasets:" . json_encode( $this->get_datasets() );
 		$data .= "};";
-		$data .= "\n";
+		$data .= "\r";
 		return $data;
 
 	}
@@ -218,6 +250,136 @@ function get_data() {
 		$legends = explode( ',', $this->legend );
 		$legend = $legends[ $index ];
 		return $legend;
+	}
+
+	/**
+	 * Returns the single background colour for the line/bar.
+	 * Returns all the background colours for a pie chart.
+	 * @param $index
+	 *
+	 * @return string
+	 */
+	function get_backgroundColor( $index ) {
+		$backgroundColors = $this->get_backgroundColors();
+		if( 'pie' === $this->atts['type']) {
+			return $backgroundColors;
+		}
+		$choice = $index % count( $backgroundColors);
+		$backgroundColor = $backgroundColors[ $choice-1 ];
+		return $backgroundColor;
+	}
+
+	/**
+	 * Returns the backgroundColors used by Chart.js
+	 *
+	 * @return string[]
+	 */
+
+	function get_Chart_backgroundColors() {
+		$backgroundColors = [
+			'rgba(255, 99, 132, 0.2)',
+			'rgba(54, 162, 235, 0.2)',
+			'rgba(255, 206, 86, 0.2)',
+			'rgba(75, 192, 192, 0.2)',
+			'rgba(153, 102, 255, 0.2)',
+			'rgba(255, 159, 64, 0.2)'
+		];
+		return $backgroundColors;
+	}
+
+	/**
+	 * Returns the standard Tertiary colors
+	 * @return string[]
+	 */
+	function get_Tertiary_backgroundColors() {
+		$backgroundColors = [
+			'#F1E70D', '#E42426', '#2072B2', '#FDC70F', '#C31A7F', '#1D96BB', '#F28F1F', '#6E398D', '#0A905D', '#EC6224', '#8CBD3F', '#424F9B'
+
+		];
+		return $backgroundColors;
+	}
+
+	/**
+	 * Returns colours from the current Gutenberg colour palette.
+	 * How do we get this dynamically?
+	 */
+	function get_Gutenberg_backgroundColors() {
+		$backgroundColors = [ "#F78DA7" // pale-pink
+		, "#CF2E2E" // vivid-red
+		, "#FF6900" // luminous-vivid-orange
+		, "#FCB900" // luminous-vivid-amber
+		, "#7BDCB5" // light-green-cyan
+		, "#00D084" // vivid-green-cyan
+		, "#8ED1FC" // pale-cyan-blue
+		, "#0693E3" // vivid-cyan-blue
+		, "#9B51E0" // vivid-purple
+		, "#EEEEEE" // very-light-gray
+		, "#ABB8C3" // cyan-bluish-gray
+		, "#313131" // very-dark-gray
+		, '#FFFFFF' // white
+		];
+		return $backgroundColors;
+	}
+
+	function get_backgroundColors( ) {
+		switch ( $this->atts['theme'] ) {
+			case 'Chart':
+				$backgroundColors = $this->get_Chart_backgroundColors();
+				break;
+			case 'Visualizer':
+				$backgroundColors = $this->get_Visualizer_backgroundColors();
+				break;
+			case 'Chartist':
+			case 'Tertiary':
+				$backgroundColors = $this->get_Tertiary_backgroundColors();
+				break;
+
+			default:
+				$backgroundColors = $this->get_Gutenberg_backgroundColors();
+
+		}
+		return $backgroundColors;
+	}
+
+	/**
+	 * Returns Visualizer's background colours.
+	 *
+	 * @param $index
+	 *
+	 * @return string
+	 */
+	function get_Visualizer_backgroundColors() {
+		$backgroundColors=[
+			'#3366CC',
+			'#DC3912',
+			'#FF9900',
+			'#109618',
+			'#990099',
+			'#0099C6',
+			'#DD4477',
+			'#66AA00',
+			'#B82E2E',
+			'#316395',
+			'#994499',
+			'#22AA99',
+			'#AAAA11',
+			'#6633CC'
+		];
+		return $backgroundColors;
+	}
+
+	function get_borderColor( $index ) {
+		$borderColors=[
+			'rgba(255, 99, 132, 1)',
+			'rgba(54, 162, 235, 1)',
+			'rgba(255, 206, 86, 1)',
+			'rgba(75, 192, 192, 1)',
+			'rgba(153, 102, 255, 1)',
+			'rgba(255, 159, 64, 1)'
+		];
+		$choice = $index % count( $borderColors );
+		$borderColor = $borderColors[ $choice-1 ];
+		return $borderColor;
 	}
 
 	/**
@@ -253,22 +415,8 @@ function get_data() {
 			$dataset                 =new stdClass;
 			$dataset->label          = $this->get_legend( $index );
 			$dataset->data           =$this->series[ $index ];
-			$dataset->backgroundColor=[
-			'rgba(255, 99, 132, 0.2)',
-			'rgba(54, 162, 235, 0.2)',
-			'rgba(255, 206, 86, 0.2)',
-			'rgba(75, 192, 192, 0.2)',
-			'rgba(153, 102, 255, 0.2)',
-			'rgba(255, 159, 64, 0.2)'
-			];
-			$dataset->borderColor    =[
-			'rgba(255, 99, 132, 1)',
-			'rgba(54, 162, 235, 1)',
-			'rgba(255, 206, 86, 1)',
-			'rgba(75, 192, 192, 1)',
-			'rgba(153, 102, 255, 1)',
-			'rgba(255, 159, 64, 1)'
-			];
+			$dataset->backgroundColor= $this->get_backgroundColor( $index );
+			$dataset->borderColor = $this->get_borderColor( $index );
 			$dataset->borderWidth    =1;
 			$datasets[]        =$dataset;
 		}
