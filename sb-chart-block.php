@@ -13,9 +13,10 @@
  * @package         sb-chart-block
  */
 function sb_chart_loaded() {
-	//add_action( 'init', 'sb_chart_block_block_init' );
+	add_action( 'init', 'sb_chart_block_block_init' );
 	add_action( 'wp_enqueue_scripts', 'sb_chart_block_enqueue_scripts' );
 	add_shortcode( 'chartjs', 'sb_chart_block_shortcode' );
+	add_action( 'wp_enqueue_block_editor_assets', 'sb_chart_block_enqueue_scripts');
 }
 
 /**
@@ -72,12 +73,14 @@ function sb_chart_block_block_init() {
 		'attributes' => [
 			'type' => [ 'type' => 'string'],
 			'className' => [ 'type' => 'string'],
+			'content' => ['type' => 'string'],
+			'theme' => ['type' => 'string']
 		]
 	) );
 }
 
 /**
- * Displays a chart
+ * Displays a chart.
  *
  * @param $attributes
  * @return string|void
@@ -85,14 +88,15 @@ function sb_chart_block_block_init() {
 function sb_chart_block_dynamic_block( $attributes ) {
 	load_plugin_textdomain( 'sb-chart-block', false, 'sb-chart-block/languages' );
 	$className = isset( $attributes['className']) ? $attributes['className'] : 'wp-block-oik-sb-chart';
+	$content = isset( $attributes['content'] ) ? $attributes['content'] : null;
 	$html = '<div class="'. $className . '">';
-	$html .= sb_chart_block_html( $attributes );
+	$html .= sb_chart_block_shortcode( $attributes, $content, 'chartjs' );
 	$html .= '</div>';
 	return $html;
 }
 
 function sb_chart_block_html( $attributes ) {
-	$type = $attributes['type'];
+	$type = bw_array_get( $attributes, 'type', 'Line' );
 	$html = "<h3>$type</h3>";
 	$html .= file_get_contents( __DIR__ . '/tests/data/default-chart.html');
 	return $html;
@@ -107,6 +111,11 @@ function sb_chart_block_html( $attributes ) {
  */
 function sb_chart_block_enqueue_scripts() {
 	wp_enqueue_script( "chartjs-script", 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js' );
+}
+
+function sb_chart_block_register_scripts() {
+	wp_register_script( "chartjs-script", 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js' );
+
 }
 
 /*
@@ -126,7 +135,7 @@ function sb_chart_block_shortcode( $atts, $content, $tag ) {
 		$html = $sb_chart_block->render( $atts, $content );
 		return $html;
 	}
-	gob();
+
 	return sb_chart_block_html( $attrs );
 }
 

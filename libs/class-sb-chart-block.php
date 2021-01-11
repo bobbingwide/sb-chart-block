@@ -260,7 +260,7 @@ function get_data() {
 	 * @return string
 	 */
 	function get_backgroundColor( $index ) {
-		$backgroundColors = $this->get_backgroundColors( 0.7 );
+		$backgroundColors = $this->get_backgroundColors( 0.9 );
 		if( 'pie' === $this->atts['type']) {
 			return $backgroundColors;
 		}
@@ -363,6 +363,7 @@ function get_data() {
 			case 'Visualizer':
 				$backgroundColors = $this->get_Visualizer_backgroundColors();
 				break;
+
 			case 'Chartist':
 			case 'Tertiary':
 				$backgroundColors = $this->get_Tertiary_backgroundColors();
