@@ -73,11 +73,8 @@ registerBlockType( 'oik-sb/chart', {
 	},
 
 	attributes: {
-		type: { type: 'string', default: 'Line', },
-		content: {
-			type: 'string',
-
-		},
+		type: { type: 'string', default: 'line', },
+		content: { type: 'string', default: '', },
 		theme: { type: 'string', default: 'Gutenberg'},
 	},
 

@@ -25,6 +25,8 @@ import { map } from 'lodash';
  */
 import './editor.scss';
 
+import { SB_chart_block } from './sb-chart-block';
+
 /**
  * The edit function describes the structure of your block in the context of the
  * editor. This represents what the editor will render when the block is used.
@@ -39,8 +41,10 @@ import './editor.scss';
 export default function edit ( { attributes, className, isSelected, setAttributes } )   {
 
 	const onChangeType = ( event ) => {
-			setAttributes( { type: event } );
-		};
+		console.log( "Set type:" + event );
+		setAttributes( { type: event } );
+	};
+
 	const onChangeTheme = ( event ) => {
 		setAttributes( { theme: event } );
 	};
@@ -50,12 +54,13 @@ export default function edit ( { attributes, className, isSelected, setAttribute
 		console.log( value );
 		setAttributes({content: value});
 	};
+
 	const help = __( "Line, Bar or Pie", 'sb-chart-block');
 
 	const typeOptions = {
-		"line": "Line",
-		"bar" : "Bar",
-		"pie": "Pie",
+		"line": "Line chart",
+		"bar" : "Bar chart",
+		"pie": "Pie chart",
 	};
 
 	const themeOptions = {
@@ -71,42 +76,13 @@ export default function edit ( { attributes, className, isSelected, setAttribute
 
 
 	const onRefreshButton = ( event ) => {
-		alert( 'Refresh');
+		//alert( 'Refresh');
 		console.log( event );
-		runmychart();
+		//window.myLineChart.update();
+		var chartBlock = new SB_chart_block();
+		chartBlock.runmychart_dummydata( attributes );
 
-		function runmychart() {
-			var ctx = document.getElementById('myChart1').getContext('2d');
-			/*
-			var data = {
-				labels: ["1-Jan", "11-Jan"],
-				datasets: [{
-					"label": "B",
-					"data": ["2", "4"],
-					"backgroundColor": "rgba( 247, 141, 167, 0.9 )",
-					"borderColor": "rgba( 247, 141, 167, 1 )",
-					"borderWidth": 1
-				}, {
-					"label": "C",
-					"data": ["3", "5"],
-					"backgroundColor": "rgba( 207, 46, 46, 0.9 )",
-					"borderColor": "rgba( 207, 46, 46, 1 )",
-					"borderWidth": 1
-				}]
-			};
-			var options = {
-				scales: {
-					yAxes: [{
-						ticks: {
-							beginAtZero: true
-						}
-					}]
-				}
-			};
-			*/
 
-			var myLineChart = new Chart(ctx, {type: attributes.type, data: data, options: options});
-		}
 	};
 
 
