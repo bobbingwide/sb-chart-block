@@ -16,6 +16,7 @@ import { InspectorControls, PlainText, BlockControls } from '@wordpress/block-ed
 // deprecated.js?ver=cd9e35508705772fbc5e2d9736bde31b:177 wp.editor.InspectorControls is deprecated. Please use wp.blockEditor.InspectorControls instead.
 import { TextControl, PanelBody, SelectControl, Toolbar, ToolbarButton } from '@wordpress/components';
 import { map } from 'lodash';
+import { useEffect } from '@wordpress/element';
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -86,6 +87,20 @@ export default function edit ( { attributes, className, isSelected, setAttribute
 	};
 
 
+	useEffect( () => {
+		if ( true ) {
+			var chartBlock = new SB_chart_block();
+			chartBlock.runmychart_dummydata( attributes );
+		}
+	} );
+
+
+
+
+
+	//onRefreshButton();
+
+
 	return (
 		<Fragment>
 			<BlockControls>
@@ -116,11 +131,16 @@ export default function edit ( { attributes, className, isSelected, setAttribute
 					onChange={onChangeContent}
 				/>
 			</div>
-					{ true &&
+			<div className={"chartjs"}>
+				<canvas id={"myChart1"}></canvas>
+			</div>
+					{ false &&
 						<ServerSideRender
 						block="oik-sb/chart" attributes={attributes}
 						/>
 					}
+
+
 		</Fragment>
 
 	);

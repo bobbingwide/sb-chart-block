@@ -8,6 +8,10 @@
  * @return {WPElement} Element to render.
  */
 export default function save() {
-	return null;
+	return(
+	<div className={"chartjs"}>
+		<canvas id={"myChart1"}></canvas>
+	</div>
+	);
 
 }
