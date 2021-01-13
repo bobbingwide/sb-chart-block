@@ -17,6 +17,7 @@ import { InspectorControls, PlainText, BlockControls } from '@wordpress/block-ed
 import { TextControl, PanelBody, SelectControl, Toolbar, ToolbarButton } from '@wordpress/components';
 import { map } from 'lodash';
 import { useEffect } from '@wordpress/element';
+import { withInstanceId } from '@wordpress/compose';
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -39,7 +40,13 @@ import { SB_chart_block } from './sb-chart-block';
  *
  * @return {WPElement} Element to render.
  */
-export default function edit ( { attributes, className, isSelected, setAttributes } )   {
+function edit ( { attributes, className, isSelected, setAttributes, instanceId } )   {
+
+	console.log( instanceId );
+	const myChartId = `myChart-${ instanceId }`;
+	console.log( myChartId );
+	setAttributes( { myChartId: myChartId });
+
 
 	const onChangeType = ( event ) => {
 		console.log( "Set type:" + event );
@@ -68,7 +75,7 @@ export default function edit ( { attributes, className, isSelected, setAttribute
 		"Gutenberg": "Gutenberg palette",
 		"Chart" : "Chart",
 		"Tertiary": "Chartist or Tertiary",
-		"Visualiser": "Visualiser",
+		"Visualizer": "Visualizer",
 	};
 
 	var mappedTypeOptions = map(typeOptions, (key, label) => ({value: label, label: key}));
@@ -88,6 +95,8 @@ export default function edit ( { attributes, className, isSelected, setAttribute
 
 
 	useEffect( () => {
+		console.log( instanceId );
+
 		if ( true ) {
 			var chartBlock = new SB_chart_block();
 			chartBlock.runmychart_dummydata( attributes );
@@ -132,7 +141,7 @@ export default function edit ( { attributes, className, isSelected, setAttribute
 				/>
 			</div>
 			<div className={"chartjs"}>
-				<canvas id={"myChart1"}></canvas>
+				<canvas id={ attributes.myChartId }></canvas>
 			</div>
 					{ false &&
 						<ServerSideRender
@@ -145,3 +154,12 @@ export default function edit ( { attributes, className, isSelected, setAttribute
 
 	);
 }
+
+/* I honestly don't understand Higher Order Components
+   but this seems to wrap the edit component with withInstanceId
+   which enables the function to access the instance ID.
+   Is this the same value as generated for save()?
+
+ */
+
+export default withInstanceId( edit );

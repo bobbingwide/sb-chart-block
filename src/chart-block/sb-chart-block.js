@@ -16,6 +16,8 @@
 
 const _ = require( 'lodash' );
 
+import { getBackgroundColor, getBorderColor } from './theme-colors';
+
 export class SB_chart_block {
 
 	constructor() {
@@ -26,6 +28,7 @@ export class SB_chart_block {
 
 	setStuff(attributes) {
 		this.setLines(attributes.content);
+		this.theme = attributes.theme;
 	}
 
 	setLines(content) {
@@ -63,6 +66,7 @@ export class SB_chart_block {
 		return this.labels[i];
 	}
 
+
 	/*
 	$datasets=[];
 
@@ -83,8 +87,8 @@ export class SB_chart_block {
 		var dataset = new Object( {} );
 		dataset.label = this.getLegend( i );
 		dataset.data = this.series[i];
-		dataset.backgroundColor =  "rgba( 247, 141, 167, 0.9 )";
-		dataset.borderColor = "rgba( 247, 141, 167, 1 )";
+		dataset.backgroundColor = getBackgroundColor( i, this.theme );
+		dataset.borderColor = getBorderColor( i, this.theme );
 		dataset.borderWidth = 1;
 		return dataset;
 		/*
@@ -140,7 +144,7 @@ export class SB_chart_block {
 
 	runmychart_dummydata( attributes ) {
 		//this.setStuff( attributes );
-		var ctx = document.getElementById('myChart1')
+		var ctx = document.getElementById( attributes.myChartId );
 		if( ctx ) {
 			this.setStuff( attributes );
 			ctx = ctx.getContext('2d');

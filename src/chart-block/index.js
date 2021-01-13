@@ -76,6 +76,7 @@ registerBlockType( 'oik-sb/chart', {
 		type: { type: 'string', default: 'line', },
 		content: { type: 'string', default: '', },
 		theme: { type: 'string', default: 'Gutenberg'},
+		myChartId: { type: 'string', default: 'myChart-' },
 	},
 
 	/**
