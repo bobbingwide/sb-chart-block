@@ -87,7 +87,8 @@ class SB_chart_block {
 		//$atts['stackBars'] = isset( $atts['stackbars']) ? true : false;
 		//$atts['horizontalBars'] = isset( $atts['horizontalbars']) ? true : false;
 		$atts['class'] = isset( $atts['class'] ) ? $atts['class'] : ''; // ct-golden-section
-		$atts['theme'] = isset( $atts['theme'] ) ? $atts['theme'] : 'Chart';
+		$atts['theme'] = isset( $atts['theme'] ) ? $atts['theme'] : 'Gutenberg';
+		//echo $atts['theme'];
 		//echo "after";
 		//print_r( $atts );
 		$this->atts = $atts;
@@ -161,7 +162,8 @@ class SB_chart_block {
 		$html .= $this->get_canvas( $atts );
 		$html .= "\r";
 		$script = '';
-		$script .= '<script>';
+		$script .= '<script type="text/javascript">';
+		//$script .= 'function runmychart() {';
 		$script .= $this->get_ctx();
 		$script .= "\r";
 		$script .= $this->get_data();
@@ -169,6 +171,8 @@ class SB_chart_block {
 		$script .= $this->get_options();
 		$script .= "\r";
 		$script .= $this->get_newChart( $atts );
+		//$script .= '}';
+		//$script .= 'runmychart();';
 		$script.='</script>';
 		$script = str_replace( "\r\r", "\r", $script );
 		$html .= $script;
