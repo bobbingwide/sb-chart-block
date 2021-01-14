@@ -410,8 +410,12 @@ function get_data() {
 
 
 	/**
+	 *
 	 * We want to return datasets like this.
-	 * Can it be done using json_encode?
+	 *
+	 * Q. Can it be done using json_encode?
+	 * A. Yes
+	 *
 	 * [{
 				label: '# of Votes',
 				data: [12, 19, 3, 5, 2, 3],
@@ -432,6 +436,7 @@ function get_data() {
 					'rgba(255, 159, 64, 1)'
 				],
 				borderWidth: 1
+	 *          fill: true/false
 			}] ";
 	 */
 
@@ -445,20 +450,49 @@ function get_data() {
 			$dataset->backgroundColor= $this->get_backgroundColor( $index );
 			$dataset->borderColor = $this->get_borderColor( $index );
 			$dataset->borderWidth    = 1;
+			$dataset->fill = 0;
 			$datasets[]        =$dataset;
 		}
 		return $datasets;
 	}
 
+	/**
+	 *
+	 * Option | Value | Purpose
+	 * ------- | ----- | -----
+	 * scales.yAxes.ticks.beginAtZero | true | Start the axis from 0
+	 * scales.yAxes.stacked | true | Show a stacked line / bar chart. https://www.chartjs.org/docs/latest/charts/line.html?h=stacked
+	 *
+	 *
+	 * @return string
+	 */
 	function get_options() {
-		return "var	options = {
+		$options_html='';
+		$options_html="var	options = {";
+		$options = '';
+		switch ( $this->atts['type'] ) {
+			case 'line':
+			case 'bar':
+				$options ="
 			scales: {
 				yAxes: [{
 					ticks: {
 						beginAtZero: true
-					}
-				}] 	} };";
+					},
+					 stacked: false
+				}] 	} ";
+				break;
+			case 'pie':
+
+				break;
+		}
+
+		$options_html .= $options;
+		$options_html .= "};";
+		return $options_html;
 	}
+
+
 
 	function get_newChart() {
 		$type = $this->atts['type'];
