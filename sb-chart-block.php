@@ -16,7 +16,7 @@ function sb_chart_loaded() {
 	add_action( 'init', 'sb_chart_block_block_init' );
 	add_action( 'wp_enqueue_scripts', 'sb_chart_block_enqueue_scripts' );
 	add_shortcode( 'chartjs', 'sb_chart_block_shortcode' );
-	add_action( 'wp_enqueue_block_editor_assets', 'sb_chart_block_enqueue_scripts');
+	add_action( 'wp_enqueue_block_editor_assets', 'sb_chart_block_register_scripts');
 }
 
 /**
@@ -36,6 +36,9 @@ function sb_chart_block_block_init() {
 	}
 	$index_js     = 'build/index.js';
 	$script_asset = require( $script_asset_path );
+	bw_trace2( $script_asset );
+	sb_chart_block_register_scripts();
+	$script_asset['dependencies'][] = 'chartjs-script';
 	wp_register_script(
 		'sb-chart-block-block-editor',
 		plugins_url( $index_js, __FILE__ ),
@@ -110,10 +113,12 @@ function sb_chart_block_html( $attributes ) {
  * <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
  */
 function sb_chart_block_enqueue_scripts() {
+	bw_trace2();
 	wp_enqueue_script( "chartjs-script", 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js' );
 }
 
 function sb_chart_block_register_scripts() {
+	bw_trace2();
 	wp_register_script( "chartjs-script", 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js' );
 
 }
