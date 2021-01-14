@@ -16,7 +16,7 @@
 
 const _ = require( 'lodash' );
 
-import { getBackgroundColor, getBorderColor } from './theme-colors';
+import { getBackgroundColors, getBackgroundColor, getBorderColor } from './theme-colors';
 
 export class SB_chart_block {
 
@@ -29,6 +29,8 @@ export class SB_chart_block {
 	setStuff(attributes) {
 		this.setLines(attributes.content);
 		this.theme = attributes.theme;
+		this.attributes = attributes;
+		console.log( this.attributes );
 	}
 
 	setLines(content) {
@@ -87,9 +89,15 @@ export class SB_chart_block {
 		var dataset = new Object( {} );
 		dataset.label = this.getLegend( i );
 		dataset.data = this.series[i];
-		dataset.backgroundColor = getBackgroundColor( i, this.theme );
+		if ( 'pie' === this.attributes.type ) {
+			dataset.backgroundColor = getBackgroundColors(this.theme);
+		} else {
+			dataset.backgroundColor = getBackgroundColor(i, this.theme);
+		}
 		dataset.borderColor = getBorderColor( i, this.theme );
 		dataset.borderWidth = 1;
+		dataset.fill = true;
+
 		return dataset;
 		/*
 		var sets =
@@ -139,10 +147,30 @@ export class SB_chart_block {
 		});
 	}
 
+	showChart( ctx, type, data, options ) {
+
+		Chart.helpers.each(Chart.instances, function(instance){
+			console.log(instance);
+		});
+
+		var myLineChart = new Chart(ctx, {type: type, data: data, options: options});
+		return myLineChart;
+
+	}
 
 
-
+	/**
+	 * Runs the chart indicated by myChartId.
+	 *
+	 * This appears to create multiple charts in the same canvas.
+	 * How do we use update() if the myLineChart already exists?
+	 * Can we use window.myCharts as an associative array?
+	 *
+	 *
+	 * @param attributes
+	 */
 	runmychart_dummydata( attributes ) {
+
 		//this.setStuff( attributes );
 		var ctx = document.getElementById( attributes.myChartId );
 		if( ctx ) {
@@ -153,7 +181,10 @@ export class SB_chart_block {
 				datasets: this.getDatasets(),
 			};
 			var options = this.getOptions();
-			var myLineChart = new Chart(ctx, {type: attributes.type, data: data, options: options});
+			var myLineChart = this.showChart( ctx, attributes.type, data, options );
+			//var myLineChart = new Chart(ctx, {type: attributes.type, data: data, options: options});
+			//setAttributes( )
+			return myLineChart;
 		}
 	}
 

@@ -83,14 +83,23 @@ colorMap.set( 'Tertiary', colors.Tertiary );
 colorMap.set( 'Visualizer', colors.Visualizer );
 console.log( colorMap);
 
-
+/**
+ * Returns all the background colours for a pie chart.
+ *
+ * @param theme
+ * @returns array of colors
+ */
+function getBackgroundColors( theme ) {
+	const colors = colorMap.get( theme );
+	return colors;
+}
 
 /**
- * Returns the single background colour for the line/bar.
- * Returns all the background colours for a pie chart.
- * @param $index
+ * Returns a single background colour for the line/bar.
  *
- * @return string
+ * @param i
+ * @param theme
+ * @returns string
  */
 function getBackgroundColor( i, theme) {
 	/*
@@ -103,7 +112,7 @@ function getBackgroundColor( i, theme) {
 	return $backgroundColor;
 
 	 */
-	const colors = colorMap.get( theme );
+	const colors = getBackgroundColors( theme );
 	var choice = (i-1) % colors.length;
 	return colors[ choice ];
 
@@ -130,6 +139,5 @@ export default function getBorderColor( $index ) {
 }
  */
 
-export { getBackgroundColor, getBorderColor };
-//, getBorderColor;
+export { getBackgroundColors, getBackgroundColor, getBorderColor };
 

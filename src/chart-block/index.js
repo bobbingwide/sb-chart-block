@@ -61,6 +61,7 @@ registerBlockType( 'oik-sb/chart', {
 		__( 'Chart', 'sb-chart-block' ),
 		__( 'Line', 'sb-chart-block' ),
 		__( 'Bar', 'sb-chart-block' ),
+		__( 'Horizontal bar', 'sb-chart-block'),
 		__( 'Pie', 'sb-chart-block' ),
 	],
 

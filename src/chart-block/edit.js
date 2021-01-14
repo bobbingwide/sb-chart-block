@@ -7,10 +7,10 @@ import { __ } from '@wordpress/i18n';
 
 /**
  * These imports were added using the best guess technique.
- * @TODO Confirm what they should be!
+ *
  */
 import { ServerSideRender } from '@wordpress/editor';
-import { Fragment} from '@wordpress/element';
+import { Fragment } from '@wordpress/element';
 import { InspectorControls, PlainText, BlockControls } from '@wordpress/block-editor';
 //const { InspectorControls } = wp.blockEditor;
 // deprecated.js?ver=cd9e35508705772fbc5e2d9736bde31b:177 wp.editor.InspectorControls is deprecated. Please use wp.blockEditor.InspectorControls instead.
@@ -68,6 +68,7 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 	const typeOptions = {
 		"line": "Line chart",
 		"bar" : "Bar chart",
+		"horizontalBar" : "Horizontal bar chart",
 		"pie": "Pie chart",
 	};
 
@@ -99,7 +100,8 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 
 		if ( true ) {
 			var chartBlock = new SB_chart_block();
-			chartBlock.runmychart_dummydata( attributes );
+			var myLineChart = chartBlock.runmychart_dummydata( attributes );
+			console.log( myLineChart );
 		}
 	} );
 
