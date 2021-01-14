@@ -148,12 +148,23 @@ export class SB_chart_block {
 	}
 
 	showChart( ctx, type, data, options ) {
-
+		var myLineChart = null;
 		Chart.helpers.each(Chart.instances, function(instance){
 			console.log(instance);
+			console.log( instance.canvas);
+			console.log( instance.ctx );
+			if( instance.ctx === ctx ) {
+				myLineChart = instance;
+			}
 		});
 
-		var myLineChart = new Chart(ctx, {type: type, data: data, options: options});
+		console.log( myLineChart );
+
+		if ( myLineChart ) {
+			myLineChart.destroy();
+		}
+		myLineChart = new Chart(ctx, {type: type, data: data, options: options});
+
 		return myLineChart;
 
 	}
