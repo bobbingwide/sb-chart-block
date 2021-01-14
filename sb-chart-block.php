@@ -16,7 +16,7 @@ function sb_chart_loaded() {
 	add_action( 'init', 'sb_chart_block_block_init' );
 	add_action( 'wp_enqueue_scripts', 'sb_chart_block_enqueue_scripts' );
 	add_shortcode( 'chartjs', 'sb_chart_block_shortcode' );
-	add_action( 'wp_enqueue_block_editor_assets', 'sb_chart_block_register_scripts');
+	//add_action( 'wp_enqueue_block_editor_assets', 'sb_chart_block_register_scripts');
 }
 
 /**
@@ -72,6 +72,7 @@ function sb_chart_block_block_init() {
 		'editor_script' => 'sb-chart-block-block-editor',
 		'editor_style'  => 'sb-chart-block-block-editor',
 		'style'         => 'sb-chart-block-block',
+		'script'    => 'chartjs-script',
 		'render_callback'=>'sb_chart_block_dynamic_block',
 		'attributes' => [
 			'type' => [ 'type' => 'string'],
@@ -98,6 +99,13 @@ function sb_chart_block_dynamic_block( $attributes ) {
 	return $html;
 }
 
+/**
+ * Displays the default chart.
+ *
+ * @param $attributes
+ *
+ * @return string
+ */
 function sb_chart_block_html( $attributes ) {
 	$type = bw_array_get( $attributes, 'type', 'Line' );
 	$html = "<h3>$type</h3>";
@@ -113,24 +121,33 @@ function sb_chart_block_html( $attributes ) {
  * <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
  */
 function sb_chart_block_enqueue_scripts() {
-	bw_trace2();
+	//bw_trace2();
 	wp_enqueue_script( "chartjs-script", 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js' );
 }
 
 function sb_chart_block_register_scripts() {
-	bw_trace2();
+	//bw_trace2();
 	wp_register_script( "chartjs-script", 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js' );
 
 }
 
-/*
+/**
+ * Enqueues styles - if needed.
+ *
  * <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.css" integrity="sha512-C7hOmCgGzihKXzyPU/z4nv97W0d9bv4ALuuEbSf6hm93myico9qa0hv4dODThvCsqQUmKmLcJmlpRmCaApr83g==" crossorigin="anonymous" />
  */
-
 function sb_chart_enqueue_styles() {
 
 }
 
+/**
+ * Implements [chartjs] shortcode.
+ *
+ * @param array $atts Attributes for the Chart
+ * @param string $content Content of the chart's data in CSV format.
+ * @param string $tag The shortcode.
+ * @return string
+ */
 function sb_chart_block_shortcode( $atts, $content, $tag ) {
 	$attrs = [];
 	$attrs[ 'type'] = bw_array_get( $atts, 'type', 'Line');

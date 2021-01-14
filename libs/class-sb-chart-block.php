@@ -99,10 +99,9 @@ class SB_chart_block {
 	 * Validates the chart type to the values we support.
 	 *
 	 * Note: In Chartist the type had an uppercase first letter.
-	 * In Chart.js it's all lowercase.
+	 * In Chart.js it's all lowercase... except for horizontalBar !
 	 *
-	 * @param $type
-	 *
+	 * @param string $type The requested chart type.
 	 * @return string
 	 */
 	function validate_type( $type ) {
@@ -112,6 +111,10 @@ class SB_chart_block {
 			case 'line':
 			case 'bar':
 			case 'pie':
+				break;
+
+			case 'horizontalbar':
+				$type = 'horizontalBar';
 				break;
 			default:
 				$type='line';
@@ -450,7 +453,7 @@ function get_data() {
 			$dataset->backgroundColor= $this->get_backgroundColor( $index );
 			$dataset->borderColor = $this->get_borderColor( $index );
 			$dataset->borderWidth    = 1;
-			$dataset->fill = 0;
+			$dataset->fill = false;
 			$datasets[]        =$dataset;
 		}
 		return $datasets;
@@ -473,6 +476,7 @@ function get_data() {
 		switch ( $this->atts['type'] ) {
 			case 'line':
 			case 'bar':
+			case 'horizontalBar':
 				$options ="
 			scales: {
 				yAxes: [{
