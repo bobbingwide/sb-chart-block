@@ -1,13 +1,1 @@
-/**
- * The following styles get applied inside the editor only.
- *
- * Replace them with your own styles or remove the file completely.
-
-
- */
-.show-empty {
-  border: 1px dotted #f00;
-  padding: 0.5em;
-}
-
-/*# sourceMappingURL=index.css.map*/
+.show-empty{border:1px dotted red;padding:.5em}
