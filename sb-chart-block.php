@@ -129,9 +129,8 @@ function sb_chart_block_array_get( $array, $index, $default=null ) {
  * @return string
  */
 function sb_chart_block_html( $attributes ) {
-	$type = sb_chart_block_array_get( $attributes, 'type', 'Line' );
-	$html = "<h3>$type</h3>";
-	$html .= file_get_contents( __DIR__ . '/tests/data/default-chart.html');
+	//$type = sb_chart_block_array_get( $attributes, 'type', 'Line' );
+	$html = file_get_contents( __DIR__ . '/tests/data/default-chart.html');
 	return $html;
 }
 
