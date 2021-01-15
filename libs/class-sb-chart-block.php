@@ -480,6 +480,7 @@ function get_data() {
 			case 'bar':
 			case 'horizontalBar':
 				$options ="
+			maintainAspectRatio: false,
 			scales: {
 				yAxes: [{
 					ticks: {
@@ -489,7 +490,7 @@ function get_data() {
 				}] 	} ";
 				break;
 			case 'pie':
-
+				$options ="maintainAspectRatio: false,";
 				break;
 		}
 
