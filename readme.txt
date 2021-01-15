@@ -3,7 +3,7 @@ Contributors:      bobbingwide
 Tags:              block, Chart, Line, Bar, Pie
 Requires at least: 5.6.0
 Tested up to:      5.6.0
-Stable tag:        0.0.2
+Stable tag:        0.0.3
 Requires PHP:      7.2.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -81,6 +81,9 @@ If you do wish to modify the code then you can find instructions in the src fold
 4. Pie chart - Visualizer theme colors
 
 == Upgrade Notice ==
+= 0.0.3 = 
+Update for the ability to control the height of each chart using CSS.
+
 = 0.0.2 =
 Update for a version that works without oik shared library functions. 
 
@@ -91,6 +94,9 @@ First version to be used in Slog.
 Initial version copied from SB Children block
 
 == Changelog ==
+= 0.0.3 =
+* Fixed: Support setting of the chart height using CSS,[github bobbingwide sb-chart-block issues 5]
+
 = 0.0.2 = 
 * Fixed: Remove dependency on oik related shared library functions,[github bobbingwide sb-chart-block issues 1]
 
