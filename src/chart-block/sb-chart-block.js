@@ -135,6 +135,9 @@ export class SB_chart_block {
 	}
 
 	getOptions() {
+		if ( 'pie' == this.attributes.type ) {
+			return( {} );
+		}
 		return(
 		{
 			'scales': {
@@ -142,30 +145,31 @@ export class SB_chart_block {
 					'ticks': {
 						'beginAtZero': true
 					}
-				}]
+				}],
+				'fill': false,
 			}
 		});
 	}
 
+	/**
+	 * Displays the Chart.
+	 *
+	 * @param ctx
+	 * @param type
+	 * @param data
+	 * @param options
+	 */
 	showChart( ctx, type, data, options ) {
 		var myLineChart = null;
 		Chart.helpers.each(Chart.instances, function(instance){
-			console.log(instance);
-			console.log( instance.canvas);
-			console.log( instance.ctx );
 			if( instance.ctx === ctx ) {
 				myLineChart = instance;
 			}
 		});
-
-		console.log( myLineChart );
-
 		if ( myLineChart ) {
 			myLineChart.destroy();
 		}
 		myLineChart = new Chart(ctx, {type: type, data: data, options: options});
-
-		return myLineChart;
 
 	}
 
@@ -180,7 +184,7 @@ export class SB_chart_block {
 	 *
 	 * @param attributes
 	 */
-	runmychart_dummydata( attributes ) {
+	runChart( attributes ) {
 
 		//this.setStuff( attributes );
 		var ctx = document.getElementById( attributes.myChartId );

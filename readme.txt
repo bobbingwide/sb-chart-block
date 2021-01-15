@@ -8,7 +8,7 @@ Requires PHP:      7.2.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
-List Chart of the current content as links.
+Display a Chart from CSV data.
 
 == Description ==
 Use the Chart block ( oik-sb/chart ) to display a chart.
@@ -29,12 +29,33 @@ With WordPress 5.6 or Gutenberg 9.6.2 or higher, and the authority to install pl
 1. And the block will be inserted into your content.
 
 == Frequently Asked Questions ==
+= What types of chart can I display? =
 
-=  =
+So far...
+
+- Line
+- Bar
+- Horizontal Bar
+- Pie
+
+= How do I choose the chart colours? =
+
+There are 4 predefined color themes:
+choose the colour from a drop down list
+
+= What options are there? =
+Options to control the chart display are to be added.
+
+
+= What Chart script does it use?  =
+
+chartjs - from chartjs.org
 
 
 
 = What do I need to search for to find the block? =
+
+Chart ?
 
 = What if my first language is not English? =
 
@@ -54,12 +75,16 @@ If you do wish to modify the code then you can find instructions in the src fold
 1. Chart block
 
 == Upgrade Notice ==
-
+= 0.1.0 =
+First version to be used in Slog.
 
 = 0.0.0 =
 Initial version copied from SB Children block
 
 == Changelog ==
+= 0.1.0 =
+*
+
 = 0.0.0 =
 * First version copied from SB Children block
 

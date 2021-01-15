@@ -42,9 +42,9 @@ import { SB_chart_block } from './sb-chart-block';
  */
 function edit ( { attributes, className, isSelected, setAttributes, instanceId } )   {
 
-	console.log( instanceId );
+	//console.log( instanceId );
 	const myChartId = `myChart-${ instanceId }`;
-	console.log( myChartId );
+	//console.log( myChartId );
 	setAttributes( { myChartId: myChartId });
 
 
@@ -63,13 +63,13 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 		setAttributes({content: value});
 	};
 
-	const help = __( "Line, Bar or Pie", 'sb-chart-block');
+	const help = __( "Choose Line, Bar, Horizontal bar or Pie.", 'sb-chart-block');
 
 	const typeOptions = {
-		"line": "Line chart",
-		"bar" : "Bar chart",
-		"horizontalBar" : "Horizontal bar chart",
-		"pie": "Pie chart",
+		"line": __( "Line chart", 'sb-chart-block' ),
+		"bar" : __( "Bar chart", 'sb-chart-block' ),
+		"horizontalBar" : __( "Horizontal bar chart", 'sb-chart-block'),
+		"pie": __( "Pie chart", 'sb-chart-block' )
 	};
 
 	const themeOptions = {
@@ -83,34 +83,18 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 
 	var mappedThemeOptions = map(themeOptions, (key, label) => ({value: label, label: key}));
 
-
 	const onRefreshButton = ( event ) => {
-		//alert( 'Refresh');
 		console.log( event );
-		//window.myLineChart.update();
-		var chartBlock = new SB_chart_block();
-		chartBlock.runmychart_dummydata( attributes );
-
-
+		//var chartBlock = new SB_chart_block();
+		//chartBlock.runChart( attributes );
 	};
 
-
 	useEffect( () => {
-		console.log( instanceId );
-
-		if ( true ) {
+		if ( attributes.content ) {
 			var chartBlock = new SB_chart_block();
-			var myLineChart = chartBlock.runmychart_dummydata( attributes );
-			console.log( myLineChart );
+			chartBlock.runChart( attributes );
 		}
 	} );
-
-
-
-
-
-	//onRefreshButton();
-
 
 	return (
 		<Fragment>
@@ -123,10 +107,7 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 				</ToolbarButton>
 			</BlockControls>
 
-
-
 			<InspectorControls>
-
 				<PanelBody>
 					<SelectControl label={__("Type",'sb-chart-block')} value={attributes.type} onChange={onChangeType} options={mappedTypeOptions} help={help} />
 				</PanelBody>
@@ -134,24 +115,24 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 					<SelectControl label={__("Theme",'sb-chart-block')} value={attributes.theme} onChange={onChangeTheme} options={mappedThemeOptions}  />
 				</PanelBody>
 			</InspectorControls>
-			<div className="wp-block-sb-chart">
-				<PlainText
 
+			<div className="wp-block-sb-chart">
+				{attributes.content &&
+				<div className={"chartjs"}>
+					<canvas id={attributes.myChartId}></canvas>
+				</div>
+				}
+
+				<PlainText
 					value={attributes.content}
 					placeholder={__('Enter Chart data in CSV format')}
 					onChange={onChangeContent}
 				/>
-			</div>
-			<div className={"chartjs"}>
-				<canvas id={ attributes.myChartId }></canvas>
-			</div>
-					{ false &&
-						<ServerSideRender
-						block="oik-sb/chart" attributes={attributes}
-						/>
-					}
 
-
+				{ false &&
+					<ServerSideRender block="oik-sb/chart" attributes={attributes} />
+				}
+			</div>
 		</Fragment>
 
 	);
