@@ -1,15 +1,26 @@
 /**
  * JavaScript equivalent to the logic in class SB_chart_block for setting values
- * from content.
+ * from content and attributes options.
  *
+ * ```
  * data:
  *   labels:
  *   datasets:
  *     { label:  data:}
  *     ...
+ *```
  *
- *  Options is another thing.
- *
+ * ```
+ *  options:
+ *  	scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero: true
+					}
+				}],
+
+			}
+ * ```
  *
  * @see https://developer.wordpress.org/block-editor/packages/packages-i18n/
  */
@@ -93,10 +104,11 @@ export class SB_chart_block {
 			dataset.backgroundColor = getBackgroundColors(this.theme);
 		} else {
 			dataset.backgroundColor = getBackgroundColor(i, this.theme);
+			dataset.borderColor = getBorderColor( i, this.theme );
 		}
-		dataset.borderColor = getBorderColor( i, this.theme );
+
 		dataset.borderWidth = 1;
-		dataset.fill = true;
+		dataset.fill = false;
 
 		return dataset;
 		/*
@@ -146,7 +158,7 @@ export class SB_chart_block {
 						'beginAtZero': true
 					}
 				}],
-				'fill': false,
+
 			}
 		});
 	}

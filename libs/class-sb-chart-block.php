@@ -451,7 +451,9 @@ function get_data() {
 			$dataset->label          = $this->get_legend( $index );
 			$dataset->data           =$this->series[ $index ];
 			$dataset->backgroundColor= $this->get_backgroundColor( $index );
-			$dataset->borderColor = $this->get_borderColor( $index );
+			if( 'pie' !== $this->atts['type']) {
+				$dataset->borderColor=$this->get_borderColor( $index );
+			}
 			$dataset->borderWidth    = 1;
 			$dataset->fill = false;
 			$datasets[]        =$dataset;
