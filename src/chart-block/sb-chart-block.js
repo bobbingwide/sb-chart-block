@@ -148,10 +148,13 @@ export class SB_chart_block {
 
 	getOptions() {
 		if ( 'pie' == this.attributes.type ) {
-			return( {} );
+			return( {
+				maintainAspectRatio: false,
+			} );
 		}
 		return(
 		{
+			maintainAspectRatio: false,
 			'scales': {
 				'yAxes': [{
 					'ticks': {
