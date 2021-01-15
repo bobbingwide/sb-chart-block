@@ -3,7 +3,7 @@
  * Plugin Name:     SB Chart block
  * Plugin URI: 		https://www.oik-plugins.com/oik-plugins/sb-chart-block
  * Description:     Displays CSV content as a Chart
- * Version:         0.0.1
+ * Version:         0.0.2
  * Author:          bobbingwide
  * Author URI: 		https://www.bobbingwide.com/about-bobbing-wide
  * License:         GPL-2.0-or-later
@@ -36,7 +36,7 @@ function sb_chart_block_block_init() {
 	}
 	$index_js     = 'build/index.js';
 	$script_asset = require( $script_asset_path );
-	bw_trace2( $script_asset );
+	//bw_trace2( $script_asset );
 	sb_chart_block_register_scripts();
 	$script_asset['dependencies'][] = 'chartjs-script';
 	wp_register_script(
@@ -100,6 +100,28 @@ function sb_chart_block_dynamic_block( $attributes ) {
 }
 
 /**
+ * Returns the array index or default.
+ *
+ * @param $array
+ * @param $index
+ * @param null $default
+ *
+ * @return mixed|null
+ */
+function sb_chart_block_array_get( $array, $index, $default=null ) {
+	if ( isset( $array ) ) {
+		if ( isset( $array[ $index ] ) ) {
+			$value = $array[ $index ];
+		} else {
+			$value = $default;
+		}
+	} else {
+		$value = $default;
+	}
+	return $value;
+}
+
+/**
  * Displays the default chart.
  *
  * @param $attributes
@@ -107,7 +129,7 @@ function sb_chart_block_dynamic_block( $attributes ) {
  * @return string
  */
 function sb_chart_block_html( $attributes ) {
-	$type = bw_array_get( $attributes, 'type', 'Line' );
+	$type = sb_chart_block_array_get( $attributes, 'type', 'Line' );
 	$html = "<h3>$type</h3>";
 	$html .= file_get_contents( __DIR__ . '/tests/data/default-chart.html');
 	return $html;
@@ -150,7 +172,7 @@ function sb_chart_enqueue_styles() {
  */
 function sb_chart_block_shortcode( $atts, $content, $tag ) {
 	$attrs = [];
-	$attrs[ 'type'] = bw_array_get( $atts, 'type', 'Line');
+	$attrs[ 'type'] = sb_chart_block_array_get( $atts, 'type', 'Line');
 	if ( $content ) {
 		require_once __DIR__ . '/libs/class-sb-chart-block.php';
 		$sb_chart_block = new SB_Chart_Block();
