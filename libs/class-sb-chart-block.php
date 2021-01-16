@@ -88,6 +88,11 @@ class SB_chart_block {
 		//$atts['horizontalBars'] = isset( $atts['horizontalbars']) ? true : false;
 		$atts['class'] = isset( $atts['class'] ) ? $atts['class'] : ''; // ct-golden-section
 		$atts['theme'] = isset( $atts['theme'] ) ? $atts['theme'] : 'Gutenberg';
+
+		// Rather than use false, we use 0, otherwise the value doesn't come out
+		// when converted to as a literal string.
+
+		$atts['stacked'] = isset( $atts['stacked'] ) ? $atts['stacked'] : 0;
 		//echo $atts['theme'];
 		//echo "after";
 		//print_r( $atts );
@@ -462,11 +467,16 @@ function get_data() {
 	}
 
 	/**
+	 * Returns the options.
 	 *
 	 * Option | Value | Purpose
 	 * ------- | ----- | -----
 	 * scales.yAxes.ticks.beginAtZero | true | Start the axis from 0
 	 * scales.yAxes.stacked | true | Show a stacked line / bar chart. https://www.chartjs.org/docs/latest/charts/line.html?h=stacked
+	 *
+	 * @TODO
+	 * Convert to using objects and json_encode.
+	 *
 	 *
 	 *
 	 * @return string
@@ -475,6 +485,8 @@ function get_data() {
 		$options_html='';
 		$options_html="var	options = {";
 		$options = '';
+		$stacked = $this->atts['stacked'];
+		//echo "Stacked:" . $stacked . '!';
 		switch ( $this->atts['type'] ) {
 			case 'line':
 			case 'bar':
@@ -486,8 +498,12 @@ function get_data() {
 					ticks: {
 						beginAtZero: true
 					},
-					 stacked: false
-				}] 	} ";
+					 stacked: $stacked,
+					}]";
+				if ( $stacked ) {
+					$options .= ",xAxes: [{ stacked: true }] ";
+				}
+				$options .= " 	} ";
 				break;
 			case 'pie':
 				$options ="maintainAspectRatio: false,";

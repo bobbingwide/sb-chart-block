@@ -78,7 +78,8 @@ function sb_chart_block_block_init() {
 			'type' => [ 'type' => 'string'],
 			'className' => [ 'type' => 'string'],
 			'content' => ['type' => 'string'],
-			'theme' => ['type' => 'string']
+			'theme' => ['type' => 'string'],
+			'stacked' > ['type' => 'boolean']
 		]
 	) );
 }

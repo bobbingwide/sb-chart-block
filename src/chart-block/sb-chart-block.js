@@ -147,23 +147,41 @@ export class SB_chart_block {
 	}
 
 	getOptions() {
+		var options = new Object( {} );
+		options.maintainAspectRatio = false;
 		if ( 'pie' == this.attributes.type ) {
-			return( {
-				maintainAspectRatio: false,
-			} );
+			return( options );
 		}
-		return(
-		{
+
+		options.scales = new Object( {} );
+		options.scales.yAxes = [];
+		options.scales.xAxes = [];
+		var ticks = new Object( { beginAtZero: true });
+		options.scales.yAxes.push( ticks );
+		//options.scales.yAxes[0].ticks.beginAtZero = true;
+		if ( this.attributes.stacked ) {
+			options.scales.yAxes[0].stacked = true;
+			options.scales.xAxes.push( {stacked: true } );
+		}
+		return options;
+
+		/*
 			maintainAspectRatio: false,
 			'scales': {
 				'yAxes': [{
 					'ticks': {
 						'beginAtZero': true
-					}
+					},
+					stacked: true
+				}],
+				'xAxes': [{
+					stacked: true
 				}],
 
 			}
 		});
+
+		 */
 	}
 
 	/**
