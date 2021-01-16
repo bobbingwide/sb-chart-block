@@ -108,7 +108,7 @@ export class SB_chart_block {
 		}
 
 		dataset.borderWidth = 1;
-		dataset.fill = false;
+		dataset.fill = this.attributes.fill;
 
 		return dataset;
 		/*
@@ -133,7 +133,7 @@ export class SB_chart_block {
 	}
 
 	getDatasets() {
-		console.log( this.series );
+		//console.log( this.series );
 		var datasets = [];
 		for (let i = 1; i < this.series.length; i++) {
 			datasets.push( this.getDataset( i ));

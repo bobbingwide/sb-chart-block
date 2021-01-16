@@ -91,13 +91,11 @@ class SB_chart_block {
 
 		// Rather than use false, we use 0, otherwise the value doesn't come out
 		// when converted to as a literal string.
-
+		// It's different when we use json _decode()!
 		$atts['stacked'] = isset( $atts['stacked'] ) ? $atts['stacked'] : 0;
-		//echo $atts['theme'];
-		//echo "after";
-		//print_r( $atts );
+		$atts['fill'] = sb_chart_block_array_get( $atts, 'fill', false );
+
 		$this->atts = $atts;
-		//return $atts;
 	}
 
 	/**
@@ -460,7 +458,7 @@ function get_data() {
 				$dataset->borderColor=$this->get_borderColor( $index );
 			}
 			$dataset->borderWidth    = 1;
-			$dataset->fill = false;
+			$dataset->fill = $this->atts['fill'];
 			$datasets[]        =$dataset;
 		}
 		return $datasets;

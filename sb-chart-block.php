@@ -3,7 +3,7 @@
  * Plugin Name:     SB Chart block
  * Plugin URI: 		https://www.oik-plugins.com/oik-plugins/sb-chart-block
  * Description:     Displays CSV content as a Chart
- * Version:         0.0.4
+ * Version:         0.0.5
  * Author:          bobbingwide
  * Author URI: 		https://www.bobbingwide.com/about-bobbing-wide
  * License:         GPL-2.0-or-later
@@ -79,7 +79,8 @@ function sb_chart_block_block_init() {
 			'className' => [ 'type' => 'string'],
 			'content' => ['type' => 'string'],
 			'theme' => ['type' => 'string'],
-			'stacked' > ['type' => 'boolean']
+			'stacked' => ['type' => 'boolean'],
+			'fill' => ['type' => 'boolean'],
 		]
 	) );
 }
@@ -124,6 +125,8 @@ function sb_chart_block_array_get( $array, $index, $default=null ) {
 
 /**
  * Displays the default chart.
+ *
+ * @TODO - this should load default data not the complete chart.
  *
  * @param $attributes
  *

@@ -80,6 +80,7 @@ registerBlockType( 'oik-sb/chart', {
 		theme: { type: 'string', default: 'Gutenberg'},
 		myChartId: { type: 'string', default: 'myChart-' },
 		stacked: { type: 'boolean', default: false },
+		fill: { type: 'boolean', default: false },
 	},
 
 	/**

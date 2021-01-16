@@ -67,6 +67,10 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 		setAttributes( { stacked: !attributes.stacked })
 	}
 
+	const onChangeFill = (value) => {
+		setAttributes( { fill: !attributes.fill })
+	}
+
 	const help = __( "Choose Line, Bar, Horizontal bar or Pie.", 'sb-chart-block');
 
 	const typeOptions = {
@@ -127,18 +131,17 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 					<SelectControl label={__("Theme",'sb-chart-block')} value={attributes.theme} onChange={onChangeTheme} options={mappedThemeOptions}  />
 				</PanelBody>
 				<PanelBody>
-				<PanelRow>
-					<ToggleControl
-						label={ __( 'Stacked', 'sb-chart-block' ) }
-						checked={ !! attributes.stacked }
-						onChange={ onChangeStacked }
-
-					/>
-				</PanelRow>
+					<PanelRow>
+						<ToggleControl
+							label={ __( 'Fill', 'sb-chart-block' ) }
+							checked={ !! attributes.fill }
+							onChange={ onChangeFill }
+						/>
+					</PanelRow>
 				</PanelBody>
 			</InspectorControls>
 
-			<div className="wp-block-sb-chart">
+			<div className="wp-block-oik-sb-chart">
 				{attributes.content &&
 				<div className={"chartjs"}>
 					<canvas id={attributes.myChartId}></canvas>
@@ -160,11 +163,11 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 	);
 }
 
-/* I honestly don't understand Higher Order Components
-   but this seems to wrap the edit component with withInstanceId
+/**
+ * I honestly don't understand Higher Order Components,
+   but this seems to wrap the edit component with withInstanceId,
    which enables the function to access the instance ID.
-   Is this the same value as generated for save()?
-
+   The save() function doesn't get this parameter, but it does get attributes.
+   So we use the myChartId attribute to pass the ID for the canvas.
  */
-
 export default withInstanceId( edit );
