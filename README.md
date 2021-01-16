@@ -4,7 +4,7 @@
 * Tags:              block, Chart, Line, Bar, Horizontal bar, Pie, stacked
 * Requires at least: 5.6.0
 * Tested up to:      5.6.0
-* Stable tag:        0.0.4
+* Stable tag:        0.0.5
 * Requires PHP:      7.2.0
 * License:           GPL-2.0-or-later
 * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -86,6 +86,9 @@ If you do wish to modify the code then you can find instructions in the src fold
 4. Pie chart - Visualizer theme colors
 
 ## Upgrade Notice 
+# 0.0.5 
+Update for filled line charts - Area charts.
+
 # 0.0.4 
 Update for stacked charts.
 
@@ -102,6 +105,9 @@ First version to be used in Slog.
 Initial version copied from SB Children block
 
 ## Changelog 
+# 0.0.5 
+* Added: Toggle to Fill line charts,https://github.com/bobbingwide/sb-chart-block/issues/5
+
 # 0.0.4 
 * Added: Toggle to Stack charts,https://github.com/bobbingwide/sb-chart-block/issues/5
 
