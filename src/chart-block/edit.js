@@ -14,7 +14,7 @@ import { Fragment } from '@wordpress/element';
 import { InspectorControls, PlainText, BlockControls } from '@wordpress/block-editor';
 //const { InspectorControls } = wp.blockEditor;
 // deprecated.js?ver=cd9e35508705772fbc5e2d9736bde31b:177 wp.editor.InspectorControls is deprecated. Please use wp.blockEditor.InspectorControls instead.
-import { TextControl, PanelBody, SelectControl, Toolbar, ToolbarButton, PanelRow, ToggleControl } from '@wordpress/components';
+import { TextControl, PanelBody, SelectControl, Toolbar, ToolbarButton, PanelRow, ToggleControl, RangeControl } from '@wordpress/components';
 import { map } from 'lodash';
 import { useEffect } from '@wordpress/element';
 import { withInstanceId } from '@wordpress/compose';
@@ -64,11 +64,15 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 	};
 
 	const onChangeStacked = (value) => {
-		setAttributes( { stacked: !attributes.stacked })
+		setAttributes( { stacked: !attributes.stacked });
 	}
 
 	const onChangeFill = (value) => {
-		setAttributes( { fill: !attributes.fill })
+		setAttributes( { fill: !attributes.fill });
+	}
+
+	const onChangeHeight = (value ) => {
+		setAttributes( { height: value })
 	}
 
 	const help = __( "Choose Line, Bar, Horizontal bar or Pie.", 'sb-chart-block');
@@ -138,12 +142,23 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 							onChange={ onChangeFill }
 						/>
 					</PanelRow>
+					<PanelRow>
+						<RangeControl
+							label={ __( "Height (pixels)", 'sb-chart-block' ) }
+							value={ attributes.height }
+							onChange={ onChangeHeight }
+							min={ 100 }
+							max={ 1000 }
+							allowReset
+						/>
+
+					</PanelRow>
 				</PanelBody>
 			</InspectorControls>
 
 			<div className="wp-block-oik-sb-chart">
 				{attributes.content &&
-				<div className={"chartjs"}>
+				<div className={"chartjs"} style={ { height: attributes.height} }>
 					<canvas id={attributes.myChartId}></canvas>
 				</div>
 				}

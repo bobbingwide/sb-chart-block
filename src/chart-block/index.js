@@ -81,6 +81,7 @@ registerBlockType( 'oik-sb/chart', {
 		myChartId: { type: 'string', default: 'myChart-' },
 		stacked: { type: 'boolean', default: false },
 		fill: { type: 'boolean', default: false },
+		height: { type: 'integer', default: null },
 	},
 
 	/**

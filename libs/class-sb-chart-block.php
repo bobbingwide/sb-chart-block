@@ -94,6 +94,7 @@ class SB_chart_block {
 		// It's different when we use json _decode()!
 		$atts['stacked'] = isset( $atts['stacked'] ) ? $atts['stacked'] : 0;
 		$atts['fill'] = sb_chart_block_array_get( $atts, 'fill', false );
+		$atts['height'] = sb_chart_block_array_get( $atts, 'height', null );
 
 		$this->atts = $atts;
 	}
@@ -154,6 +155,26 @@ class SB_chart_block {
 	}
 
 	/**
+	 * Returns the start div tag for the chart.
+	 *
+	 * @return string
+	 */
+
+	function get_div_start() {
+		$html = '<div class="chartjs"';
+		//echo "h";
+		//echo $this->atts['height'];
+		//echo 't';
+		if ( $this->atts['height']) {
+			$html.= ' style="position:relative; height:'. $this->atts['height'] . 'px;"';
+		}
+		$html .= '>';
+
+		return $html;
+
+	}
+
+	/**
 	 * Renders the HTML and script for the chart.
 	 *
 	 * @param $atts
@@ -164,7 +185,7 @@ class SB_chart_block {
 
 	function render_html( $atts, $content ) {
 		$this->set_id();
-		$html = '<div class="chartjs">';
+		$html = $this->get_div_start();
 		$html .= $this->get_canvas( $atts );
 		$html .= "\r";
 		$script = '';

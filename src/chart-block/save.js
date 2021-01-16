@@ -7,21 +7,12 @@
  *
  * @return {WPElement} Element to render.
  */
-import { withInstanceId } from '@wordpress/compose';
 
 export default function save( { attributes } ) {
 	console.log( attributes );
-	//const myChartId = `myChart${ instanceId }`;
-	//const myChartId = `myChart2`;
-	//console.log( myChartId );
-
-
 	return(
-	<div className={"chartjs"}>
+	<div className={"chartjs"} style={ { height: attributes.height} }>
 		<canvas id={ attributes.myChartId }></canvas>
 	</div>
 	);
-
 }
-
-//export default save;
