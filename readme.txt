@@ -1,9 +1,9 @@
 === SB Chart block ===
 Contributors:      bobbingwide
-Tags:              block, Chart, Line, Bar, Pie
+Tags:              block, Chart, Line, Bar, Horizontal bar, Pie, stacked
 Requires at least: 5.6.0
 Tested up to:      5.6.0
-Stable tag:        0.0.3
+Stable tag:        0.0.4
 Requires PHP:      7.2.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -33,9 +33,9 @@ With WordPress 5.6 or Gutenberg 9.6.2 or higher, and the authority to install pl
 
 So far...
 
-- Line
-- Bar
-- Horizontal Bar
+- Line and stacked line
+- Bar and stacked bar
+- Horizontal bar and stacked horizontal bar
 - Pie
 
 = How do I choose the chart colors? =
@@ -44,21 +44,25 @@ There are 4 predefined color themes:
 choose the color from a drop down list
 
 = What options are there? =
-Options to control the chart display are to be added.
+Options to control the chart display are:
+
+- Stacked - Toggle on to stack line or bar charts
 
 
 = What Chart script does it use?  =
 
 chartjs - from chartjs.org
 
-v0.1.0 enqueues the script from 
+v0.1.0 enqueues the script from:
+
 https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js?ver=5.6
 
+Note: chartjs v3 is under development; it's in Beta test.
 
 
 = What do I need to search for to find the block? =
 
-Chart ?
+Chart or SB Chart
 
 = What if my first language is not English? =
 
@@ -81,11 +85,14 @@ If you do wish to modify the code then you can find instructions in the src fold
 4. Pie chart - Visualizer theme colors
 
 == Upgrade Notice ==
-= 0.0.3 = 
+= 0.0.4 =
+Update for stacked charts.
+
+= 0.0.3 =
 Update for the ability to control the height of each chart using CSS.
 
 = 0.0.2 =
-Update for a version that works without oik shared library functions. 
+Update for a version that works without oik shared library functions.
 
 = 0.0.1 =
 First version to be used in Slog.
@@ -94,16 +101,19 @@ First version to be used in Slog.
 Initial version copied from SB Children block
 
 == Changelog ==
+= 0.0.4 =
+* Added: Toggle to Stack charts,[github bobbingwide sb-chart-block issues 5]
+
 = 0.0.3 =
 * Fixed: Support setting of the chart height using CSS,[github bobbingwide sb-chart-block issues 5]
 
-= 0.0.2 = 
+= 0.0.2 =
 * Fixed: Remove dependency on oik related shared library functions,[github bobbingwide sb-chart-block issues 1]
 
 = 0.0.1 =
 * Added: Server Side Rendered charts using Chart.js,[github bobbingwide sb-chart-block issues 1]
 * Added: 4 theme options for chart colors,[github bobbingwide sb-chart-block issues 2]
-* Added: Chart block in the block editor,[github bobbingwide sb-chart-block issues 4] 
+* Added: Chart block in the block editor,[github bobbingwide sb-chart-block issues 4]
 * Tested: With WordPress 5.6.0 and WordPress Multi Site
 * Tested: With Gutenberg 9.7.2
 

@@ -3,7 +3,7 @@
  * Plugin Name:     SB Chart block
  * Plugin URI: 		https://www.oik-plugins.com/oik-plugins/sb-chart-block
  * Description:     Displays CSV content as a Chart
- * Version:         0.0.3
+ * Version:         0.0.4
  * Author:          bobbingwide
  * Author URI: 		https://www.bobbingwide.com/about-bobbing-wide
  * License:         GPL-2.0-or-later
