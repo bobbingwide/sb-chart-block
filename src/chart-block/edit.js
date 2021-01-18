@@ -108,6 +108,9 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 		}
 	} );
 
+	console.log( 'Edit()');
+	console.log( attributes );
+
 	return (
 		<Fragment>
 			<BlockControls>
@@ -146,6 +149,7 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 						<RangeControl
 							label={ __( "Height (pixels)", 'sb-chart-block' ) }
 							value={ attributes.height }
+							initialPosition={450}
 							onChange={ onChangeHeight }
 							min={ 100 }
 							max={ 1000 }
@@ -159,7 +163,7 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 			<div className="wp-block-oik-sb-chart">
 				{attributes.content &&
 				<div className={"chartjs"} style={ { height: attributes.height} }>
-					<canvas id={attributes.myChartId}></canvas>
+					<canvas id={attributes.myChartId} height="450px"></canvas>
 				</div>
 				}
 
