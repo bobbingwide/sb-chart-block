@@ -279,7 +279,7 @@ function get_data() {
 
 	function get_legend( $index ) {
 		$legends = explode( ',', $this->legend );
-		$legend = $legends[ $index ];
+		$legend = sb_chart_block_array_get( $legends, $index, 'undefined' );
 		return $legend;
 	}
 
