@@ -3,7 +3,7 @@ Contributors:      bobbingwide
 Tags:              block, Chart, Line, Bar, Horizontal bar, Pie, stacked
 Requires at least: 5.6.0
 Tested up to:      5.6.0
-Stable tag:        0.0.5
+Stable tag:        0.0.6
 Requires PHP:      7.2.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -33,7 +33,7 @@ With WordPress 5.6 or Gutenberg 9.6.2 or higher, and the authority to install pl
 
 So far...
 
-- Line and stacked line
+- Line and stacked line, with optional fill 
 - Bar and stacked bar
 - Horizontal bar and stacked horizontal bar
 - Pie
@@ -85,6 +85,9 @@ If you do wish to modify the code then you can find instructions in the src fold
 4. Pie chart - Visualizer theme colors
 
 == Upgrade Notice ==
+= 0.0.6 = 
+Update for ability to set the chart height, in pixels 
+
 = 0.0.5 = 
 Update for filled line charts - Area charts.
 
@@ -104,6 +107,9 @@ First version to be used in Slog.
 Initial version copied from SB Children block
 
 == Changelog ==
+= 0.0.6 = 
+* Added: Height range control. Default 450px in the editor.,[github bobbingwide sb-chart-block issues 5]
+
 = 0.0.5 = 
 * Added: Toggle to Fill line charts,[github bobbingwide sb-chart-block issues 5]
 
