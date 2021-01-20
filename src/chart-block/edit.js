@@ -28,6 +28,7 @@ import { withInstanceId } from '@wordpress/compose';
 import './editor.scss';
 
 import { SB_chart_block } from './sb-chart-block';
+import { ChartToolbar } from './chart-toolbar';
 
 /**
  * The edit function describes the structure of your block in the context of the
@@ -114,12 +115,15 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 	return (
 		<Fragment>
 			<BlockControls>
+				<ChartToolbar value={attributes.type} onChange={ onChangeType } />
+				{ false &&
 				<ToolbarButton
 					label="Refresh"
 					onClick={ onRefreshButton }
 				>
 					Refresh
 				</ToolbarButton>
+				}
 			</BlockControls>
 
 			<InspectorControls>

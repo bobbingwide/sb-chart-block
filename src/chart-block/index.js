@@ -43,7 +43,7 @@ registerBlockType( 'oik-sb/chart', {
 	 * This is a short description for your block, can be translated with `i18n` functions.
 	 * It will be shown in the Block Tab in the Settings Sidebar.
 	 */
-	description: __( 'Display chart for the CSV content.', 'sb-chart-block' ),
+	description: __( 'Displays a chart for CSV content.', 'sb-chart-block' ),
 
 	/**
 	 * Blocks are grouped into categories to help users browse and discover them.
