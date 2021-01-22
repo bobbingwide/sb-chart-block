@@ -84,6 +84,15 @@ registerBlockType( 'oik-sb/chart', {
 		height: { type: 'integer', default: null },
 	},
 
+	// Display a simple pie chart as an example of the Chart block
+	example: {
+		attributes: {
+			type: "pie",
+			content: __( "Label,Value\nOne,1\nTwo,2\nThree,3", 'sb-chart-block' ),
+			myChartId: "myChartExample"
+		}
+	},
+
 	/**
 	 * @see ./edit.js
 	 */
