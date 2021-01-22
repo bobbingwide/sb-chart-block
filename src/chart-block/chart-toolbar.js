@@ -69,8 +69,9 @@ export function ChartToolbar( props ) {
 		isCollapsed = true,
 	} = props;
 
-	function applyOrUnset( type ) {
-		return () => onChange( value === type ? undefined : type );
+	function applyOrUnset( value ) {
+		console.log( value );
+		return () => onChange( value );
 	}
 
 	const activeChart = find(
@@ -82,6 +83,53 @@ export function ChartToolbar( props ) {
 		if ( activeChart ) return activeChart.icon;
 	}
 
+	function isLine() {
+		return value === 'line';
+	}
+
+	function isBar() {
+		return value === 'bar';
+	}
+
+	function isBarH() {
+		return value === 'horizontalBar';
+	}
+
+	function isPie() {
+		return value === 'pie';
+	}
+	const controlLine = {
+		icon: chartLine,
+		title: __('Line chart'),
+		isActive: isLine(),
+		onClick: applyOrUnset( 'line' )
+	};
+	const controlBar = {
+		icon: chartBar,
+		title: __('Bar chart'),
+		isActive: isBar(),
+		onClick: applyOrUnset( 'bar' ),
+	};
+	const controlBarH = {
+		icon: chartBarH,
+		title: __('Horizontal bar chart'),
+		isActive: isBarH(),
+		onClick: applyOrUnset( 'horizontalBar' ),
+	};
+
+	const controlPie = {
+		icon: chartPie,
+		title: __('Pie chart'),
+		isActive: isPie(),
+		onClick: applyOrUnset( 'pie' ),
+	};
+
+	const controls = [ controlLine, controlBar, controlBarH, controlPie ];
+
+
+
+
+
 	return (
 		<ToolbarGroup
 			isCollapsed={ isCollapsed }
@@ -89,7 +137,15 @@ export function ChartToolbar( props ) {
 			label={ label }
 			toggleProps={ { describedBy } }
 			popoverProps={ POPOVER_PROPS }
-			controls={ typeControls.map( ( control ) => {
+			controls={ controls	}
+		/>
+	);
+}
+
+export default ChartToolbar;
+
+/*
+typeControls.map( ( control ) => {
 				const { type } = control;
 				const isActive = value === type;
 
@@ -99,9 +155,4 @@ export function ChartToolbar( props ) {
 					role: isCollapsed ? 'menuitemradio' : undefined,
 					onClick: applyOrUnset( type ),
 				};
-			} ) }
-		/>
-	);
-}
-
-export default ChartToolbar;
+ */
