@@ -4,7 +4,7 @@
 * Tags:              block, Chart, Line, Bar, Horizontal bar, Pie, stacked
 * Requires at least: 5.6.0
 * Tested up to:      5.6.0
-* Stable tag:        0.0.7
+* Stable tag:        0.0.8
 * Requires PHP:      7.2.0
 * License:           GPL-2.0-or-later
 * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -86,6 +86,9 @@ If you do wish to modify the code then you can find instructions in the src fold
 4. Pie chart - Visualizer theme colors
 
 ## Upgrade Notice 
+# 0.0.8 
+Update for begin Y-axis at 0 toggle.
+
 # 0.0.7 
 Update for the chart type selection in the toolbar.
 
@@ -111,6 +114,11 @@ First version to be used in Slog.
 Initial version copied from SB Children block
 
 ## Changelog 
+# 0.0.8 
+* Added: Begin Y-axis at 0 toggle.
+* Changed: Option toggle arrangement
+* Tested: With Gutenberg 9.8.0
+
 # 0.0.7 
 * Added: Chart type toolbar group and new icons,https://github.com/bobbingwide/sb-chart-block/issues/5
 * Added: Example - a simple pie chart,https://github.com/bobbingwide/sb-chart-block/issues/5
