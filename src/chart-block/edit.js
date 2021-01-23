@@ -50,7 +50,7 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 
 
 	const onChangeType = ( event ) => {
-		console.log( "Set type:" + event );
+		//console.log( "Set type:" + event );
 		setAttributes( { type: event } );
 	};
 
@@ -60,7 +60,7 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 
 	const onChangeContent = (value) => {
 		value = value.replace( /<br>/g, '\n' );
-		console.log( value );
+		//console.log( value );
 		setAttributes({content: value});
 	};
 
@@ -73,7 +73,11 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 	}
 
 	const onChangeHeight = (value ) => {
-		setAttributes( { height: value })
+		setAttributes( { height: value });
+	}
+
+	const onChangeBeginYAxisAt0 = ( value ) => {
+		setAttributes( { beginYAxisAt0: !attributes.beginYAxisAt0});
 	}
 
 	const help = __( "Choose Line, Bar, Horizontal bar or Pie.", 'sb-chart-block');
@@ -97,7 +101,7 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 	var mappedThemeOptions = map(themeOptions, (key, label) => ({value: label, label: key}));
 
 	const onRefreshButton = ( event ) => {
-		console.log( event );
+		//console.log( event );
 		//var chartBlock = new SB_chart_block();
 		//chartBlock.runChart( attributes );
 	};
@@ -109,8 +113,8 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 		}
 	} );
 
-	console.log( 'Edit()');
-	console.log( attributes );
+	//console.log( 'Edit()');
+	//console.log( attributes );
 
 	return (
 		<Fragment>
@@ -137,11 +141,13 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 
 						/>
 					</PanelRow>
-				</PanelBody>
-				<PanelBody>
-					<SelectControl label={__("Theme",'sb-chart-block')} value={attributes.theme} onChange={onChangeTheme} options={mappedThemeOptions}  />
-				</PanelBody>
-				<PanelBody>
+					<PanelRow>
+						<ToggleControl
+							label={ __( 'Begin Y-axis at 0', 'sb-chart-block' ) }
+							checked={ !! attributes.beginYAxisAt0 }
+							onChange={ onChangeBeginYAxisAt0 }
+						/>
+					</PanelRow>
 					<PanelRow>
 						<ToggleControl
 							label={ __( 'Fill', 'sb-chart-block' ) }
@@ -149,6 +155,13 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 							onChange={ onChangeFill }
 						/>
 					</PanelRow>
+
+				</PanelBody>
+				<PanelBody>
+					<SelectControl label={__("Theme",'sb-chart-block')} value={attributes.theme} onChange={onChangeTheme} options={mappedThemeOptions}  />
+				</PanelBody>
+				<PanelBody>
+
 					<PanelRow>
 						<RangeControl
 							label={ __( "Height (pixels)", 'sb-chart-block' ) }
@@ -161,6 +174,7 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 						/>
 
 					</PanelRow>
+
 				</PanelBody>
 			</InspectorControls>
 

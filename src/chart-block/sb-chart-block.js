@@ -156,13 +156,17 @@ export class SB_chart_block {
 		options.scales = new Object( {} );
 		options.scales.yAxes = [];
 		options.scales.xAxes = [];
-		var ticks = new Object( { beginAtZero: true });
+		var beginAtZero = this.attributes.beginYAxisAt0;
+		//console.log( 'BAZ' + beginAtZero);
+		var ticks = new Object( { ticks: { beginAtZero: beginAtZero } } );
 		options.scales.yAxes.push( ticks );
 		//options.scales.yAxes[0].ticks.beginAtZero = true;
+		//console.log( options );
 		if ( this.attributes.stacked ) {
 			options.scales.yAxes[0].stacked = true;
 			options.scales.xAxes.push( {stacked: true } );
 		}
+		//console.log( options );
 		return options;
 
 		/*

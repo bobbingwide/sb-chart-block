@@ -95,6 +95,7 @@ class SB_chart_block {
 		$atts['stacked'] = isset( $atts['stacked'] ) ? $atts['stacked'] : 0;
 		$atts['fill'] = sb_chart_block_array_get( $atts, 'fill', false );
 		$atts['height'] = sb_chart_block_array_get( $atts, 'height', null );
+		$atts['beginYAxisAt0'] = sb_chart_block_array_get( $atts, 'beginYAxisAt0', 0 );
 
 		$this->atts = $atts;
 	}
@@ -506,6 +507,7 @@ function get_data() {
 		$options = '';
 		$stacked = $this->atts['stacked'];
 		//echo "Stacked:" . $stacked . '!';
+		$beginAt0 = $this->atts['beginYAxisAt0'];
 		switch ( $this->atts['type'] ) {
 			case 'line':
 			case 'bar':
@@ -515,7 +517,7 @@ function get_data() {
 			scales: {
 				yAxes: [{
 					ticks: {
-						beginAtZero: true
+						beginAtZero: $beginAt0
 					},
 					 stacked: $stacked,
 					}]";
