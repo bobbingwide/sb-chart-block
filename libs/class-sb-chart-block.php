@@ -192,6 +192,7 @@ class SB_chart_block {
 		$script = '';
 		$script .= '<script type="text/javascript">';
 		//$script .= 'function runmychart() {';
+		$script .= 'document.addEventListener( "DOMContentLoaded", function() {';
 		$script .= $this->get_ctx();
 		$script .= "\r";
 		$script .= $this->get_data();
@@ -199,6 +200,7 @@ class SB_chart_block {
 		$script .= $this->get_options();
 		$script .= "\r";
 		$script .= $this->get_newChart( $atts );
+		$script .= '}, false );';
 		//$script .= '}';
 		//$script .= 'runmychart();';
 		$script.='</script>';
