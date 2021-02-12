@@ -2,8 +2,8 @@
 Contributors:      bobbingwide
 Tags:              block, Chart, Line, Bar, Horizontal bar, Pie, stacked
 Requires at least: 5.6.0
-Tested up to:      5.6.0
-Stable tag:        0.0.8
+Tested up to:      5.6.1
+Stable tag:        0.1.0
 Requires PHP:      7.2.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -55,7 +55,7 @@ chartjs - from chartjs.org
 
 v0.1.0 enqueues the script from:
 
-https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js?ver=5.6
+https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js
 
 Note: chartjs v3 is under development; it's in Beta test.
 
@@ -85,6 +85,9 @@ If you do wish to modify the code then you can find instructions in the src fold
 4. Pie chart - Visualizer theme colors
 
 == Upgrade Notice ==
+= 0.1.0 = 
+Enqueues Chart.js in the footer to reduce render-blocking resources.
+
 = 0.0.8 = 
 Update for begin Y-axis at 0 toggle.
 
@@ -113,6 +116,9 @@ First version to be used in Slog.
 Initial version copied from SB Children block
 
 == Changelog ==
+= 0.1.0 =
+* Changed: Enqueue chart.js in the footer, when necessary. Run Chart when DOMContentLoaded.,[github bobbingwide sb-chart-block issues 9]
+
 = 0.0.8 =
 * Added: Begin Y-axis at 0 toggle.
 * Changed: Option toggle arrangement
