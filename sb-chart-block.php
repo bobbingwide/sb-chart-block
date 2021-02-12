@@ -3,7 +3,7 @@
  * Plugin Name:     SB Chart block
  * Plugin URI: 		https://www.oik-plugins.com/oik-plugins/sb-chart-block
  * Description:     Displays a Chart for CSV content
- * Version:         0.0.9
+ * Version:         0.1.0
  * Author:          bobbingwide
  * Author URI: 		https://www.bobbingwide.com/about-bobbing-wide
  * License:         GPL-2.0-or-later
@@ -37,8 +37,11 @@ function sb_chart_block_block_init() {
 	$index_js     = 'build/index.js';
 	$script_asset = require( $script_asset_path );
 	//bw_trace2( $script_asset );
-	sb_chart_block_register_scripts();
-	$script_asset['dependencies'][] = 'chartjs-script';
+	if ( is_admin() ) {
+		sb_chart_block_register_scripts();
+		$script_asset['dependencies'][] = 'chartjs-script';
+	}
+
 	wp_register_script(
 		'sb-chart-block-block-editor',
 		plugins_url( $index_js, __FILE__ ),
@@ -154,6 +157,7 @@ function sb_chart_block_enqueue_scripts() {
 
 function sb_chart_block_register_scripts() {
 	wp_register_script( "chartjs-script", 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js', null, null, true );
+
 }
 
 /**

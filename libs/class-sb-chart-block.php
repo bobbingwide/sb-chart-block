@@ -55,6 +55,7 @@ class SB_chart_block {
 	 */
 	function render( $atts, $content ) {
 		//wp_enqueue_script( 'chartjs-script');
+		sb_chart_block_register_scripts();
 		sb_chart_block_enqueue_scripts();
 		//$html = sb_chart_block_html( $atts ) ;
 		$this->default_atts( $atts );
