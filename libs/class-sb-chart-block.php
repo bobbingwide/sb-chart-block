@@ -379,10 +379,9 @@ function get_data() {
 		, "#8ED1FC" // pale-cyan-blue
 		, "#0693E3" // vivid-cyan-blue
 		, "#9B51E0" // vivid-purple
-		, "#EEEEEE" // very-light-gray
 		, "#ABB8C3" // cyan-bluish-gray
 		, "#313131" // very-dark-gray
-		, '#FFFFFF' // white
+		, "#EEEE00" // yellowish grey
 		];
 		$rgbas = $this->rgbas( $backgroundColors, $this->opacity );
 		return $rgbas;
