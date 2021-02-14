@@ -3,7 +3,7 @@ Contributors:      bobbingwide
 Tags:              block, Chart, Line, Bar, Horizontal bar, Pie, stacked
 Requires at least: 5.6.0
 Tested up to:      5.6.1
-Stable tag:        0.1.0
+Stable tag:        0.1.1
 Requires PHP:      7.2.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -85,6 +85,9 @@ If you do wish to modify the code then you can find instructions in the src fold
 4. Pie chart - Visualizer theme colors
 
 == Upgrade Notice ==
+= 0.1.1 =
+Update for better colours in the Gutenberg palette.
+
 = 0.1.0 = 
 Enqueues Chart.js in the footer to reduce render-blocking resources.
 
@@ -116,6 +119,12 @@ First version to be used in Slog.
 Initial version copied from SB Children block
 
 == Changelog ==
+= 0.1.1 =
+* Changed: Eliminate very light gray and white from the Gutenberg colour palette. Add yellowish grey.,[github bobbingwide sb-chart-block issues 2]
+* Tested: With WordPress 5.6.1 and WordPress Multi Site
+* Tested: With Gutenberg 9.9.2
+
+
 = 0.1.0 =
 * Changed: Enqueue chart.js in the footer, when necessary. Run Chart when DOMContentLoaded.,[github bobbingwide sb-chart-block issues 9]
 
