@@ -155,8 +155,22 @@ function sb_chart_block_enqueue_scripts() {
 	//'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js', null, null, true );
 }
 
+/**
+ * WordPress plugins are not supposed to enqueue resources from 3rd parties
+ * So we need to enquue Chart.js from a local version.
+ */
+
 function sb_chart_block_register_scripts() {
-	wp_register_script( "chartjs-script", 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js', null, null, true );
+
+	if ( defined( 'SCRIPT_DEBUG')  && SCRIPT_DEBUG  ) {
+		$file = 'js/Chart.js';
+		$version = filemtime( __DIR__ . '/' . $file );
+	} else {
+		$file = 'js/Chart.min.js';
+		$version = null;
+	}
+	$file_url = plugin_dir_url( __FILE__ ) . $file;
+	wp_register_script( "chartjs-script", $file_url, null, $version, true );
 
 }
 
