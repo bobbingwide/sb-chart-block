@@ -36,6 +36,8 @@ class SB_chart_block {
 
 	private $theme;
 
+	private $color_palettes = null;
+
 	/**
 	 * SB_chart_block constructor.
 	 */
@@ -44,6 +46,7 @@ class SB_chart_block {
 		$this->legend = [];
 		$this->lines = [];
 		$this->series = [];
+		$this->load_color_palettes();
 	}
 
 	/**
@@ -389,6 +392,9 @@ function get_data() {
 
 	function get_backgroundColors( $opacity ) {
 		$this->opacity = $opacity;
+		$backgroundColors = $this->color_palettes->get_backgroundColors( $this->atts['theme'], $opacity );
+		/*
+
 		switch ( $this->atts['theme'] ) {
 			case 'Chart':
 				$backgroundColors = $this->get_Chart_backgroundColors();
@@ -407,6 +413,7 @@ function get_data() {
 				$backgroundColors = $this->get_Gutenberg_backgroundColors();
 
 		}
+		*/
 		return $backgroundColors;
 	}
 
@@ -543,6 +550,11 @@ function get_data() {
 	function get_newChart() {
 		$type = $this->atts['type'];
 		return "var myLineChart = new Chart(ctx, { type: '$type', data: data, options: options });";
+	}
+
+	function load_color_palettes() {
+		require_once __DIR__ . '/class-color-palettes.php';
+		$this->color_palettes = new Color_Palettes();
 	}
 
 }
