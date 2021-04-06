@@ -1,0 +1,77 @@
+{
+	"Chart": [
+	  {
+		"color": "#F78DA7",
+		"slug": "pale-pink"
+	  },
+	  {
+		"color": "#FF6384",
+		"slug": "darker-pink"
+	  },
+	  {
+		"color": "#36A2EB",
+		"slug": "bluey"
+	  },
+	  {
+		"color": "#FFCE56",
+		"slug": "goldish"
+	  },
+	  {
+		"color": "#4BC0C0",
+		"slug": "turquoise"
+	  },
+	  {
+		"color": "#6666CD",
+		"slug":  "purpley"
+	  },
+	  {
+		"color": "#FF9F40",
+		"slug": "goldie"
+	  }
+	],
+  "Gutenberg": [
+	  { "color": "#F78DA7", "slug": "pale-pink" },
+	  { "color": "#CF2E2E", "slug": "vivid-red" },
+	  { "color": "#FF6900", "slug": "luminous-vivid-orange" },
+	  { "color": "#FCB900", "slug": "luminous-vivid-amber" },
+	  { "color": "#7BDCB5", "slug": "light-green-cyan" },
+	  { "color": "#00D084", "slug": "vivid-green-cyan" },
+	  { "color": "#8ED1FC", "slug": "pale-cyan-blue" },
+	  { "color": "#0693E3", "slug": "vivid-cyan-blue" },
+	  { "color": "#9B51E0", "slug": "vivid-purple" },
+	  { "color": "#ABB8C3", "slug": "cyan-bluish-gray" },
+	  { "color": "#313131", "slug": "very-dark-gray" },
+	  { "color": "#EEEE00", "slug": "yellowish-grey" }
+	  ],
+  "Visualizer": [
+	{ "color": "#3366CC" },
+  	{ "color": "#DC3912" },
+  	{ "color": "#FF9900" },
+  	{ "color": "#109618" },
+  	{ "color": "#990099" },
+  	{ "color": "#0099C6" },
+  	{ "color": "#DD4477" },
+  	{ "color": "#66AA00" },
+  	{ "color": "#B82E2E" },
+  	{ "color": "#316395" },
+ 	{ "color": "#994499" },
+  	{ "color": "#22AA99" },
+  	{ "color": "#AAAA11" },
+  	{ "color": "#6633CC" }
+],
+  "Tertiary": [
+  	{ "color": "F1E70D" },
+	{ "color": "E42426" },
+	{ "color": "2072B2" },
+	{ "color": "FDC70F" },
+	{ "color": "C31A7F" },
+	{ "color": "1D96BB" },
+	{ "color": "F28F1F" },
+	{ "color": "6E398D" },
+	{ "color": "0A905D" },
+	{ "color": "EC6224" },
+	{ "color": "424F9B" },
+	{ "color": "8CBD3F" }
+]
+}
+
