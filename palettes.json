@@ -60,18 +60,18 @@
   	{ "color": "#6633CC" }
 ],
   "Tertiary": [
-  	{ "color": "F1E70D" },
-	{ "color": "E42426" },
-	{ "color": "2072B2" },
-	{ "color": "FDC70F" },
-	{ "color": "C31A7F" },
-	{ "color": "1D96BB" },
-	{ "color": "F28F1F" },
-	{ "color": "6E398D" },
-	{ "color": "0A905D" },
-	{ "color": "EC6224" },
-	{ "color": "424F9B" },
-	{ "color": "8CBD3F" }
+  	{ "color": "#F1E70D" },
+	{ "color": "#E42426" },
+	{ "color": "#2072B2" },
+	{ "color": "#FDC70F" },
+	{ "color": "#C31A7F" },
+	{ "color": "#1D96BB" },
+	{ "color": "#F28F1F" },
+	{ "color": "#6E398D" },
+	{ "color": "#0A905D" },
+	{ "color": "#EC6224" },
+	{ "color": "#424F9B" },
+	{ "color": "#8CBD3F" }
 ]
 }
 
