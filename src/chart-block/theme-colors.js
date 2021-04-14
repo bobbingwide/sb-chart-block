@@ -13,10 +13,39 @@
  *
  * @see https://developer.wordpress.org/block-editor/packages/packages-i18n/
  */
+//const palettes  = require( '../../palettes.json' );
+/**
+ * The different color palettes are defined in palettes.json.
+ * This is dynamically loaded for server rendering but is statically loaded in the JavaScript.
+ * Each Palette is an array of objects, where each object can be
+ * `{ "color": "#RRGGBB", "slug":"intended-to-describe-the-color" }`
+ *
+ * To return the array of colors we just need the color attribute.
+ *
+ * @TODO Return the set of palette names from the top level object properties.
+ * This is the "theme". Currently not translatable.
+ *
+ * @TODO We also need to be able to convert the colors from hex to rgba() applying the user defined opacity.
+ *
+ */
+import palettes from '../../palettes.json';
+console.log( "Palettes");
+console.log( palettes );
+console.log( "ap");
 
 //const _ = require( 'lodash' );
 const colors = new Object( {} );
 
+colors.Chart = [
+	"#f78da7",
+	"#ff6384",
+	"#36a2eb",
+	"#ffce56",
+	"#4BC0C0",
+	"#9966CD",
+	"#FF9F40"
+];
+/*
 colors.Chart = ["rgba( 247, 141, 167, 0.2 )",
 	'rgba(255, 99, 132, 0.2)',
 	'rgba(54, 162, 235, 0.2)',
@@ -25,6 +54,8 @@ colors.Chart = ["rgba( 247, 141, 167, 0.2 )",
 	'rgba(153, 102, 255, 0.2)',
 	'rgba(255, 159, 64, 0.2)'
 	];
+
+ */
 colors.Gutenberg =	[ "#F78DA7" // pale-pink
 			, "#CF2E2E" // vivid-red
 			, "#FF6900" // luminous-vivid-orange
@@ -89,54 +120,40 @@ console.log( colorMap);
  * @returns array of colors
  */
 function getBackgroundColors( theme ) {
-	const colors = colorMap.get( theme );
+	// What if the theme is not present?
+	const palette = palettes[theme];
+	//console.log( palette);
+	const colors = palette.map( item => {
+		//console.log( item );
+		// What if the color attribute is not present?
+		return item.color;
+	} );
+	//console.log( colors );
 	return colors;
 }
 
 /**
- * Returns a single background colour for the line/bar.
+ * Returns a single background color for the line/bar.
  *
  * @param i
  * @param theme
  * @returns string
  */
 function getBackgroundColor( i, theme) {
-	/*
-	$backgroundColors = $this->get_backgroundColors( 0.9 );
-	if( 'pie' === $this->atts['type']) {
-		return $backgroundColors;
-	}
-	$choice = ($index-1) % count( $backgroundColors);
-	$backgroundColor = $backgroundColors[ $choice ];
-	return $backgroundColor;
-
-	 */
 	const colors = getBackgroundColors( theme );
 	var choice = (i-1) % colors.length;
 	return colors[ choice ];
-
 }
-
 
 function getBorderColor( i, theme ) {
 	return getBackgroundColor( i, theme );
 }
 
-/**
- * These are the chart.js border colors.
- *
- * @param $index
- *
- * @return string
 
-
-export default function getBorderColor( $index ) {
-	$borderColors = $this->get_backgroundColors( 1.0 );
-	$choice = ($index-1) % count( $borderColors );
-	$borderColor = $borderColors[ $choice ];
-	return $borderColor;
+function getThemes() {
+	const themes = palettes.getOwnPropertyNames();
+	return themes;
 }
- */
 
-export { getBackgroundColors, getBackgroundColor, getBorderColor };
+export { getBackgroundColors, getBackgroundColor, getBorderColor, getThemes };
 
