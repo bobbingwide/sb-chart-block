@@ -3,8 +3,8 @@
 * Contributors:      bobbingwide
 * Tags:              block, Chart, Line, Bar, Horizontal bar, Pie, stacked
 * Requires at least: 5.6.0
-* Tested up to:      5.6.1
-* Stable tag:        0.1.1
+* Tested up to:      5.7.1
+* Stable tag:        0.2.0
 * Requires PHP:      7.2.0
 * License:           GPL-2.0-or-later
 * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -48,18 +48,21 @@ choose the color from a drop down list
 Options to control the chart display are:
 
 - Stacked - Toggle on to stack line or bar charts
+- Begin Y axis at 0 toggle
+- Fill toggle for line charts
+- Height of the chart, in pixels.
 
 
 # What Chart script does it use?  
 
 chartjs - from chartjs.org
 
-v0.1.0 enqueues the script from:
+v0.2.0 enqueues the script from a local version of Chart.min.js, version 2.9.4.
+When `SCRIPT_DEBUG` is true the debug version, Chart.js, is loaded.
 
-https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js
+* v0.1.0 enqueued the script from: https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js
 
 * Note: chartjs v3 is under development; it's in Beta test.
-
 
 # What do I need to search for to find the block? 
 
@@ -82,10 +85,14 @@ If you do wish to modify the code then you can find instructions in the src fold
 ## Screenshots 
 1. Line chart - Gutenberg theme colors
 2. Bar chart - Chart theme colors
-3. Horizontal bar chart - Chartist theme colors
+3. Horizontal bar chart - Tertiary theme colors
 4. Pie chart - Visualizer theme colors
+5. Chart type toolbar selection
 
 ## Upgrade Notice 
+# 0.2.0 
+Updated for hosting on WordPress.org. Improved color palette selection using palette.json.
+
 # 0.1.1 
 Update for better colours in the Gutenberg palette.
 
@@ -120,11 +127,18 @@ First version to be used in Slog.
 Initial version copied from SB Children block
 
 ## Changelog 
+# 0.2.0 
+* Changed: Enqueue scripts from the plugin,https://github.com/bobbingwide/sb-chart-block/issues/10
+* Changed: Load color palettes from palettes.json,https://github.com/bobbingwide/sb-chart-block/issues/10
+* Tested: With WordPress 5.7 and WordPress Multi Site
+* Tested: With Gutenberg 10.3.1
+* Tested: With PHP 8.0
+* Tested: With PHPUnit 9
+
 # 0.1.1 
 * Changed: Eliminate very light gray and white from the Gutenberg colour palette. Add yellowish grey.,https://github.com/bobbingwide/sb-chart-block/issues/2
 * Tested: With WordPress 5.6.1 and WordPress Multi Site
 * Tested: With Gutenberg 9.9.2
-
 
 # 0.1.0 
 * Changed: Enqueue chart.js in the footer, when necessary. Run Chart when DOMContentLoaded.,https://github.com/bobbingwide/sb-chart-block/issues/9
@@ -162,4 +176,3 @@ Initial version copied from SB Children block
 
 # 0.0.0 
 * First version copied from SB Children block
-
