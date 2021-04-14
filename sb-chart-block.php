@@ -156,12 +156,12 @@ function sb_chart_block_enqueue_scripts() {
 }
 
 /**
+ * Registers the Chart.js script.
+ *
  * WordPress plugins are not supposed to enqueue resources from 3rd parties
- * So we need to enquue Chart.js from a local version.
+ * So we need to enqueue Chart.js from a local version.
  */
-
 function sb_chart_block_register_scripts() {
-
 	if ( defined( 'SCRIPT_DEBUG')  && SCRIPT_DEBUG  ) {
 		$file = 'js/Chart.js';
 		$version = filemtime( __DIR__ . '/' . $file );
@@ -171,7 +171,6 @@ function sb_chart_block_register_scripts() {
 	}
 	$file_url = plugin_dir_url( __FILE__ ) . $file;
 	wp_register_script( "chartjs-script", $file_url, null, $version, true );
-
 }
 
 /**
