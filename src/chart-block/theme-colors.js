@@ -69,12 +69,22 @@ function getBorderColor( i, theme ) {
 	return getBackgroundColor( i, theme );
 }
 
+/**
+ * Returns the theme options for the Select list.
+ *
+ * @returns {{label: T, value: T}[]}
+ */
 
-function getThemes() {
-	const themes = palettes.getOwnPropertyNames();
-	console.log( themes );
-	return themes;
+function getThemeOptions() {
+	//console.log( palettes );
+	const themes = Object.getOwnPropertyNames( palettes );
+	const themeOptions = themes.map( theme => {
+		//console.log(theme);
+		var item = {value: theme, label: theme};
+		return item;
+	} );
+	//console.log( themeOptions );
+	return themeOptions;
 }
 
-export { getBackgroundColors, getBackgroundColor, getBorderColor, getThemes };
-
+export { getBackgroundColors, getBackgroundColor, getBorderColor, getThemeOptions };

@@ -29,6 +29,7 @@ import './editor.scss';
 
 import { SB_chart_block } from './sb-chart-block';
 import { ChartToolbar } from './chart-toolbar';
+import { getThemeOptions } from './theme-colors';
 
 /**
  * The edit function describes the structure of your block in the context of the
@@ -89,16 +90,20 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 		"pie": __( "Pie chart", 'sb-chart-block' )
 	};
 
-	const themeOptions = {
+	const themeOptions = getThemeOptions();
+	/*
+		{
 		"Gutenberg": "Gutenberg palette",
 		"Chart" : "Chart",
 		"Tertiary": "Chartist or Tertiary",
 		"Visualizer": "Visualizer",
 	};
+	*/
+
 
 	var mappedTypeOptions = map(typeOptions, (key, label) => ({value: label, label: key}));
 
-	var mappedThemeOptions = map(themeOptions, (key, label) => ({value: label, label: key}));
+	//var mappedThemeOptions = map(themeOptions, (key, label) => ({value: label, label: key}));
 
 	const onRefreshButton = ( event ) => {
 		//console.log( event );
@@ -158,7 +163,7 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 
 				</PanelBody>
 				<PanelBody>
-					<SelectControl label={__("Theme",'sb-chart-block')} value={attributes.theme} onChange={onChangeTheme} options={mappedThemeOptions}  />
+					<SelectControl label={__("Theme",'sb-chart-block')} value={attributes.theme} onChange={onChangeTheme} options={themeOptions}  />
 				</PanelBody>
 				<PanelBody>
 
