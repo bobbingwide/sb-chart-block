@@ -553,8 +553,8 @@ function get_data() {
 	}
 
 	function load_color_palettes() {
-		require_once __DIR__ . '/class-color-palettes.php';
-		$this->color_palettes = new Color_Palettes();
+		require_once __DIR__ . '/class-sb-chart-color-palettes.php';
+		$this->color_palettes = new SB_Chart_Color_Palettes();
 	}
 
 }

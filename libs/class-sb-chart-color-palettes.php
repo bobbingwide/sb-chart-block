@@ -4,7 +4,7 @@
  * @copyright (C) Copyright Bobbing Wide 2021
  * @package sb-chart-block
  */
-class Color_Palettes {
+class SB_Chart_Color_Palettes {
 
 	private $palettes = null;
 	private $background_colors = [];
