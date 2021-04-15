@@ -154,38 +154,19 @@ export class SB_chart_block {
 		}
 
 		options.scales = new Object( {} );
-		options.scales.yAxes = [];
-		options.scales.xAxes = [];
 		var beginAtZero = this.attributes.beginYAxisAt0;
-		//console.log( 'BAZ' + beginAtZero);
-		var ticks = new Object( { ticks: { beginAtZero: beginAtZero } } );
-		options.scales.yAxes.push( ticks );
-		//options.scales.yAxes[0].ticks.beginAtZero = true;
-		//console.log( options );
+		options.scales.y = new Object(  { beginAtZero: beginAtZero, stacked: this.attributes.stacked  } );
 		if ( this.attributes.stacked ) {
-			options.scales.yAxes[0].stacked = true;
-			options.scales.xAxes.push( {stacked: true } );
+			options.scales.x = new Object({stacked: true});
 		}
-		//console.log( options );
+		console.log( options );
+		if ( 'horizontalBar' === this.attributes.type ) {
+			options.indexAxis = 'y';
+		}
+		console.log( options );
 		return options;
 
-		/*
-			maintainAspectRatio: false,
-			'scales': {
-				'yAxes': [{
-					'ticks': {
-						'beginAtZero': true
-					},
-					stacked: true
-				}],
-				'xAxes': [{
-					stacked: true
-				}],
 
-			}
-		});
-
-		 */
 	}
 
 	/**
@@ -233,7 +214,8 @@ export class SB_chart_block {
 				datasets: this.getDatasets(),
 			};
 			var options = this.getOptions();
-			var myLineChart = this.showChart( ctx, attributes.type, data, options );
+			var chartType = ( 'horizontalBar' === attributes.type ) ? 'bar' : attributes.type;
+			var myLineChart = this.showChart( ctx, chartType, data, options );
 			//var myLineChart = new Chart(ctx, {type: attributes.type, data: data, options: options});
 			//setAttributes( )
 			return myLineChart;
