@@ -5,15 +5,14 @@
 class Test_color_palettes extends BW_UnitTestCase {
 
 	function test_construct() {
-		oik_require( 'libs/class-color-palettes.php', 'sb-chart-block' );
-		$color_palettes = new Color_Palettes();
-		$this->assertInstanceOf( 'Color_Palettes', $color_palettes );
-
+		oik_require( 'libs/class-sb-chart-color-palettes.php', 'sb-chart-block' );
+		$color_palettes = new SB_Chart_Color_Palettes();
+		$this->assertInstanceOf( 'SB_Chart_Color_Palettes', $color_palettes );
 	}
 
 	function test_validate_theme() {
 
-		$color_palettes = new Color_Palettes();
+		$color_palettes = new SB_Chart_Color_Palettes();
 		$themes = [ 'Gutenberg' => 'Gutenberg',
 					'Chart' => 'Chart',
 					'Visualizer' => 'Visualizer',
@@ -27,7 +26,7 @@ class Test_color_palettes extends BW_UnitTestCase {
 	}
 
 	function test_rgba() {
-		$color_palettes = new Color_Palettes();
+		$color_palettes = new SB_Chart_Color_Palettes();
 		$rgba = $color_palettes->rgba( '#F78DA7', 0.2 );
 		//echo $rgba;
 
@@ -49,7 +48,7 @@ class Test_color_palettes extends BW_UnitTestCase {
 	}
 
 	function test_get_backgroundColors() {
-		$color_palettes = new Color_Palettes();
+		$color_palettes = new SB_Chart_Color_Palettes();
 		$backgroundColors = $color_palettes->get_backgroundColors( 'Chart', 0.2 );
 		$this->assertIsArray( $backgroundColors );
 		$this->assertCount( 7, $backgroundColors );
