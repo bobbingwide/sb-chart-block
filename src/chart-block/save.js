@@ -9,10 +9,8 @@
  */
 
 export default function save( { attributes } ) {
-
-	console.log( 'Save()');
-
-	console.log( attributes.height );
+	//console.log( 'Save()');
+	//	console.log( attributes.height );
 	return(
 	<div className={"chartjs"} style={ { height: attributes.height} }>
 		<canvas id={ attributes.myChartId }></canvas>
