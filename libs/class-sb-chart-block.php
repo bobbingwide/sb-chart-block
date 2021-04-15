@@ -532,14 +532,11 @@ function get_data() {
 			maintainAspectRatio: false,
 			indexAxis: $indexAxis,
 			scales: {
-				yAxes: [{
-					ticks: {
-						beginAtZero: $beginAt0
-					},
-					 stacked: $stacked,
-					}]";
+				y: { stacked: $stacked,
+					 beginAtZero: $beginAt0
+					}";
 				if ( $stacked ) {
-					$options .= ",xAxes: [{ stacked: true }] ";
+					$options .= ",x: { stacked: true } ";
 				}
 
 				$options .= " 	} ";
