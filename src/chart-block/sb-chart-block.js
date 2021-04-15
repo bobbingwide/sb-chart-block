@@ -159,11 +159,11 @@ export class SB_chart_block {
 		if ( this.attributes.stacked ) {
 			options.scales.x = new Object({stacked: true});
 		}
-		console.log( options );
+		//console.log( options );
 		if ( 'horizontalBar' === this.attributes.type ) {
 			options.indexAxis = 'y';
 		}
-		console.log( options );
+		//console.log( options );
 		return options;
 
 
