@@ -80,28 +80,31 @@ class SB_chart_block {
 			$atts = [];
 		}
 		//echo "before";	print_r( $atts );
+		$this->atts = $atts;
 
-		$atts['type'] = isset( $atts['type'] ) ? $atts['type'] : 'Line';
+		$this->atts['type'] = isset( $this->atts['type'] ) ? $this->atts['type'] : 'Line';
 
-		//$atts['height'] = isset( $atts['height'] ) ? $atts['height'] : '450px';
+		//$this->atts['height'] = isset( $this->atts['height'] ) ? $this->atts['height'] : '450px';
 
-		$atts['type'] = $this->validate_type( $atts['type'] );
+		$this->atts['type'] = $this->validate_type( $this->atts['type'] );
 
-		//$atts['tooltips'] = isset( $atts['tooltips']) ? true : false;
-		//$atts['stackBars'] = isset( $atts['stackbars']) ? true : false;
-		//$atts['horizontalBars'] = isset( $atts['horizontalbars']) ? true : false;
-		$atts['class'] = isset( $atts['class'] ) ? $atts['class'] : ''; // ct-golden-section
-		$atts['theme'] = isset( $atts['theme'] ) ? $atts['theme'] : 'Gutenberg';
+		//$this->atts['tooltips'] = isset( $this->atts['tooltips']) ? true : false;
+		//$this->atts['stackBars'] = isset( $this->atts['stackbars']) ? true : false;
+		//$this->atts['horizontalBars'] = isset( $this->atts['horizontalbars']) ? true : false;
+		$this->atts['class'] = isset( $this->atts['class'] ) ? $this->atts['class'] : ''; // ct-golden-section
+		$this->atts['theme'] = isset( $this->atts['theme'] ) ? $this->atts['theme'] : 'Gutenberg';
 
 		// Rather than use false, we use 0, otherwise the value doesn't come out
 		// when converted to as a literal string.
 		// It's different when we use json _decode()!
-		$atts['stacked'] = isset( $atts['stacked'] ) ? $atts['stacked'] : 0;
-		$atts['fill'] = sb_chart_block_array_get( $atts, 'fill', false );
-		$atts['height'] = sb_chart_block_array_get( $atts, 'height', null );
-		$atts['beginYAxisAt0'] = sb_chart_block_array_get( $atts, 'beginYAxisAt0', 0 );
+		$this->atts['stacked'] = isset( $this->atts['stacked'] ) ? $this->atts['stacked'] : 0;
+		$this->atts['fill'] = sb_chart_block_array_get( $this->atts, 'fill', false );
+		$this->atts['height'] = sb_chart_block_array_get( $this->atts, 'height', null );
+		$this->atts['beginYAxisAt0'] = sb_chart_block_array_get( $this->atts, 'beginYAxisAt0', 0 );
+		$this->atts['indexAxis'] = sb_chart_block_array_get( $this->atts, 'indexAxis', 'x' );
 
-		$this->atts = $atts;
+
+		//$this->atts = $atts;
 	}
 
 	/**
@@ -120,10 +123,13 @@ class SB_chart_block {
 			case 'line':
 			case 'bar':
 			case 'pie':
+				//$this->atts['indexAxis'] = 'x';
 				break;
 
 			case 'horizontalbar':
-				$type = 'horizontalBar';
+				$type = 'bar';
+				$this->atts['indexAxis'] = 'y';
+
 				break;
 			default:
 				$type='line';
@@ -515,6 +521,7 @@ function get_data() {
 		$options_html="var	options = {";
 		$options = '';
 		$stacked = $this->atts['stacked'];
+		$indexAxis = '"' . $this->atts['indexAxis'] . '"';
 		//echo "Stacked:" . $stacked . '!';
 		$beginAt0 = $this->atts['beginYAxisAt0'];
 		switch ( $this->atts['type'] ) {
@@ -523,6 +530,7 @@ function get_data() {
 			case 'horizontalBar':
 				$options ="
 			maintainAspectRatio: false,
+			indexAxis: $indexAxis,
 			scales: {
 				yAxes: [{
 					ticks: {
@@ -533,7 +541,9 @@ function get_data() {
 				if ( $stacked ) {
 					$options .= ",xAxes: [{ stacked: true }] ";
 				}
+
 				$options .= " 	} ";
+
 				break;
 			case 'pie':
 				$options ="maintainAspectRatio: false,";
