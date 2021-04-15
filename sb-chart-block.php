@@ -144,29 +144,25 @@ function sb_chart_block_html( $attributes ) {
 }
 
 /**
- * https://cdnjs.com/libraries/Chart.js
- * <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw==" crossorigin="anonymous"></script>
- *
- * https://www.jsdelivr.com/package/npm/chart.js?path=dist
- * <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+ * Enqueues the chartjs script.
  */
 function sb_chart_block_enqueue_scripts() {
 	wp_enqueue_script( "chartjs-script" );
-	//'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js', null, null, true );
 }
 
 /**
- * Registers the Chart.js script.
+ * Registers the chart.js script.
  *
- * WordPress plugins are not supposed to enqueue resources from 3rd parties
- * So we need to enqueue Chart.js from a local version.
+ * WordPress plugins are not supposed to enqueue resources from 3rd parties.
+ * Enqueue chart.js from a local version.
+ * Since v3.0.0 chart.js file name is lower case.
  */
 function sb_chart_block_register_scripts() {
 	if ( defined( 'SCRIPT_DEBUG')  && SCRIPT_DEBUG  ) {
-		$file = 'js/Chart.js';
+		$file = 'js/chart.js';
 		$version = filemtime( __DIR__ . '/' . $file );
 	} else {
-		$file = 'js/Chart.min.js';
+		$file = 'js/chart.min.js';
 		$version = null;
 	}
 	$file_url = plugin_dir_url( __FILE__ ) . $file;
@@ -175,8 +171,6 @@ function sb_chart_block_register_scripts() {
 
 /**
  * Enqueues styles - if needed.
- *
- * <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.css" integrity="sha512-C7hOmCgGzihKXzyPU/z4nv97W0d9bv4ALuuEbSf6hm93myico9qa0hv4dODThvCsqQUmKmLcJmlpRmCaApr83g==" crossorigin="anonymous" />
  */
 function sb_chart_enqueue_styles() {
 
