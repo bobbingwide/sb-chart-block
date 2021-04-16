@@ -61,18 +61,18 @@ function getBackgroundColors( theme ) {
  * @param theme
  * @returns string
  */
-function getBackgroundColor( i, theme) {
+function getBackgroundColor( i, theme, alpha=0.5) {
 	const colors = getBackgroundColors( theme );
 	var choice = (i-1) % colors.length;
 	var color = colors[choice];
 	console.log( color );
-	var rgbaColor = rgba( color, 0.5);
+	var rgbaColor = rgba( color, alpha);
 	console.log( rgbaColor );
 	return rgbaColor;
 }
 
 function getBorderColor( i, theme ) {
-	return getBackgroundColor( i, theme );
+	return getBackgroundColor( i, theme, 1 );
 }
 
 /**
