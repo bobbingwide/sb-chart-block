@@ -9,7 +9,6 @@ import { __ } from '@wordpress/i18n';
  * These imports were added using the best guess technique.
  *
  */
-import { ServerSideRender } from '@wordpress/editor';
 import { Fragment } from '@wordpress/element';
 import { InspectorControls, PlainText, BlockControls } from '@wordpress/block-editor';
 //const { InspectorControls } = wp.blockEditor;
@@ -167,7 +166,7 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 
 				</PanelBody>
 				<PanelBody>
-					<SelectControl label={__("Theme",'sb-chart-block')} value={attributes.theme} onChange={onChangeTheme} options={themeOptions}  />
+					<SelectControl label={__("Color palette",'sb-chart-block')} value={attributes.theme} onChange={onChangeTheme} options={themeOptions}  />
 				</PanelBody>
 				<PanelBody>
 
@@ -217,9 +216,7 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 					onChange={onChangeContent}
 				/>
 
-				{ false &&
-					<ServerSideRender block="oik-sb/chart" attributes={attributes} />
-				}
+
 			</div>
 		</Fragment>
 
