@@ -130,21 +130,6 @@ function sb_chart_block_array_get( $array, $index, $default=null ) {
 }
 
 /**
- * Displays the default chart.
- *
- * @TODO - this should load default data not the complete chart.
- *
- * @param $attributes
- *
- * @return string
- */
-function sb_chart_block_html( $attributes ) {
-	//$type = sb_chart_block_array_get( $attributes, 'type', 'Line' );
-	$html = file_get_contents( __DIR__ . '/tests/data/default-chart.html');
-	return $html;
-}
-
-/**
  * Enqueues the chartjs script.
  */
 function sb_chart_block_enqueue_scripts() {
@@ -194,8 +179,7 @@ function sb_chart_block_shortcode( $atts, $content, $tag ) {
 		$html = $sb_chart_block->render( $atts, $content );
 		return $html;
 	}
-
-	return sb_chart_block_html( $attrs );
+	return '';
 }
 
 sb_chart_loaded();
