@@ -92,7 +92,7 @@ class SB_chart_block {
 		//$this->atts['stackBars'] = isset( $this->atts['stackbars']) ? true : false;
 		//$this->atts['horizontalBars'] = isset( $this->atts['horizontalbars']) ? true : false;
 		$this->atts['class'] = isset( $this->atts['class'] ) ? $this->atts['class'] : ''; // ct-golden-section
-		$this->atts['theme'] = isset( $this->atts['theme'] ) ? $this->atts['theme'] : 'Gutenberg';
+		$this->atts['theme'] = isset( $this->atts['theme'] ) ? $this->atts['theme'] : $this->colour_palettes->get_default();
 
 		// Rather than use false, we use 0, otherwise the value doesn't come out
 		// when converted to as a literal string.

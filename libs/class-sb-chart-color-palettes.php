@@ -35,7 +35,7 @@ class SB_Chart_Color_Palettes {
 
 	function validate_theme( $theme ) {
 		if ( !isset( $this->palettes[ $theme ])) {
-			$theme = 'Gutenberg';
+			$theme = $this->get_default();
 		}
 		return $theme;
 	}
@@ -64,5 +64,11 @@ class SB_Chart_Color_Palettes {
 		$rgba = "rgba( $red, $green, $blue, $opacity )";
 		return $rgba;
 
+	}
+
+	function get_default() {
+		current( $this->palettes );
+		$palette_name = key( $this->palettes);
+		return $palette_name;
 	}
 }
