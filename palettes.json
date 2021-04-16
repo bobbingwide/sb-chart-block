@@ -1,9 +1,6 @@
 {
 	"Chart": [
-	  {
-		"color": "#F78DA7",
-		"slug": "pale-pink"
-	  },
+
 	  {
 		"color": "#FF6384",
 		"slug": "darker-pink"
@@ -17,6 +14,10 @@
 		"slug": "goldish"
 	  },
 	  {
+		"color": "#F78DA7",
+		"slug": "pale-pink"
+	  },
+	  {
 		"color": "#4BC0C0",
 		"slug": "turquoise"
 	  },
@@ -27,7 +28,12 @@
 	  {
 		"color": "#FF9F40",
 		"slug": "goldie"
-	  }
+	  },
+	  { "color": "#2271b1"},
+	  {"color": "#646970"},
+	  {"color": "#d63638"},
+	  {"color": "996800"},
+	  {"color": "#008a20"}
 	],
   "Gutenberg": [
 	  { "color": "#F78DA7", "slug": "pale-pink" },
@@ -72,6 +78,32 @@
 	{ "color": "#EC6224" },
 	{ "color": "#424F9B" },
 	{ "color": "#8CBD3F" }
-]
+],
+  "WordPress": [
+	{ "color": "#4f94d4" },
+	{ "color": "#8c8f94"},
+	{ "color": "#f86368"},
+	{ "color": "#dba617"},
+	{ "color": "#00ba37"},
+	{ "color": "#2271b1"},
+	{"color": "#646970"},
+	{"color": "#d63638"},
+	{"color": "996800"},
+	{"color": "#008a20"},
+	{"color": "#0a4b78"},
+	{"color": "#3c434a"},
+	{"color": "#8a2424"},
+	{ "color": "#614200"},
+	{ "color": "#005c12"}
+  ],
+  "Rainbow": [
+	{"color": "#ee82ee"},
+	{"color": "#4b0082"},
+	{"color": "#0000ff"},
+	{"color": "#008000"},
+	{"color": "#ffff00"},
+	{"color": "#ffa500"},
+	{"color": "#ff0000"}
+  ]
 }
 
