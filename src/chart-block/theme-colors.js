@@ -29,6 +29,8 @@
  *
  */
 import palettes from '../../palettes.json';
+//import { rgba } from '@wordpress/components';
+//import { tinycolor } from 'tinycolor2';
 //console.log( "Palettes");
 //console.log( palettes );
 //console.log( "ap");
@@ -62,7 +64,11 @@ function getBackgroundColors( theme ) {
 function getBackgroundColor( i, theme) {
 	const colors = getBackgroundColors( theme );
 	var choice = (i-1) % colors.length;
-	return colors[ choice ];
+	var color = colors[choice];
+	console.log( color );
+	var rgbaColor = rgba( color, 0.5);
+	console.log( rgbaColor );
+	return rgbaColor;
 }
 
 function getBorderColor( i, theme ) {
@@ -85,6 +91,26 @@ function getThemeOptions() {
 	} );
 	//console.log( themeOptions );
 	return themeOptions;
+}
+
+/**
+ * Generating a CSS compliant rgba() color value.
+ *
+ * @param {string} hexValue The hex value to convert to rgba().
+ * @param {number} alpha The alpha value for opacity.
+ * @return {string} The converted rgba() color value.
+ *
+ * @example
+ * rgba( '#000000', 0.5 )
+ * // rgba(0, 0, 0, 0.5)
+ */
+export function rgba( hexValue = '', alpha = 1 ) {
+	//const { r, g, b } = tinycolor( hexValue ).toRgb();
+	const r = parseInt(hexValue.slice(1, 3), 16);
+	const g = parseInt(hexValue.slice(3, 5), 16);
+	const b = parseInt(hexValue.slice(5, 7), 16);
+
+	return `rgba(${ r }, ${ g }, ${ b }, ${ alpha })`;
 }
 
 export { getBackgroundColors, getBackgroundColor, getBorderColor, getThemeOptions };
