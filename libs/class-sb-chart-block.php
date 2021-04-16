@@ -57,10 +57,8 @@ class SB_chart_block {
 	 * @return string
 	 */
 	function render( $atts, $content ) {
-		//wp_enqueue_script( 'chartjs-script');
 		sb_chart_block_register_scripts();
 		sb_chart_block_enqueue_scripts();
-		//$html = sb_chart_block_html( $atts ) ;
 		$this->default_atts( $atts );
 		$this->prepare_content( $content );
 		$html = $this->render_html( $atts, $content);
@@ -92,7 +90,7 @@ class SB_chart_block {
 		//$this->atts['stackBars'] = isset( $this->atts['stackbars']) ? true : false;
 		//$this->atts['horizontalBars'] = isset( $this->atts['horizontalbars']) ? true : false;
 		$this->atts['class'] = isset( $this->atts['class'] ) ? $this->atts['class'] : ''; // ct-golden-section
-		$this->atts['theme'] = isset( $this->atts['theme'] ) ? $this->atts['theme'] : $this->colour_palettes->get_default();
+		$this->atts['theme'] = isset( $this->atts['theme'] ) ? $this->atts['theme'] : $this->color_palettes->get_default();
 
 		// Rather than use false, we use 0, otherwise the value doesn't come out
 		// when converted to as a literal string.
