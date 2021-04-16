@@ -48,9 +48,7 @@ class SB_Chart_Color_Palettes {
 	 */
 	function get_backgroundColors( $theme, $opacity ) {
 		$theme = $this->validate_theme( $theme );
-		if ( 'Chart' === $theme ) {
-			$opacity = 0.2;
-		}
+
 		$palette = $this->palettes[$theme];
 		$this->background_colors = [];
 		foreach ( $palette as $key => $color ) {

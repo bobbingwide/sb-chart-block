@@ -83,6 +83,7 @@ registerBlockType( 'oik-sb/chart', {
 		fill: { type: 'boolean', default: false },
 		height: { type: 'integer', default: null },
 		beginYAxisAt0: { type: 'boolean', default: false },
+		opacity: { type: 'number', default: 0.8 }
 	},
 
 	// Display a simple pie chart as an example of the Chart block

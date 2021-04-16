@@ -102,6 +102,7 @@ class SB_chart_block {
 		$this->atts['height'] = sb_chart_block_array_get( $this->atts, 'height', null );
 		$this->atts['beginYAxisAt0'] = sb_chart_block_array_get( $this->atts, 'beginYAxisAt0', 0 );
 		$this->atts['indexAxis'] = sb_chart_block_array_get( $this->atts, 'indexAxis', 'x' );
+		$this->atts['opacity'] = sb_chart_block_array_get( $this->atts, 'opacity', '0.8');
 
 
 		//$this->atts = $atts;
@@ -304,7 +305,7 @@ function get_data() {
 	 * @return string
 	 */
 	function get_backgroundColor( $index ) {
-		$backgroundColors = $this->get_backgroundColors( 0.9 );
+		$backgroundColors = $this->get_backgroundColors( $this->atts['opacity'] );
 		if( 'pie' === $this->atts['type']) {
 			return $backgroundColors;
 		}
@@ -335,6 +336,7 @@ function get_data() {
 	 */
 
 	function get_Chart_backgroundColors() {
+		gob();
 		$backgroundColors = [
 			'rgba(255, 99, 132, 0.2)',
 			'rgba(54, 162, 235, 0.2)',

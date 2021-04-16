@@ -101,9 +101,9 @@ export class SB_chart_block {
 		dataset.label = this.getLegend( i );
 		dataset.data = this.series[i];
 		if ( 'pie' === this.attributes.type ) {
-			dataset.backgroundColor = getBackgroundColors(this.theme);
+			dataset.backgroundColor = getBackgroundColors(this.theme, this.attributes.opacity);
 		} else {
-			dataset.backgroundColor = getBackgroundColor(i, this.theme);
+			dataset.backgroundColor = getBackgroundColor(i, this.theme, this.attributes.opacity );
 			dataset.borderColor = getBorderColor( i, this.theme );
 		}
 

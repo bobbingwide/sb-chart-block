@@ -29,11 +29,6 @@
  *
  */
 import palettes from '../../palettes.json';
-//import { rgba } from '@wordpress/components';
-//import { tinycolor } from 'tinycolor2';
-//console.log( "Palettes");
-//console.log( palettes );
-//console.log( "ap");
 
 /**
  * Returns all the background colours for a pie chart.
@@ -41,14 +36,17 @@ import palettes from '../../palettes.json';
  * @param theme
  * @returns array of colors
  */
-function getBackgroundColors( theme ) {
+function getBackgroundColors( theme, alpha ) {
 	// What if the theme is not present?
 	const palette = palettes[theme];
 	//console.log( palette);
 	const colors = palette.map( item => {
 		//console.log( item );
 		// What if the color attribute is not present?
-		return item.color;
+		console.log( item.color );
+		var rgbaColor = rgba( item.color, alpha);
+		// 	console.log( rgbaColor );
+		return rgbaColor;
 	} );
 	//console.log( colors );
 	return colors;
@@ -62,13 +60,10 @@ function getBackgroundColors( theme ) {
  * @returns string
  */
 function getBackgroundColor( i, theme, alpha=0.5) {
-	const colors = getBackgroundColors( theme );
+	const colors = getBackgroundColors( theme, alpha );
 	var choice = (i-1) % colors.length;
 	var color = colors[choice];
-	console.log( color );
-	var rgbaColor = rgba( color, alpha);
-	console.log( rgbaColor );
-	return rgbaColor;
+	return color;
 }
 
 function getBorderColor( i, theme ) {
@@ -105,7 +100,7 @@ function getThemeOptions() {
  * // rgba(0, 0, 0, 0.5)
  */
 export function rgba( hexValue = '', alpha = 1 ) {
-	//const { r, g, b } = tinycolor( hexValue ).toRgb();
+	//const { rt, gt, bt } = tinycolor( hexValue ).toRgb();
 	const r = parseInt(hexValue.slice(1, 3), 16);
 	const g = parseInt(hexValue.slice(3, 5), 16);
 	const b = parseInt(hexValue.slice(5, 7), 16);

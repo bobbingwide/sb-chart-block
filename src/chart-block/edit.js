@@ -81,6 +81,10 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 		setAttributes( { beginYAxisAt0: !attributes.beginYAxisAt0});
 	}
 
+	const onChangeOpacity = (value ) => {
+		setAttributes( { opacity: value });
+	}
+
 	const help = __( "Choose Line, Bar, Horizontal bar or Pie.", 'sb-chart-block');
 
 	const typeOptions = {
@@ -164,6 +168,23 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 				</PanelBody>
 				<PanelBody>
 					<SelectControl label={__("Theme",'sb-chart-block')} value={attributes.theme} onChange={onChangeTheme} options={themeOptions}  />
+				</PanelBody>
+				<PanelBody>
+
+					<PanelRow>
+						<RangeControl
+							label={ __( "Opacity", 'sb-chart-block' ) }
+							value={ attributes.opacity }
+							initialPosition={ attributes.opacity }
+							onChange={ onChangeOpacity }
+							min={ 0 }
+							max={ 1 }
+							step={ 0.1}
+							allowReset
+						/>
+
+					</PanelRow>
+
 				</PanelBody>
 				<PanelBody>
 

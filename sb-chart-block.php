@@ -86,6 +86,7 @@ function sb_chart_block_block_init() {
 			'fill' => ['type' => 'boolean'],
 			'height' => [ 'type' => 'integer' ],
 			'beginYAxisAt0' => ['type' => 'boolean'],
+			'opacity' => ['type' => 'number']
 		]
 	) );
 }
