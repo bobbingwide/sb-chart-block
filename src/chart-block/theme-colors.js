@@ -88,6 +88,13 @@ function getThemeOptions() {
 	return themeOptions;
 }
 
+function getDefaultTheme() {
+	const themes = Object.getOwnPropertyNames( palettes );
+	const defaultTheme = themes[0];
+	console.log( defaultTheme );
+	return defaultTheme;
+}
+
 /**
  * Generating a CSS compliant rgba() color value.
  *
@@ -108,4 +115,4 @@ export function rgba( hexValue = '', alpha = 1 ) {
 	return `rgba(${ r }, ${ g }, ${ b }, ${ alpha })`;
 }
 
-export { getBackgroundColors, getBackgroundColor, getBorderColor, getThemeOptions };
+export { getBackgroundColors, getBackgroundColor, getBorderColor, getThemeOptions, getDefaultTheme };

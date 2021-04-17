@@ -72,63 +72,45 @@ class SB_chart_block {
 	 *
 	 * @return array|mixed
 	 */
-
 	function default_atts( $atts ) {
 		if ( empty( $atts ) ) {
 			$atts = [];
 		}
-		//echo "before";	print_r( $atts );
 		$this->atts = $atts;
 
-		$this->atts['type'] = isset( $this->atts['type'] ) ? $this->atts['type'] : 'Line';
-
-		//$this->atts['height'] = isset( $this->atts['height'] ) ? $this->atts['height'] : '450px';
-
+		$this->atts['type'] = isset( $this->atts['type'] ) ? $this->atts['type'] : 'line';
 		$this->atts['type'] = $this->validate_type( $this->atts['type'] );
-
-		//$this->atts['tooltips'] = isset( $this->atts['tooltips']) ? true : false;
-		//$this->atts['stackBars'] = isset( $this->atts['stackbars']) ? true : false;
-		//$this->atts['horizontalBars'] = isset( $this->atts['horizontalbars']) ? true : false;
-		$this->atts['class'] = isset( $this->atts['class'] ) ? $this->atts['class'] : ''; // ct-golden-section
+		$this->atts['class'] = isset( $this->atts['class'] ) ? $this->atts['class'] : '';
 		$this->atts['theme'] = isset( $this->atts['theme'] ) ? $this->atts['theme'] : $this->color_palettes->get_default();
 
 		// Rather than use false, we use 0, otherwise the value doesn't come out
 		// when converted to as a literal string.
-		// It's different when we use json _decode()!
+		// It's different when we use json_decode()!
 		$this->atts['stacked'] = isset( $this->atts['stacked'] ) ? $this->atts['stacked'] : 0;
 		$this->atts['fill'] = sb_chart_block_array_get( $this->atts, 'fill', false );
 		$this->atts['height'] = sb_chart_block_array_get( $this->atts, 'height', null );
 		$this->atts['beginYAxisAt0'] = sb_chart_block_array_get( $this->atts, 'beginYAxisAt0', 0 );
 		$this->atts['indexAxis'] = sb_chart_block_array_get( $this->atts, 'indexAxis', 'x' );
 		$this->atts['opacity'] = sb_chart_block_array_get( $this->atts, 'opacity', '0.8');
-
-
-		//$this->atts = $atts;
 	}
 
 	/**
 	 * Validates the chart type to the values we support.
 	 *
-	 * Note: In Chartist the type had an uppercase first letter.
-	 * In Chart.js it's all lowercase... except for horizontalBar !
-	 *
 	 * @param string $type The requested chart type.
 	 * @return string
 	 */
 	function validate_type( $type ) {
-
 		$type = strtolower( $type );
 		switch ( $type ) {
 			case 'line':
 			case 'bar':
 			case 'pie':
-				//$this->atts['indexAxis'] = 'x';
 				break;
 
 			case 'horizontalbar':
 				$type = 'bar';
 				$this->atts['indexAxis'] = 'y';
-
 				break;
 			default:
 				$type='line';
@@ -155,13 +137,9 @@ class SB_chart_block {
 		} else {
 			return "No content?";
 		}
-		//$legend = $lines[0];
-
 		$this->legend=array_shift( $lines );
 		$this->lines = $lines;
 		$this->transpose( $lines );
-
-
 	}
 
 	/**
@@ -169,19 +147,13 @@ class SB_chart_block {
 	 *
 	 * @return string
 	 */
-
 	function get_div_start() {
 		$html = '<div class="chartjs"';
-		//echo "h";
-		//echo $this->atts['height'];
-		//echo 't';
 		if ( $this->atts['height']) {
 			$html.= ' style="position:relative; height:'. $this->atts['height'] . 'px;"';
 		}
 		$html .= '>';
-
 		return $html;
-
 	}
 
 	/**
@@ -192,7 +164,6 @@ class SB_chart_block {
 	 *
 	 * @return string
 	 */
-
 	function render_html( $atts, $content ) {
 		$this->set_id();
 		$html = $this->get_div_start();
@@ -200,7 +171,6 @@ class SB_chart_block {
 		$html .= "\r";
 		$script = '';
 		$script .= '<script type="text/javascript">';
-		//$script .= 'function runmychart() {';
 		$script .= 'document.addEventListener( "DOMContentLoaded", function() {';
 		$script .= $this->get_ctx();
 		$script .= "\r";
@@ -210,22 +180,10 @@ class SB_chart_block {
 		$script .= "\r";
 		$script .= $this->get_newChart( $atts );
 		$script .= '}, false );';
-		//$script .= '}';
-		//$script .= 'runmychart();';
 		$script.='</script>';
 		$script = str_replace( "\r\r", "\r", $script );
 		$html .= $script;
 		$html .= '</div>';
-
-
-		//"chartjs-script",
-
-		//$enqueued = wp_add_inline_script( 'chartjs-script', $script );
-		//if ( !$enqueued ) {
-		//	gob();
-		//} else {
-		//	$html .= '<p>script was enqueued!</p>';
-		//}
 		return $html;
 	}
 
@@ -251,7 +209,6 @@ class SB_chart_block {
 		return $this->series[0];
 	}
 
-
 	/**
 	 * Transposes the input CSV into the series array.
 	 *
@@ -272,12 +229,11 @@ class SB_chart_block {
 		return $this->series;
 	}
 
-
 	/**
 	 * We have to be careful we don't get two "\r"s together!
 	 * @return string
 	 */
-function get_data() {
+	function get_data() {
 		$data = "var 		data = {";
 		$data .= "labels:" . json_encode( $this->get_labels() ); //  ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
 		$data .= ',';
@@ -286,7 +242,6 @@ function get_data() {
 		$data .= "};";
 		$data .= "\r";
 		return $data;
-
 	}
 
 	function get_legend( $index ) {
@@ -319,7 +274,6 @@ function get_data() {
 	 *
 	 * @return string
 	 */
-
 	function get_borderColor( $index ) {
 		$borderColors = $this->get_backgroundColors( 1.0 );
 		$choice = ($index-1) % count( $borderColors );
@@ -328,127 +282,15 @@ function get_data() {
 	}
 
 	/**
-	 * Returns the backgroundColors used by Chart.js
+	 * Returns an array of background colours.
 	 *
-	 * @return string[]
+	 * @param $opacity
+	 * @return mixed
 	 */
-
-	function get_Chart_backgroundColors() {
-		gob();
-		$backgroundColors = [
-			'rgba(255, 99, 132, 0.2)',
-			'rgba(54, 162, 235, 0.2)',
-			'rgba(255, 206, 86, 0.2)',
-			'rgba(75, 192, 192, 0.2)',
-			'rgba(153, 102, 255, 0.2)',
-			'rgba(255, 159, 64, 0.2)'
-		];
-		return $backgroundColors;
-	}
-
-	function rgba( $hex, $opacity ) {
-		$red = hexdec( substr( $hex, 1,2 ));
-		$green = hexdec( substr( $hex, 3, 2 ));
-		$blue = hexdec( substr( $hex, 5, 2 ));
-		$rgba = "rgba( $red, $green, $blue, $opacity )";
-		return $rgba;
-	}
-
-	function rgbas( $hexes, $opacity ) {
-		$rgbas = [];
-		foreach ( $hexes as $hex ) {
-			$rgbas[] = $this->rgba( $hex, $opacity);
-		}
-		return $rgbas;
-	}
-
-	/**
-	 * Returns the standard Tertiary colors
-	 * @return string[]
-	 */
-	function get_Tertiary_backgroundColors() {
-		$backgroundColors = [
-			'#F1E70D', '#E42426', '#2072B2', '#FDC70F', '#C31A7F', '#1D96BB', '#F28F1F', '#6E398D', '#0A905D', '#EC6224', '#424F9B', '#8CBD3F'
-		];
-		$rgbas = $this->rgbas( $backgroundColors, $this->opacity );
-		return $rgbas;
-	}
-
-	/**
-	 * Returns colours from the current Gutenberg colour palette.
-	 * How do we get this dynamically?
-	 */
-	function get_Gutenberg_backgroundColors() {
-		$backgroundColors = [ "#F78DA7" // pale-pink
-		, "#CF2E2E" // vivid-red
-		, "#FF6900" // luminous-vivid-orange
-		, "#FCB900" // luminous-vivid-amber
-		, "#7BDCB5" // light-green-cyan
-		, "#00D084" // vivid-green-cyan
-		, "#8ED1FC" // pale-cyan-blue
-		, "#0693E3" // vivid-cyan-blue
-		, "#9B51E0" // vivid-purple
-		, "#ABB8C3" // cyan-bluish-gray
-		, "#313131" // very-dark-gray
-		, "#EEEE00" // yellowish grey
-		];
-		$rgbas = $this->rgbas( $backgroundColors, $this->opacity );
-		return $rgbas;
-	}
-
 	function get_backgroundColors( $opacity ) {
 		$this->opacity = $opacity;
 		$backgroundColors = $this->color_palettes->get_backgroundColors( $this->atts['theme'], $opacity );
-		/*
-
-		switch ( $this->atts['theme'] ) {
-			case 'Chart':
-				$backgroundColors = $this->get_Chart_backgroundColors();
-				break;
-
-			case 'Visualizer':
-				$backgroundColors = $this->get_Visualizer_backgroundColors();
-				break;
-
-			case 'Chartist':
-			case 'Tertiary':
-				$backgroundColors = $this->get_Tertiary_backgroundColors();
-				break;
-
-			default:
-				$backgroundColors = $this->get_Gutenberg_backgroundColors();
-
-		}
-		*/
 		return $backgroundColors;
-	}
-
-	/**
-	 * Returns Visualizer's background colours.
-	 *
-	 * @param $index
-	 *
-	 * @return string
-	 */
-	function get_Visualizer_backgroundColors() {
-		$backgroundColors=[
-			'#3366CC',
-			'#DC3912',
-			'#FF9900',
-			'#109618',
-			'#990099',
-			'#0099C6',
-			'#DD4477',
-			'#66AA00',
-			'#B82E2E',
-			'#316395',
-			'#994499',
-			'#22AA99',
-			'#AAAA11',
-			'#6633CC'
-		];
-		$rgbas = $this->rgbas( $backgroundColors, $this->opacity );
-		return $rgbas;
 	}
 
 
@@ -506,13 +348,14 @@ function get_data() {
 	 *
 	 * Option | Value | Purpose
 	 * ------- | ----- | -----
-	 * scales.yAxes.ticks.beginAtZero | true | Start the axis from 0
-	 * scales.yAxes.stacked | true | Show a stacked line / bar chart. https://www.chartjs.org/docs/latest/charts/line.html?h=stacked
+	 * maintainAspectRatio | false |
+	 * indexAxis | x or y | y for a horizontal bar chart
+	 * scales.y.beginAtZero | true | Start the axis from 0
+	 * scales.y.stacked | true/false | Show a stacked line / bar chart. https://www.chartjs.org/docs/latest/charts/line.html?h=stacked
+	 * scales.x.stacked | true | Only if a stacked chart is required.
 	 *
 	 * @TODO
 	 * Convert to using objects and json_encode.
-	 *
-	 *
 	 *
 	 * @return string
 	 */
@@ -522,7 +365,6 @@ function get_data() {
 		$options = '';
 		$stacked = $this->atts['stacked'];
 		$indexAxis = '"' . $this->atts['indexAxis'] . '"';
-		//echo "Stacked:" . $stacked . '!';
 		$beginAt0 = $this->atts['beginYAxisAt0'];
 		switch ( $this->atts['type'] ) {
 			case 'line':
@@ -538,21 +380,16 @@ function get_data() {
 				if ( $stacked ) {
 					$options .= ",x: { stacked: true } ";
 				}
-
 				$options .= " 	} ";
-
 				break;
 			case 'pie':
 				$options ="maintainAspectRatio: false,";
 				break;
 		}
-
 		$options_html .= $options;
 		$options_html .= "};";
 		return $options_html;
 	}
-
-
 
 	function get_newChart() {
 		$type = $this->atts['type'];
@@ -563,5 +400,4 @@ function get_data() {
 		require_once __DIR__ . '/class-sb-chart-color-palettes.php';
 		$this->color_palettes = new SB_Chart_Color_Palettes();
 	}
-
 }

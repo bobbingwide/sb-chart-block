@@ -27,6 +27,8 @@ import './style.scss';
 import edit from './edit';
 import save from './save';
 
+import { getDefaultTheme } from './theme-colors';
+
 /**
  * Every block starts by registering a new block type definition.
  *
@@ -77,7 +79,7 @@ registerBlockType( 'oik-sb/chart', {
 	attributes: {
 		type: { type: 'string', default: 'line', },
 		content: { type: 'string', default: '', },
-		theme: { type: 'string', default: 'Gutenberg'},
+		theme: { type: 'string', default: getDefaultTheme() },
 		myChartId: { type: 'string', default: 'myChart-' },
 		stacked: { type: 'boolean', default: false },
 		fill: { type: 'boolean', default: false },
