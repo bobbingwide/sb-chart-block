@@ -1,0 +1,114 @@
+# Copyright (C) 2021 bobbingwide
+# This file is distributed under the same license as the SB Chart block plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: SB Chart block 0.3.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/sb-chart-block\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Plural-Forms: nplurals=2; plural=n == 1 ? 0 : 1;\n"
+"Language: en_GB\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2021-04-17T07:38:44+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.4.0\n"
+"X-Domain: sb-chart-block\n"
+msgid "SB Chart block"
+msgstr "SB Chart block"
+
+msgid "https://www.oik-plugins.com/oik-plugins/sb-chart-block"
+msgstr "https://www.oik-plugins.com/oik-plugins/sb-chart-block"
+
+msgid "Displays a Chart for CSV content"
+msgstr "Displays a Chart for CSV content"
+
+msgid "bobbingwide"
+msgstr "bobbingwide"
+
+msgid "https://www.bobbingwide.com/about-bobbing-wide"
+msgstr "https://www.bobbingwide.com/about-bobbing-wide"
+
+#: build/index.js:8048
+#: build/index.js:8293
+msgid "Horizontal bar chart"
+msgstr "Horizontal bar chart"
+
+#: build/index.js:8288
+msgid "Choose Line, Bar, Horizontal bar or Pie."
+msgstr "Choose Line, Bar, Horizontal bar or Pie."
+
+#: build/index.js:8291
+msgid "Line chart"
+msgstr "Line chart"
+
+#: build/index.js:8292
+msgid "Bar chart"
+msgstr "Bar chart"
+
+#: build/index.js:8294
+msgid "Pie chart"
+msgstr "Pie chart"
+
+#: build/index.js:8330
+msgid "Type"
+msgstr "Type"
+
+#: build/index.js:8336
+msgid "Stacked"
+msgstr "Stacked"
+
+#: build/index.js:8340
+msgid "Begin Y-axis at 0"
+msgstr "Begin Y-axis at 0"
+
+#: build/index.js:8344
+msgid "Fill"
+msgstr "Fill"
+
+#: build/index.js:8348
+msgid "Color palette"
+msgstr "Colour palette"
+
+#: build/index.js:8353
+msgid "Opacity"
+msgstr "Opacity"
+
+#: build/index.js:8362
+msgid "Height (pixels)"
+msgstr "Height (pixels)"
+
+#: build/index.js:8467
+#: build/index.js:8486
+msgid "Chart"
+msgstr "Chart"
+
+#: build/index.js:8473
+msgid "Displays a chart for CSV content."
+msgstr "Displays a chart for CSV content."
+
+#: build/index.js:8486
+msgid "Line"
+msgstr "Line"
+
+#: build/index.js:8486
+msgid "Bar"
+msgstr "Bar"
+
+#: build/index.js:8486
+msgid "Horizontal bar"
+msgstr "Horizontal bar"
+
+#: build/index.js:8486
+msgid "Pie"
+msgstr "Pie"
+
+#: build/index.js:8538
+msgid ""
+"Label,Value\n"
+"One,1\n"
+"Two,2\n"
+"Three,3"
+msgstr "Label,Value\nOne,1\nTwo,2\nThree,3"
+
