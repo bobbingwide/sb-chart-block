@@ -1,6 +1,6 @@
 {
 	"name": "sb-chart-block",
-	"version": "0.0.0",
+	"version": "0.3.0",
 	"description": "Displays a chart from CSV content.",
 	"author": "bobbingwide",
 	"license": "GPL-2.0-or-later",
@@ -21,6 +21,8 @@
 		"@wordpress/scripts": "^12.1.1"
 	},
 	"dependencies": {
-		"@wordpress/icons": "^2.9.0"
+		"@types/tinycolor2": "^1.4.2",
+		"@wordpress/components": "^13.0.2",
+		"@wordpress/icons": "^2.10.2"
 	}
 }
