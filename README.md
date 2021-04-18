@@ -1,10 +1,10 @@
 # SB Chart block 
-![banner](https://raw.githubusercontent.com/bobbingwide/sb-chart-block/main/assets/sb-chart-block-banner-772x250.jpg)
+![banner](https://raw.githubusercontent.com/bobbingwide/sb-chart-block/master/assets/sb-chart-block-banner-772x250.jpg)
 * Contributors:      bobbingwide
 * Tags:              block, Chart, Line, Bar, Horizontal bar, Pie, stacked
 * Requires at least: 5.6.0
 * Tested up to:      5.7.1
-* Stable tag:        0.2.0
+* Stable tag:        0.3.0
 * Requires PHP:      7.2.0
 * License:           GPL-2.0-or-later
 * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -41,8 +41,8 @@ So far...
 
 # How do I choose the chart colors? 
 
-There are 4 predefined color themes:
-choose the color from a drop down list
+There are 6 predefined color palettes:
+choose the color palette from a drop down list.
 
 # What options are there? 
 Options to control the chart display are:
@@ -51,18 +51,15 @@ Options to control the chart display are:
 - Begin Y axis at 0 toggle
 - Fill toggle for line charts
 - Height of the chart, in pixels.
+- Opacity - set the opacity of the background colours.
 
 
 # What Chart script does it use?  
 
 chartjs - from chartjs.org
 
-v0.2.0 enqueues the script from a local version of Chart.min.js, version 2.9.4.
-When `SCRIPT_DEBUG` is true the debug version, Chart.js, is loaded.
-
-* v0.1.0 enqueued the script from: https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js
-
-* Note: chartjs v3 is under development; it's in Beta test.
+v0.3.0 enqueues the script from a local version of chart.min.js, version 3.1.0.
+When `SCRIPT_DEBUG` is true the debug version, chart.js, is loaded.
 
 # What do I need to search for to find the block? 
 
@@ -90,6 +87,9 @@ If you do wish to modify the code then you can find instructions in the src fold
 5. Chart type toolbar selection
 
 ## Upgrade Notice 
+# 0.3.0 
+Further updates for hosting on WordPress.org. Now uses chartjs v3.1.0.
+
 # 0.2.0 
 Updated for hosting on WordPress.org. Improved color palette selection using palette.json.
 
@@ -127,6 +127,18 @@ First version to be used in Slog.
 Initial version copied from SB Children block
 
 ## Changelog 
+# 0.3.0 
+* Changed: Added language files,https://github.com/bobbingwide/sb-chart-block/issues/10
+* Changed: Remove redundant / unwanted logic,https://github.com/bobbingwide/sb-chart-block/issues/10
+* Changed: Improve color palettes and selection,https://github.com/bobbingwide/sb-chart-block/issues/2
+* Changed: Upgrade to use chartjs v3.1.0,https://github.com/bobbingwide/sb-chart-block/issues/11
+* Changed: Add opacity with range from 0 to 1 for chart background colours,https://github.com/bobbingwide/sb-chart-block/issues/2
+* Changed: Refactor Color_Palettes to SB_Chart_Color_Palettes,https://github.com/bobbingwide/sb-chart-block/issues/10
+* Tested: With WordPress 5.7.1 and WordPress Mult Site
+* Tested: With Gutenberg 10.4.0
+* Tested: With PHP 8.0
+* Tested: With PHPUnit 9
+
 # 0.2.0 
 * Changed: Enqueue scripts from the plugin,https://github.com/bobbingwide/sb-chart-block/issues/10
 * Changed: Load color palettes from palettes.json,https://github.com/bobbingwide/sb-chart-block/issues/10

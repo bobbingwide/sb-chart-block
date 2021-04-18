@@ -2,8 +2,8 @@
 	"name": "oik-sb/chart",
 	"title": "Chart",
 	"category": "widgets",
-	"icon": "list-",
-	"description": "Displays a Chart.",
+	"icon": "chart-line",
+	"description": "Displays a chart for CSV content.",
 	"textdomain": "sb-chart-block",
 	"supports": {
 		"html": false
