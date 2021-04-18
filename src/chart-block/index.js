@@ -71,9 +71,8 @@ registerBlockType( 'oik-sb/chart', {
 	 * Optional block extended support features.
 	 */
 	supports: {
-		// Removes support for an HTML mode.
-		html: false,
-		align: false,
+		html: false, // Removes support for an HTML mode.
+		align: false, // Removes support for alignment
 	},
 
 	attributes: {
