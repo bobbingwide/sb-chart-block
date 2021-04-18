@@ -11,7 +11,7 @@ msgstr ""
 "Language: bb_BB\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-04-17T07:38:44+00:00\n"
+"POT-Creation-Date: 2021-04-18T16:41:04+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: sb-chart-block\n"
@@ -30,81 +30,79 @@ msgstr "bboibgniwde"
 msgid "https://www.bobbingwide.com/about-bobbing-wide"
 msgstr "https://www.bobbingwide.com/about-bobbing-wide"
 
-#: build/index.js:8048
-#: build/index.js:8293
+#: build/index.js:1
 msgid "Horizontal bar chart"
 msgstr "Hrozinoatl bAr cahrt"
 
-#: build/index.js:8288
+#: build/index.js:1
 msgid "Choose Line, Bar, Horizontal bar or Pie."
 msgstr "Cohsoe Lnie, BAr, Hrozinoatl bAr Or PIE."
 
-#: build/index.js:8291
+#: build/index.js:1
 msgid "Line chart"
 msgstr "Lnie cahrt"
 
-#: build/index.js:8292
+#: build/index.js:1
 msgid "Bar chart"
 msgstr "BAr cahrt"
 
-#: build/index.js:8294
+#: build/index.js:1
 msgid "Pie chart"
 msgstr "PIE cahrt"
 
-#: build/index.js:8330
+#: build/index.js:1
 msgid "Type"
 msgstr "Tpye"
 
-#: build/index.js:8336
+#: build/index.js:1
 msgid "Stacked"
 msgstr "Satkced"
 
-#: build/index.js:8340
+#: build/index.js:1
 msgid "Begin Y-axis at 0"
 msgstr "Bgein Y-aixs At 0"
 
-#: build/index.js:8344
+#: build/index.js:1
 msgid "Fill"
 msgstr "Flil"
 
-#: build/index.js:8348
+#: build/index.js:1
 msgid "Color palette"
 msgstr "Cloor platete"
 
-#: build/index.js:8353
+#: build/index.js:1
 msgid "Opacity"
 msgstr "Oapicty"
 
-#: build/index.js:8362
+#: build/index.js:1
 msgid "Height (pixels)"
 msgstr "Hiehgt (pxiles)"
 
-#: build/index.js:8467
-#: build/index.js:8486
+#: build/index.js:1
 msgid "Chart"
 msgstr "Cahrt"
 
-#: build/index.js:8473
+#: build/index.js:1
 msgid "Displays a chart for CSV content."
 msgstr "Dsilpyas A cahrt fOr CSV cnoetnt."
 
-#: build/index.js:8486
+#: build/index.js:1
 msgid "Line"
 msgstr "Lnie"
 
-#: build/index.js:8486
+#: build/index.js:1
 msgid "Bar"
 msgstr "BAr"
 
-#: build/index.js:8486
+#: build/index.js:1
 msgid "Horizontal bar"
 msgstr "Hrozinoatl bAr"
 
-#: build/index.js:8486
+#: build/index.js:1
 msgid "Pie"
 msgstr "PIE"
 
-#: build/index.js:8538
+#: build/index.js:1
 msgid ""
 "Label,Value\n"
 "One,1\n"
