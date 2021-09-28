@@ -3,7 +3,7 @@
  * Plugin Name:     SB Chart block
  * Plugin URI: 		https://www.oik-plugins.com/oik-plugins/sb-chart-block
  * Description:     Displays a Chart for CSV content
- * Version:         0.3.0
+ * Version:         0.4.0
  * Author:          bobbingwide
  * Author URI: 		https://www.bobbingwide.com/about-bobbing-wide
  * License:         GPL-2.0-or-later
@@ -16,6 +16,43 @@ function sb_chart_loaded() {
 	add_action( 'init', 'sb_chart_block_block_init' );
 	add_shortcode( 'chartjs', 'sb_chart_block_shortcode' );
 }
+/**
+ * Registers the block using the metadata loaded from the `block.json` file.
+ * Behind the scenes, it registers also all assets so they can be enqueued
+ * through the block editor in the corresponding context.
+ *
+ * @see https://developer.wordpress.org/block-editor/tutorials/block-tutorial/writing-your-first-block-type/
+ */
+function sb_chart_block_block_init() {
+
+	if ( is_admin() ) {
+		sb_chart_block_register_scripts();
+	}
+	add_filter( 'block_type_metadata', 'sb_chart_block_block_type_metadata' );
+	load_plugin_textdomain( 'sb-chart-block', false, 'sb-chart-block/languages' );
+	$args = [ 'render_callback' => 'sb_chart_block_dynamic_block'];
+	$registered = register_block_type_from_metadata( __DIR__ , $args );
+	bw_trace2( $registered );
+
+
+	/**
+	 * Localise the script by loading the required strings for the build/index.js file
+	 * from the locale specific .json file in the languages folder.
+	 * oik-sb/sb-starting-block
+	 */
+	$ok = wp_set_script_translations( 'sb-chart-block-block-editor', 'sb-chart-block' , __DIR__ .'/languages' );
+
+	//$ok = wp_set_script_translations( 'oik-sb-sb-starting-block-editor-script', 'sb-starting-block' , __DIR__ .'/languages' );
+	//bw_trace2( $ok, "OK?");
+	//add_filter( 'load_script_textdomain_relative_path', 'oik_sb_sb_starting_block_load_script_textdomain_relative_path', 10, 2);
+
+}
+
+function sb_chart_block_block_type_metadata( $metadata ) {
+	bw_trace2();
+	return $metadata;
+}
+
 
 /**
  * Registers all block assets so that they can be enqueued through the block editor
@@ -23,7 +60,7 @@ function sb_chart_loaded() {
  *
  * @see https://developer.wordpress.org/block-editor/tutorials/block-tutorial/applying-styles-with-stylesheets/
  */
-function sb_chart_block_block_init() {
+function sb_chart_block_block_init_extra() {
 	$dir = dirname( __FILE__ );
 
 	$script_asset_path = "$dir/build/index.asset.php";
@@ -96,7 +133,7 @@ function sb_chart_block_block_init() {
  * @return string|void
  */
 function sb_chart_block_dynamic_block( $attributes ) {
-	load_plugin_textdomain( 'sb-chart-block', false, 'sb-chart-block/languages' );
+	//load_plugin_textdomain( 'sb-chart-block', false, 'sb-chart-block/languages' );
 	$className = isset( $attributes['className']) ? $attributes['className'] : 'wp-block-oik-sb-chart';
 	$content = isset( $attributes['content'] ) ? $attributes['content'] : null;
 	$html = '<div class="'. $className . '">';
