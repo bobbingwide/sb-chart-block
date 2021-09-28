@@ -1,9 +1,13 @@
 {
 	"name": "sb-chart-block",
-	"version": "0.3.0",
+	"version": "0.4.0",
 	"description": "Displays a chart from CSV content.",
 	"author": "bobbingwide",
 	"license": "GPL-2.0-or-later",
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/bobbingwide/sb-chart-block.git"
+	},
 	"main": "build/index.js",
 	"scripts": {
 		"build": "wp-scripts build",
@@ -18,11 +22,11 @@
 		"l10n": "l10n sb-chart-block"
 	},
 	"devDependencies": {
-		"@wordpress/scripts": "^12.1.1"
+		"@wordpress/scripts": "^18.0.1"
 	},
 	"dependencies": {
 		"@types/tinycolor2": "^1.4.2",
-		"@wordpress/components": "^13.0.2",
-		"@wordpress/icons": "^2.10.2"
+		"@wordpress/components": "^17.0.0",
+		"@wordpress/icons": "^5.0.2"
 	}
 }
