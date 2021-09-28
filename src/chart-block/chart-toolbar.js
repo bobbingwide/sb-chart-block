@@ -8,7 +8,8 @@ import { find } from 'lodash';
  */
 import { __, isRTL } from '@wordpress/i18n';
 import { ToolbarGroup, Dashicon } from '@wordpress/components';
-import { chartLine } from '@wordpress/icons';
+
+import { trendingUp } from '@wordpress/icons';
 
 import { chartBar } from './chart-bar';
 import { chartBarH } from './chart-bar-h';
@@ -33,7 +34,7 @@ then we get some CSS positioning problems.
 
 const DEFAULT_CHART_CONTROLS = [
 	{
-		icon: chartLine,
+		icon: trendingUp,
 		title: __( 'Line chart' ),
 		type: 'line',
 	},
@@ -99,7 +100,7 @@ export function ChartToolbar( props ) {
 		return value === 'pie';
 	}
 	const controlLine = {
-		icon: chartLine,
+		icon: trendingUp,
 		title: __('Line chart'),
 		isActive: isLine(),
 		onClick: applyOrUnset( 'line' )
