@@ -1,13 +1,27 @@
 {
+  	"apiVersion": 2,
 	"name": "oik-sb/chart",
 	"title": "Chart",
 	"category": "widgets",
 	"icon": "chart-line",
+  	"keywords": [ "Chart", "Line", "Bar", "Horizontal bar", "Pie"  ],
 	"description": "Displays a chart for CSV content.",
 	"textdomain": "sb-chart-block",
 	"supports": {
-		"html": false
+		"html": false,
+	  	"align": false
 	},
+  	"attributes": {
+		"type": { "type": "string", "default": "line" },
+		"content": { "type": "string", "default": "" },
+		"theme": { "type": "string", "default": "Chart" },
+		"myChartId": { "type": "string", "default": "myChart-" },
+		"stacked": { "type": "boolean", "default": false },
+		"fill": { "type": "boolean", "default": false },
+		"height": { "type": "integer", "default": null },
+		"beginYAxisAt0": { "type": "boolean", "default": false },
+		"opacity": { "type": "number", "default": 0.8 }
+  	},
 	"editorScript": "file:./build/index.js",
 	"editorStyle": "file:./build/index.css",
 	"style": "file:./build/style-index.css"
