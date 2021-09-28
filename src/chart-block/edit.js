@@ -19,6 +19,14 @@ import { useEffect } from '@wordpress/element';
 import { withInstanceId } from '@wordpress/compose';
 
 /**
+ * React hook that is used to mark the block wrapper element.
+ * It provides all the necessary props like the class name.
+ *
+ * @see https://developer.wordpress.org/block-editor/packages/packages-block-editor/#useBlockProps
+ */
+import { useBlockProps } from '@wordpress/block-editor';
+
+/**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
  * Those files can contain any CSS code that gets applied to the editor.
  *
@@ -121,6 +129,8 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 		}
 	} );
 
+	const blockProps = useBlockProps();
+
 	//console.log( 'Edit()');
 	//console.log( attributes );
 
@@ -203,7 +213,7 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 				</PanelBody>
 			</InspectorControls>
 
-			<div className="wp-block-oik-sb-chart">
+			<div { ...blockProps}>
 				{attributes.content &&
 				<div className={"chartjs"} style={ { height: attributes.height} }>
 					<canvas id={attributes.myChartId} height="450px"></canvas>

@@ -7,13 +7,17 @@
  *
  * @return {WPElement} Element to render.
  */
+import { useBlockProps } from '@wordpress/block-editor';
 
 export default function save( { attributes } ) {
 	//console.log( 'Save()');
 	//	console.log( attributes.height );
+	const blockProps = useBlockProps.save();
 	return(
-	<div className={"chartjs"} style={ { height: attributes.height} }>
-		<canvas id={ attributes.myChartId }></canvas>
-	</div>
+		<div {...blockProps}>
+			<div className={"chartjs"} style={ { height: attributes.height} }>
+				<canvas id={ attributes.myChartId }></canvas>
+			</div>
+		</div>
 	);
 }
