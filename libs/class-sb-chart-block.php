@@ -73,6 +73,7 @@ class SB_chart_block {
 	 * @return array|mixed
 	 */
 	function default_atts( $atts ) {
+		//bw_trace2();
 		if ( empty( $atts ) ) {
 			$atts = [];
 		}
@@ -83,15 +84,16 @@ class SB_chart_block {
 		$this->atts['class'] = isset( $this->atts['class'] ) ? $this->atts['class'] : '';
 		$this->atts['theme'] = isset( $this->atts['theme'] ) ? $this->atts['theme'] : $this->color_palettes->get_default();
 
-		// Rather than use false, we use 0, otherwise the value doesn't come out
-		// when converted to as a literal string.
-		// It's different when we use json_decode()!
+		// Using 0 to represent false used to be good enough
+		// but now we need to output a literal true or false.
+		// Not sure why this has changed!
 		$this->atts['stacked'] = isset( $this->atts['stacked'] ) ? $this->atts['stacked'] : 0;
 		$this->atts['fill'] = sb_chart_block_array_get( $this->atts, 'fill', false );
 		$this->atts['height'] = sb_chart_block_array_get( $this->atts, 'height', null );
 		$this->atts['beginYAxisAt0'] = sb_chart_block_array_get( $this->atts, 'beginYAxisAt0', 0 );
 		$this->atts['indexAxis'] = sb_chart_block_array_get( $this->atts, 'indexAxis', 'x' );
 		$this->atts['opacity'] = sb_chart_block_array_get( $this->atts, 'opacity', '0.8');
+		//bw_trace2( $this->atts, "this atts", false );
 	}
 
 	/**
@@ -364,8 +366,11 @@ class SB_chart_block {
 		$options_html="var	options = {";
 		$options = '';
 		$stacked = $this->atts['stacked'];
+		$stacked_bool_string = $this->boolstring( $stacked );
+
 		$indexAxis = '"' . $this->atts['indexAxis'] . '"';
 		$beginAt0 = $this->atts['beginYAxisAt0'];
+		$beginAt0_bool_string = $this->boolstring( $beginAt0 );
 		switch ( $this->atts['type'] ) {
 			case 'line':
 			case 'bar':
@@ -374,8 +379,8 @@ class SB_chart_block {
 			maintainAspectRatio: false,
 			indexAxis: $indexAxis,
 			scales: {
-				y: { stacked: $stacked,
-					 beginAtZero: $beginAt0
+				y: { stacked: $stacked_bool_string,
+					 beginAtZero: $beginAt0_bool_string
 					}";
 				if ( $stacked ) {
 					$options .= ",x: { stacked: true } ";
@@ -389,6 +394,10 @@ class SB_chart_block {
 		$options_html .= $options;
 		$options_html .= "};";
 		return $options_html;
+	}
+
+	function boolstring( $bool ) {
+		return $bool ? 'true' : 'false';
 	}
 
 	function get_newChart() {
