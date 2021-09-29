@@ -38,7 +38,6 @@ function sb_chart_block_block_init() {
 	/**
 	 * Localise the script by loading the required strings for the build/index.js file
 	 * from the locale specific .json file in the languages folder.
-	 * oik-sb/sb-starting-block
 	 */
 	$ok = wp_set_script_translations( 'sb-chart-block-block-editor', 'sb-chart-block' , __DIR__ .'/languages' );
 

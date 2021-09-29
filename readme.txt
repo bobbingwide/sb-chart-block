@@ -2,8 +2,8 @@
 Contributors:      bobbingwide
 Tags:              block, Chart, Line, Bar, Horizontal bar, Pie, stacked
 Requires at least: 5.6.0
-Tested up to:      5.7.1
-Stable tag:        0.3.0
+Tested up to:      5.8.1
+Stable tag:        0.4.0
 Requires PHP:      7.2.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -49,7 +49,7 @@ Options to control the chart display are:
 - Stacked - Toggle on to stack line or bar charts
 - Begin Y axis at 0 toggle
 - Fill toggle for line charts
-- Height of the chart, in pixels. 
+- Height of the chart, in pixels.
 - Opacity - set the opacity of the background colours.
 
 
@@ -86,7 +86,10 @@ If you do wish to modify the code then you can find instructions in the src fold
 5. Chart type toolbar selection
 
 == Upgrade Notice ==
-= 0.3.0 = 
+= 0.4.0 = 
+Upgrade for an internationalized version
+
+= 0.3.0 =
 Further updates for hosting on WordPress.org. Now uses chartjs v3.1.0.
 
 = 0.2.0 =
@@ -126,14 +129,22 @@ First version to be used in Slog.
 Initial version copied from SB Children block
 
 == Changelog ==
-= 0.3.0 = 
+= 0.4.0 =
+* Changed: Refactored to use apiVersion: 2 #13
+* Changed: Replace chartLine icon by trendingUp #14
+* Fixed: Ensure stacked and beginAtZero are true / false #15
+* Tested: With WordPress 5.8.1 and WordPress Multi Site
+* Tested: With PHP 8.0
+* Tested: With Gutenberg 11.5.1
+
+= 0.3.0 =
 * Changed: Added language files,[github bobbingwide sb-chart-block issues 10]
 * Changed: Remove redundant / unwanted logic,[github bobbingwide sb-chart-block issues 10]
 * Changed: Improve color palettes and selection,[github bobbingwide sb-chart-block issues 2]
 * Changed: Upgrade to use chartjs v3.1.0,[github bobbingwide sb-chart-block issues 11]
 * Changed: Add opacity with range from 0 to 1 for chart background colours,[github bobbingwide sb-chart-block issues 2]
 * Changed: Refactor Color_Palettes to SB_Chart_Color_Palettes,[github bobbingwide sb-chart-block issues 10]
-* Tested: With WordPress 5.7.1 and WordPress Mult Site
+* Tested: With WordPress 5.7.1 and WordPress Multi Site
 * Tested: With Gutenberg 10.4.0
 * Tested: With PHP 8.0
 * Tested: With PHPUnit 9
