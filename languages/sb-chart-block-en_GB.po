@@ -1,8 +1,8 @@
 # Copyright (C) 2021 bobbingwide
-# This file is distributed under the same license as the SB Chart block plugin.
+# This file is distributed under the GPL-2.0-or-later.
 msgid ""
 msgstr ""
-"Project-Id-Version: SB Chart block 0.3.0\n"
+"Project-Id-Version: SB Chart block 0.4.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/sb-chart-block\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11,9 +11,9 @@ msgstr ""
 "Language: en_GB\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-04-18T16:41:04+00:00\n"
+"POT-Creation-Date: 2021-09-29T09:55:38+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.4.0\n"
+"X-Generator: WP-CLI 2.5.0\n"
 "X-Domain: sb-chart-block\n"
 msgid "SB Chart block"
 msgstr "SB Chart block"
@@ -79,34 +79,45 @@ msgid "Height (pixels)"
 msgstr "Height (pixels)"
 
 #: build/index.js:1
-msgid "Chart"
-msgstr "Chart"
-
-#: build/index.js:1
-msgid "Displays a chart for CSV content."
-msgstr "Displays a chart for CSV content."
-
-#: build/index.js:1
-msgid "Line"
-msgstr "Line"
-
-#: build/index.js:1
-msgid "Bar"
-msgstr "Bar"
-
-#: build/index.js:1
-msgid "Horizontal bar"
-msgstr "Horizontal bar"
-
-#: build/index.js:1
-msgid "Pie"
-msgstr "Pie"
-
-#: build/index.js:1
 msgid ""
 "Label,Value\n"
 "One,1\n"
 "Two,2\n"
 "Three,3"
 msgstr "Label,Value\nOne,1\nTwo,2\nThree,3"
+
+#: block.json
+msgctxt "block title"
+msgid "Chart"
+msgstr "Chart"
+
+#: block.json
+msgctxt "block keyword"
+msgid "Chart"
+msgstr "Chart"
+
+#: block.json
+msgctxt "block keyword"
+msgid "Line"
+msgstr "Line"
+
+#: block.json
+msgctxt "block keyword"
+msgid "Bar"
+msgstr "Bar"
+
+#: block.json
+msgctxt "block keyword"
+msgid "Horizontal bar"
+msgstr "Horizontal bar"
+
+#: block.json
+msgctxt "block keyword"
+msgid "Pie"
+msgstr "Pie"
+
+#: block.json
+msgctxt "block description"
+msgid "Displays a chart for CSV content."
+msgstr "Displays a chart for CSV content."
 
