@@ -16,6 +16,7 @@ function sb_chart_loaded() {
 	add_action( 'init', 'sb_chart_block_block_init' );
 	add_shortcode( 'chartjs', 'sb_chart_block_shortcode' );
 }
+
 /**
  * Registers the block using the metadata loaded from the `block.json` file.
  * Behind the scenes, it registers also all assets so they can be enqueued
@@ -24,49 +25,54 @@ function sb_chart_loaded() {
  * @see https://developer.wordpress.org/block-editor/tutorials/block-tutorial/writing-your-first-block-type/
  */
 function sb_chart_block_block_init() {
-
 	if ( is_admin() ) {
-		sb_chart_block_register_scripts();
+		sb_chart_block_register_editor_script();
 	}
 	add_filter( 'block_type_metadata', 'sb_chart_block_block_type_metadata' );
 	load_plugin_textdomain( 'sb-chart-block', false, 'sb-chart-block/languages' );
 	$args = [ 'render_callback' => 'sb_chart_block_dynamic_block'];
 	$registered = register_block_type_from_metadata( __DIR__ , $args );
-	bw_trace2( $registered );
-
+	//bw_trace2( $registered );
 
 	/**
 	 * Localise the script by loading the required strings for the build/index.js file
 	 * from the locale specific .json file in the languages folder.
 	 */
-	$ok = wp_set_script_translations( 'sb-chart-block-block-editor', 'sb-chart-block' , __DIR__ .'/languages' );
-
-	//$ok = wp_set_script_translations( 'oik-sb-sb-starting-block-editor-script', 'sb-starting-block' , __DIR__ .'/languages' );
-	//bw_trace2( $ok, "OK?");
-	//add_filter( 'load_script_textdomain_relative_path', 'oik_sb_sb_starting_block_load_script_textdomain_relative_path', 10, 2);
+	$ok = wp_set_script_translations( 'oik-sb-chart-editor-script', 'sb-chart-block' , __DIR__ .'/languages' );
 
 }
 
+/**
+ * Implements block_type_metadata filter.
+ *
+ * @param $metadata
+ *
+ * @return mixed
+ */
+
 function sb_chart_block_block_type_metadata( $metadata ) {
-	bw_trace2();
+	//bw_trace2();
 	return $metadata;
 }
 
-
 /**
- * Registers all block assets so that they can be enqueued through the block editor
- * in the corresponding context.
+ * Registers the block editor script manually.
  *
- * @see https://developer.wordpress.org/block-editor/tutorials/block-tutorial/applying-styles-with-stylesheets/
+ * If the `editorScript` property was set to a file name in block.json, register_block_type_from_metadata() would normally register the `editorScript` automatically.
+ * But since we need to add the additional dependency on chartjs-script, we register this script manually, using logic similar to that in register_block_script_handle()
+ * and set the entry in block.json to the script handle.
  */
-function sb_chart_block_block_init_extra() {
+function sb_chart_block_register_editor_script() {
 	$dir = dirname( __FILE__ );
 
 	$script_asset_path = "$dir/build/index.asset.php";
 	if ( ! file_exists( $script_asset_path ) ) {
-		throw new Error(
-			'You need to run `npm start` or `npm run build` for the "sb/chart-block" block first.'
+		_doing_it_wrong(
+			__FUNCTION__,
+			__( 'The asset file ( build/index.asset.php ) is missing.', 'sb-chart-block' ),
+			'0.4.0'
 		);
+		return false;
 	}
 	$index_js     = 'build/index.js';
 	$script_asset = require( $script_asset_path );
@@ -77,52 +83,11 @@ function sb_chart_block_block_init_extra() {
 	}
 
 	wp_register_script(
-		'sb-chart-block-block-editor',
+		'oik-sb-chart-editor-script',
 		plugins_url( $index_js, __FILE__ ),
 		$script_asset['dependencies'],
 		$script_asset['version']
 	);
-
-	/*
-	 * Localise the script by loading the required strings for the build/index.js file
-	 * from the locale specific .json file in the languages folder
-	 */
-	$ok = wp_set_script_translations( 'sb-chart-block-block-editor', 'sb-chart-block' , $dir .'/languages' );
-
-	$editor_css = 'build/index.css';
-	wp_register_style(
-		'sb-chart-block-block-editor',
-		plugins_url( $editor_css, __FILE__ ),
-		array(),
-		filemtime( "$dir/$editor_css" )
-	);
-
-	$style_css = 'build/style-index.css';
-	wp_register_style(
-		'sb-chart-block-block',
-		plugins_url( $style_css, __FILE__ ),
-		array(),
-		filemtime( "$dir/$style_css" )
-	);
-
-	register_block_type( 'oik-sb/chart', array(
-		'editor_script' => 'sb-chart-block-block-editor',
-		'editor_style'  => 'sb-chart-block-block-editor',
-		'style'         => 'sb-chart-block-block',
-		'script'    => 'chartjs-script',
-		'render_callback'=>'sb_chart_block_dynamic_block',
-		'attributes' => [
-			'type' => [ 'type' => 'string'],
-			'className' => [ 'type' => 'string'],
-			'content' => ['type' => 'string'],
-			'theme' => ['type' => 'string'],
-			'stacked' => ['type' => 'boolean'],
-			'fill' => ['type' => 'boolean'],
-			'height' => [ 'type' => 'integer' ],
-			'beginYAxisAt0' => ['type' => 'boolean'],
-			'opacity' => ['type' => 'number']
-		]
-	) );
 }
 
 /**

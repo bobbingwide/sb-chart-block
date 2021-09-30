@@ -22,7 +22,7 @@
 		"beginYAxisAt0": { "type": "boolean", "default": false },
 		"opacity": { "type": "number", "default": 0.8 }
   	},
-	"editorScript": "file:./build/index.js",
+	"editorScript": "oik-sb-chart-editor-script",
 	"editorStyle": "file:./build/index.css",
 	"style": "file:./build/style-index.css"
 }
