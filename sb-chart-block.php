@@ -169,8 +169,6 @@ function sb_chart_enqueue_styles() {
  * @return string
  */
 function sb_chart_block_shortcode( $atts, $content, $tag ) {
-	$attrs = [];
-	$attrs[ 'type'] = sb_chart_block_array_get( $atts, 'type', 'Line');
 	if ( $content ) {
 		require_once __DIR__ . '/libs/class-sb-chart-block.php';
 		$sb_chart_block = new SB_Chart_Block();
