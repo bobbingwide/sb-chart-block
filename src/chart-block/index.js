@@ -68,13 +68,14 @@ registerBlockType( 'oik-sb/chart', {
 				beginYAxisAt0: { type: 'boolean', default: false },
 				opacity: { type: 'number', default: 0.8 }
 			},
+			supports: {html: false, align: false },
 
 			save( props ) {
 
-				return (<div className={"chartjs"} style={{height: props.attributes.height}}>
+				return <div className={"chartjs"} style={{height: props.attributes.height}}>
 						<canvas id={props.attributes.myChartId}></canvas>
 					</div>
-				);
+
 			}
 		}
 	]
