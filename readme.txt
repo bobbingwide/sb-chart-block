@@ -87,7 +87,7 @@ If you do wish to modify the code then you can find instructions in the src fold
 
 == Upgrade Notice ==
 = 0.4.0 = 
-Upgrade for an internationalized version
+Upgrade for an internationalized version compatible with the WordPress widget block editor.
 
 = 0.3.0 =
 Further updates for hosting on WordPress.org. Now uses chartjs v3.1.0.
@@ -130,12 +130,14 @@ Initial version copied from SB Children block
 
 == Changelog ==
 = 0.4.0 =
+* Changed: Attempt to deal with deprecated blocks #13
 * Changed: Refactored to use apiVersion: 2 #13
 * Changed: Replace chartLine icon by trendingUp #14
 * Fixed: Ensure stacked and beginAtZero are true / false #15
-* Tested: With WordPress 5.8.1 and WordPress Multi Site
-* Tested: With PHP 8.0
+* Fixed: Remove some unnecessary code in sb_chart_block_shortcode #12
 * Tested: With Gutenberg 11.5.1
+* Tested: With PHP 8.0
+* Tested: With WordPress 5.8.1 and WordPress Multi Site
 
 = 0.3.0 =
 * Changed: Added language files,[github bobbingwide sb-chart-block issues 10]
