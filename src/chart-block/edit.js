@@ -15,7 +15,7 @@ import { InspectorControls, PlainText, BlockControls } from '@wordpress/block-ed
 // deprecated.js?ver=cd9e35508705772fbc5e2d9736bde31b:177 wp.editor.InspectorControls is deprecated. Please use wp.blockEditor.InspectorControls instead.
 import { TextControl, PanelBody, SelectControl, Toolbar, ToolbarButton, PanelRow, ToggleControl, RangeControl } from '@wordpress/components';
 import { map } from 'lodash';
-import { useEffect } from '@wordpress/element';
+import { useEffect, useRef } from '@wordpress/element';
 import { withInstanceId } from '@wordpress/compose';
 
 /**
@@ -122,10 +122,13 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 		//chartBlock.runChart( attributes );
 	};
 
+	const myRef = useRef();
+
 	useEffect( () => {
 		if ( attributes.content ) {
 			var chartBlock = new SB_chart_block();
-			chartBlock.runChart( attributes );
+
+			chartBlock.runChart( attributes, myRef );
 		}
 	} );
 
@@ -216,7 +219,7 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 			<div { ...blockProps}>
 				{attributes.content &&
 				<div className={"chartjs"} style={ { height: attributes.height} }>
-					<canvas id={attributes.myChartId} height="450px"></canvas>
+					<canvas id={attributes.myChartId} height="450px" ref={myRef}></canvas>
 				</div>
 				}
 

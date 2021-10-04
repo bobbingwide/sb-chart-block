@@ -191,7 +191,6 @@ export class SB_chart_block {
 
 	}
 
-
 	/**
 	 * Runs the chart indicated by myChartId.
 	 *
@@ -201,11 +200,19 @@ export class SB_chart_block {
 	 *
 	 *
 	 * @param attributes
+	 * @param chartRef - the ref for the currently selected chart @since issue #16
 	 */
-	runChart( attributes ) {
+	runChart( attributes, chartRef ) {
 
-		//this.setStuff( attributes );
-		var ctx = document.getElementById( attributes.myChartId );
+		/* From Gutenberg 11.4.0 we have to obtain the context (ctx) from the currently selected chart
+		   as indicated by the chartRef parameter.
+		   This is to cater for the fact that we may be invoked in an iframe and can't use `document`.
+
+		   Since we no longer need to call getElementById(), it would appear
+		   that myChartId could now be an unnecessary attribute.
+		 */
+		var ctx = chartRef.current;
+		//console.log( ctx );
 		if( ctx ) {
 			this.setStuff( attributes );
 			ctx = ctx.getContext('2d');
@@ -219,12 +226,9 @@ export class SB_chart_block {
 			//var myLineChart = new Chart(ctx, {type: attributes.type, data: data, options: options});
 			//setAttributes( )
 			return myLineChart;
+		} else {
+			console.log( "No ctx for: " + attributes.myChartId );
 		}
 	}
 
-
 }
-
-
-
-
