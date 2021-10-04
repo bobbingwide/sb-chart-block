@@ -4,7 +4,7 @@
 * Tags:              block, Chart, Line, Bar, Horizontal bar, Pie, stacked
 * Requires at least: 5.6.0
 * Tested up to:      5.8.1
-* Stable tag:        0.4.0
+* Stable tag:        0.4.1
 * Requires PHP:      7.2.0
 * License:           GPL-2.0-or-later
 * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -87,6 +87,9 @@ If you do wish to modify the code then you can find instructions in the src fold
 5. Chart type toolbar selection
 
 ## Upgrade Notice 
+# 0.4.1 
+Upgrade for compatibility with Gutenberg 11.4.0 and above.
+
 # 0.4.0 
 Upgrade for an internationalized version compatible with the WordPress widget block editor.
 
@@ -130,6 +133,10 @@ First version to be used in Slog.
 Initial version copied from SB Children block
 
 ## Changelog 
+# 0.4.1 
+* Fixed: Chart block example doesn't show a chart #16
+* Tested: With Gutenberg 11.6.0
+
 # 0.4.0 
 * Changed: Attempt to deal with deprecated blocks #13
 * Changed: Refactored to use apiVersion: 2 #13
