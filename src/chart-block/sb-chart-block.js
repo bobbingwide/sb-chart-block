@@ -173,6 +173,17 @@ export class SB_chart_block {
 
 	getXaxis() {
 		var Xaxis = new Object({});
+		if ( this.attributes.time ) {
+			Xaxis.type = 'time';
+			Xaxis.time = new Object({
+				unit: this.attributes.timeunit,
+				displayFormats: {
+					minute: 'dd MMM hh:mm',
+					hour: 'dd MMM hh:mm',
+					day: 'dd MMM'
+				}
+			});
+		}
 		Xaxis.stacked = this.attributes.stacked;
 		return Xaxis;
 	}
