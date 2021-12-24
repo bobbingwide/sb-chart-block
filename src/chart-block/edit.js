@@ -92,6 +92,10 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 		setAttributes( { opacity: value });
 	}
 
+	const onChangeTime = ( value ) => {
+		setAttributes( { time: !attributes.time });
+	}
+
 	const help = __( "Choose Line, Bar, Horizontal bar or Pie.", 'sb-chart-block');
 
 	const typeOptions = {
@@ -174,6 +178,13 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 							label={ __( 'Fill', 'sb-chart-block' ) }
 							checked={ !! attributes.fill }
 							onChange={ onChangeFill }
+						/>
+					</PanelRow>
+					<PanelRow>
+						<ToggleControl
+							label={ __( 'Time line', 'sb-chart-block' ) }
+							checked={ !! attributes.time }
+							onChange={ onChangeTime }
 						/>
 					</PanelRow>
 
