@@ -20,7 +20,9 @@
 		"fill": { "type": "boolean", "default": false },
 		"height": { "type": "integer", "default": null },
 		"beginYAxisAt0": { "type": "boolean", "default": false },
-		"opacity": { "type": "number", "default": 0.8 }
+		"opacity": { "type": "number", "default": 0.8 },
+	  	"time": {"type":  "boolean", "default": false },
+	  	"timeunit": { "type": "string", "default": "day"}
   	},
 	"editorScript": "oik-sb-chart-editor-script",
 	"editorStyle": "file:./build/index.css",
