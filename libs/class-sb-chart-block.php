@@ -149,7 +149,7 @@ class SB_chart_block {
 				break;
 
 			default:
-				$unit = 'hour';
+				$unit = 'day';
 		}
 		return $unit;
 	}
