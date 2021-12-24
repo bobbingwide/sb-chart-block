@@ -193,6 +193,8 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 							checked={ !! attributes.time }
 							onChange={ onChangeTime }
 						/>
+					</PanelRow>
+					<PanelRow>
 						<SelectControl label={__("Time unit",'sb-chart-block')} value={attributes.timeunit} onChange={onChangeTimeunit} options={mappedTimeunitOptions}  />
 					</PanelRow>
 

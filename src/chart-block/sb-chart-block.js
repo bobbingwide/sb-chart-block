@@ -155,10 +155,12 @@ export class SB_chart_block {
 
 		options.scales = new Object( {} );
 		var beginAtZero = this.attributes.beginYAxisAt0;
-		options.scales.y = new Object(  { beginAtZero: beginAtZero, stacked: this.attributes.stacked  } );
-		if ( this.attributes.stacked ) {
-			options.scales.x = new Object({stacked: true});
-		}
+		options.scales.y = new Object(  { beginAtZero: beginAtZero, stacked: this.attributes.stacked  } )
+
+
+		//if ( this.attributes.stacked ) {
+			options.scales.x = this.getXaxis();// new Object({stacked: true});
+		//}
 		//console.log( options );
 		if ( 'horizontalBar' === this.attributes.type ) {
 			options.indexAxis = 'y';
@@ -167,6 +169,12 @@ export class SB_chart_block {
 		return options;
 
 
+	}
+
+	getXaxis() {
+		var Xaxis = new Object({});
+		Xaxis.stacked = this.attributes.stacked;
+		return Xaxis;
 	}
 
 	/**
