@@ -96,6 +96,10 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 		setAttributes( { time: !attributes.time });
 	}
 
+	const onChangeTimeunit = ( value ) => {
+		setAttributes( { timeunit: value } );
+	};
+
 	const help = __( "Choose Line, Bar, Horizontal bar or Pie.", 'sb-chart-block');
 
 	const typeOptions = {
@@ -106,19 +110,22 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 	};
 
 	const themeOptions = getThemeOptions();
-	/*
-		{
-		"Gutenberg": "Gutenberg palette",
-		"Chart" : "Chart",
-		"Tertiary": "Chartist or Tertiary",
-		"Visualizer": "Visualizer",
-	};
-	*/
 
+	const timeunitOptions = {
+		"year": __( "Year", 'sb-chart-block'),
+		"quarter": __( "Quarter", 'sb-chart-block'),
+		"month": __( "Month", 'sb-chart-block'),
+		"week": __( "Week", 'sb-chart-block'),
+		"day": __( "Day", 'sb-chart-block'),
+		"hour": __( "Hour", 'sb-chart-block'),
+		"minute": __( "Minute", 'sb-chart-block'),
+		"second": __( "Second", 'sb-chart-block'),
+		"millisecond": __( "Millisecond", 'sb-chart-block'),
+	};
 
 	var mappedTypeOptions = map(typeOptions, (key, label) => ({value: label, label: key}));
 
-	//var mappedThemeOptions = map(themeOptions, (key, label) => ({value: label, label: key}));
+	var mappedTimeunitOptions = map(timeunitOptions, (key, label) => ({value: label, label: key}));
 
 	const onRefreshButton = ( event ) => {
 		//console.log( event );
@@ -186,6 +193,7 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 							checked={ !! attributes.time }
 							onChange={ onChangeTime }
 						/>
+						<SelectControl label={__("Time unit",'sb-chart-block')} value={attributes.timeunit} onChange={onChangeTimeunit} options={mappedTimeunitOptions}  />
 					</PanelRow>
 
 				</PanelBody>
