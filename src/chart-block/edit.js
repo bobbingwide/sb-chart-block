@@ -100,6 +100,10 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 		setAttributes( { timeunit: value } );
 	};
 
+	const onChangeBarThickness = (value ) => {
+		setAttributes( { barThickness: value });
+	}
+
 	const help = __( "Choose Line, Bar, Horizontal bar or Pie.", 'sb-chart-block');
 
 	const typeOptions = {
@@ -229,6 +233,18 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 							onChange={ onChangeHeight }
 							min={ 100 }
 							max={ 1000 }
+							allowReset
+						/>
+
+					</PanelRow>
+					<PanelRow>
+						<RangeControl
+							label={ __( "Bar thickness (pixels)", 'sb-chart-block' ) }
+							value={ attributes.barThickness }
+							initialPosition={attributes.barThickness}
+							onChange={ onChangeBarThickness }
+							min={ 1 }
+							max={ 100 }
 							allowReset
 						/>
 

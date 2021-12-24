@@ -109,6 +109,9 @@ export class SB_chart_block {
 
 		dataset.borderWidth = 1;
 		dataset.fill = this.attributes.fill;
+		if ( this.attributes.barThickness ) {
+			dataset.barThickness = this.attributes.barThickness;
+		}
 
 		return dataset;
 		/*
