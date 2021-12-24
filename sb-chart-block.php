@@ -133,6 +133,8 @@ function sb_chart_block_array_get( $array, $index, $default=null ) {
  */
 function sb_chart_block_enqueue_scripts() {
 	wp_enqueue_script( "chartjs-script" );
+	// @TODO Make optional when using the time scale.
+	wp_enqueue_script( 'chartjs-adapter-date-fns-script');
 }
 
 /**
@@ -152,7 +154,20 @@ function sb_chart_block_register_scripts() {
 	}
 	$file_url = plugin_dir_url( __FILE__ ) . $file;
 	wp_register_script( "chartjs-script", $file_url, null, $version, true );
+
+	if ( defined( 'SCRIPT_DEBUG')  && SCRIPT_DEBUG  ) {
+		$file = 'js/chartjs-adapter-date-fns.bundle.min.js';
+		$version = filemtime( __DIR__ . '/' . $file );
+	} else {
+		$file = 'js/chartjs-adapter-date-fns.bundle.min.js';
+		$version = null;
+	}
+	$file_url = plugin_dir_url( __FILE__ ) . $file;
+	wp_register_script( "chartjs-adapter-date-fns-script", $file_url, null, $version, true );
+
 }
+
+
 
 /**
  * Enqueues styles - if needed.
@@ -169,6 +184,7 @@ function sb_chart_enqueue_styles() {
  * @return string
  */
 function sb_chart_block_shortcode( $atts, $content, $tag ) {
+	$atts['beginYAxisAt0'] = sb_chart_block_array_get(  $atts, 'beginyaxisat0', 'false' );
 	if ( $content ) {
 		require_once __DIR__ . '/libs/class-sb-chart-block.php';
 		$sb_chart_block = new SB_Chart_Block();
