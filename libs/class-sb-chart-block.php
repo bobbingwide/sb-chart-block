@@ -60,8 +60,10 @@ class SB_chart_block {
 		sb_chart_block_register_scripts();
 		sb_chart_block_enqueue_scripts();
 		$this->default_atts( $atts );
-		$this->prepare_content( $content );
-		$html = $this->render_html( $atts, $content);
+		$html = $this->prepare_content( $content );
+		if ( null === $html) {
+			$html = $this->render_html($atts, $content);
+		}
 		return $html;
 	}
 
@@ -73,7 +75,7 @@ class SB_chart_block {
 	 * @return array|mixed
 	 */
 	function default_atts( $atts ) {
-		//bw_trace2();
+		//print_r( $atts );
 		if ( empty( $atts ) ) {
 			$atts = [];
 		}
@@ -94,6 +96,10 @@ class SB_chart_block {
 		$this->atts['indexAxis'] = sb_chart_block_array_get( $this->atts, 'indexAxis', 'x' );
 		$this->atts['opacity'] = sb_chart_block_array_get( $this->atts, 'opacity', '0.8');
 		//bw_trace2( $this->atts, "this atts", false );
+		$this->atts['time'] = sb_chart_block_array_get( $this->atts, 'time', null );
+		$this->atts['timeunit'] = sb_chart_block_array_get( $this->atts, 'timeunit', 'hour');
+		$this->atts['timeunit'] = $this->validate_timeunit( $this->atts['timeunit'] );
+		$this->atts['barThickness'] = sb_chart_block_array_get( $this->atts, 'barThickness', null );
 	}
 
 	/**
@@ -121,6 +127,34 @@ class SB_chart_block {
 	}
 
 	/**
+	 * Validates the time unit.
+	 *
+	 * Default hour
+	 * See https://www.chartjs.org/docs/3.3.2/axes/cartesian/time.html#time-units
+	 *
+	 * @param $unit
+	 */
+	function validate_timeunit( $unit ) {
+		$unit = strtolower( $unit );
+		switch ( $unit ) {
+			case 'year':
+			case 'quarter':
+			case 'month':
+			case 'week':
+			case 'day':
+			case 'hour':
+			case 'minute':
+			case 'second':
+			case 'millisecond':
+				break;
+
+			default:
+				$unit = 'hour';
+		}
+		return $unit;
+	}
+
+	/**
 	 * The content is expected to be in CSV format.
 	 * - with column headings to use as the Legend for multiple line/bar charts
 	 * - The first column is used for the keys
@@ -136,12 +170,16 @@ class SB_chart_block {
 			$content = html_entity_decode( $content );
 			$content=str_replace( '<br />', '', $content );
 			$lines  =explode( "\n", $content );
+			if ( count( $lines) < 2 ) {
+				//return "No data to chart?";
+			}
 		} else {
-			return "No content?";
+			return "No content to chart?";
 		}
 		$this->legend=array_shift( $lines );
 		$this->lines = $lines;
 		$this->transpose( $lines );
+		return null;
 	}
 
 	/**
@@ -339,6 +377,9 @@ class SB_chart_block {
 				$dataset->borderColor=$this->get_borderColor( $index );
 			}
 			$dataset->borderWidth    = 1;
+			if ( $this->atts['barThickness']) {
+				$dataset->barThickness = $this->atts['barThickness'];
+			}
 			$dataset->fill = $this->atts['fill'];
 			$datasets[]        =$dataset;
 		}
@@ -375,17 +416,18 @@ class SB_chart_block {
 			case 'line':
 			case 'bar':
 			case 'horizontalBar':
-				$options ="
-			maintainAspectRatio: false,
-			indexAxis: $indexAxis,
+
+
+				$options =" maintainAspectRatio: false,
+							indexAxis: $indexAxis,
 			scales: {
 				y: { stacked: $stacked_bool_string,
 					 beginAtZero: $beginAt0_bool_string
 					}";
-				if ( $stacked ) {
-					$options .= ",x: { stacked: true } ";
-				}
-				$options .= " 	} ";
+
+
+				$options .= $this->x_axis_options();
+				$options .= "} ";
 				break;
 			case 'pie':
 				$options ="maintainAspectRatio: false,";
@@ -394,6 +436,32 @@ class SB_chart_block {
 		$options_html .= $options;
 		$options_html .= "};";
 		return $options_html;
+	}
+
+	function x_axis_options() {
+		$options = null;
+		$options .= ",x: {";
+		if ( $this->atts['time'] ) {
+			wp_enqueue_script( "chartjs-adapter-date-fns-script" );
+
+			$options .= 'type: "time",';
+			$options .= " time: {
+			unit: '" . $this->atts['timeunit'] . "',
+            displayFormats: {
+				minute: 'dd MMM hh:mm',
+				hour: 'dd MMM hh:mm',
+				day: 'dd MMM',
+            } },";
+		} else {
+		}
+
+
+		if ( $this->atts['stacked'] ) {
+			$options .= " stacked: true ";
+		}
+
+		$options .= "}";
+		return $options;
 	}
 
 	function boolstring( $bool ) {
