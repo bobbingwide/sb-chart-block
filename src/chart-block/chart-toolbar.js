@@ -9,11 +9,10 @@ import { find } from 'lodash';
 import { __, isRTL } from '@wordpress/i18n';
 import { ToolbarGroup, Dashicon } from '@wordpress/components';
 
-import { trendingUp } from '@wordpress/icons';
-
 import { chartBar } from './chart-bar';
 import { chartBarH } from './chart-bar-h';
 import { chartPie } from './chart-pie';
+import { chartLine } from './chart-line';
 
 /* const chartBarH= (
 	<SVG xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -34,7 +33,7 @@ then we get some CSS positioning problems.
 
 const DEFAULT_CHART_CONTROLS = [
 	{
-		icon: trendingUp,
+		icon: chartLine,
 		title: __( 'Line chart' ),
 		type: 'line',
 	},
@@ -100,7 +99,7 @@ export function ChartToolbar( props ) {
 		return value === 'pie';
 	}
 	const controlLine = {
-		icon: trendingUp,
+		icon: chartLine,
 		title: __('Line chart'),
 		isActive: isLine(),
 		onClick: applyOrUnset( 'line' )
