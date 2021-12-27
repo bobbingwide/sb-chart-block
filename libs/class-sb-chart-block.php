@@ -100,6 +100,7 @@ class SB_chart_block {
 		$this->atts['timeunit'] = sb_chart_block_array_get( $this->atts, 'timeunit', 'hour');
 		$this->atts['timeunit'] = $this->validate_timeunit( $this->atts['timeunit'] );
 		$this->atts['barThickness'] = sb_chart_block_array_get( $this->atts, 'barThickness', null );
+		$this->atts['tension'] = sb_chart_block_array_get( $this->atts, 'tension', default: 0 );
 	}
 
 	/**
@@ -381,6 +382,7 @@ class SB_chart_block {
 				$dataset->barThickness = $this->atts['barThickness'];
 			}
 			$dataset->fill = $this->atts['fill'];
+			$dataset->tension = $this->atts['tension'];
 			$datasets[]        =$dataset;
 		}
 		return $datasets;

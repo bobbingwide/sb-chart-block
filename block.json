@@ -23,7 +23,8 @@
 		"opacity": { "type": "number", "default": 0.8 },
 	  	"time": {"type":  "boolean", "default": false },
 	  	"timeunit": { "type": "string", "default": "day"},
-	  	"barThickness": { "type": "integer", "default":  null }
+	  	"barThickness": { "type": "integer", "default":  null },
+	  	"tension": { "type": "number", "default": 0 }
   	},
 	"editorScript": "oik-sb-chart-editor-script",
 	"editorStyle": "file:./build/index.css",

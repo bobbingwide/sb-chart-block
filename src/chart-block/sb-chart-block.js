@@ -112,6 +112,7 @@ export class SB_chart_block {
 		if ( this.attributes.barThickness ) {
 			dataset.barThickness = this.attributes.barThickness;
 		}
+		dataset.tension = this.attributes.tension;
 
 		return dataset;
 		/*

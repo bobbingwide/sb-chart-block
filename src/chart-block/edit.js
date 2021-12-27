@@ -104,6 +104,10 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 		setAttributes( { barThickness: value });
 	}
 
+	const onChangeTension = ( value) => {
+		setAttributes( { tension: value });
+	}
+
 	const help = __( "Choose Line, Bar, Horizontal bar or Pie.", 'sb-chart-block');
 
 	const typeOptions = {
@@ -130,17 +134,18 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 	var mappedTypeOptions = map(typeOptions, (key, label) => ({value: label, label: key}));
 
 	var mappedTimeunitOptions = map(timeunitOptions, (key, label) => ({value: label, label: key}));
-
-	const onRefreshButton = ( event ) => {
-		//console.log( event );
-		//var chartBlock = new SB_chart_block();
-		//chartBlock.runChart( attributes );
-	};
-
 	const myRef = useRef();
 
+	const onRefreshButton = ( event ) => {
+		console.log( event );
+		var chartBlock = new SB_chart_block();
+		chartBlock.runChart( attributes, myRef );
+	};
+
+
+
 	useEffect( () => {
-		if ( attributes.content ) {
+		if ( attributes.content  ) {
 			var chartBlock = new SB_chart_block();
 
 			chartBlock.runChart( attributes, myRef );
@@ -156,7 +161,7 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 		<Fragment>
 			<BlockControls>
 				<ChartToolbar value={attributes.type} onChange={ onChangeType } />
-				{ false &&
+				{ true &&
 				<ToolbarButton
 					label="Refresh"
 					onClick={ onRefreshButton }
@@ -249,6 +254,24 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 						/>
 
 					</PanelRow>
+					<PanelBody>
+
+						<PanelRow>
+							<RangeControl
+								label={ __( "Tension", 'sb-chart-block' ) }
+								value={ attributes.tension }
+								initialPosition={ attributes.tension }
+								onChange={ onChangeTension }
+								min={ 0 }
+								max={ 1 }
+								step={ 0.1}
+								allowReset
+							/>
+
+						</PanelRow>
+
+					</PanelBody>
+
 
 				</PanelBody>
 			</InspectorControls>
