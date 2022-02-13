@@ -159,27 +159,37 @@ export class SB_chart_block {
 
 		options.scales = new Object( {} );
 		var beginAtZero = this.attributes.beginYAxisAt0;
-		options.scales.y = new Object(  { beginAtZero: beginAtZero, stacked: this.attributes.stacked  } )
+		//options.scales.y = this.getYaxis();
+		//	new Object(  { beginAtZero: beginAtZero, stacked: this.attributes.stacked  } )
 
 
 		//if ( this.attributes.stacked ) {
-			options.scales.x = this.getXaxis();// new Object({stacked: true});
+		//	options.scales.x = this.getXaxis();// new Object({stacked: true});
 		//}
 		//console.log( options );
+		var timeOptions = this.getAxisTimeOptions();
+		options.scales.y = new Object( {} );
+		options.scales.x = new Object( {} );
 		if ( 'horizontalBar' === this.attributes.type ) {
 			options.indexAxis = 'y';
+			options.scales.y = timeOptions;
+		} else {
+			options.scales.x = timeOptions;
 		}
+		options.scales.y.beginAtZero = beginAtZero;
+		options.scales.y.stacked = this.attributes.stacked;
+		options.scales.x.stacked = this.attributes.stacked;
 		//console.log( options );
 		return options;
 
 
 	}
 
-	getXaxis() {
-		var Xaxis = new Object({});
+	getAxisTimeOptions() {
+		var timeOptions = new Object({});
 		if ( this.attributes.time ) {
-			Xaxis.type = 'time';
-			Xaxis.time = new Object({
+			timeOptions.type = 'time';
+			timeOptions.time = new Object({
 				unit: this.attributes.timeunit,
 				displayFormats: {
 					minute: 'dd MMM hh:mm',
@@ -188,8 +198,7 @@ export class SB_chart_block {
 				}
 			});
 		}
-		Xaxis.stacked = this.attributes.stacked;
-		return Xaxis;
+		return timeOptions;
 	}
 
 	/**
