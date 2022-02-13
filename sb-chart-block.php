@@ -3,7 +3,7 @@
  * Plugin Name:     SB Chart block
  * Plugin URI: 		https://www.oik-plugins.com/oik-plugins/sb-chart-block
  * Description:     Displays a Chart for CSV content
- * Version:         0.4.1
+ * Version:         1.0.0
  * Author:          bobbingwide
  * Author URI: 		https://www.bobbingwide.com/about-bobbing-wide
  * License:         GPL-2.0-or-later
@@ -185,6 +185,7 @@ function sb_chart_enqueue_styles() {
  */
 function sb_chart_block_shortcode( $atts, $content, $tag ) {
 	$atts['beginYAxisAt0'] = sb_chart_block_array_get(  $atts, 'beginyaxisat0', 'false' );
+	$atts['barThickness'] = sb_chart_block_array_get( $atts, 'barthickness', null );
 	if ( $content ) {
 		require_once __DIR__ . '/libs/class-sb-chart-block.php';
 		$sb_chart_block = new SB_Chart_Block();
