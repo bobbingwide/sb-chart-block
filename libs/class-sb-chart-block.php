@@ -101,6 +101,10 @@ class SB_chart_block {
 		$this->atts['timeunit'] = $this->validate_timeunit( $this->atts['timeunit'] );
 		$this->atts['barThickness'] = sb_chart_block_array_get( $this->atts, 'barThickness', null );
 		$this->atts['tension'] = sb_chart_block_array_get( $this->atts, 'tension', default: 0 );
+		$this->atts['max'] = sb_chart_block_array_get( $this->atts, 'max', null );
+		$this->atts['backgroundColor'] = sb_chart_block_array_get( $this->atts, 'backgroundColor', null);
+		$this->atts['borderColor'] = sb_chart_block_array_get( $this->atts, 'borderColor', $this->atts['backgroundColor']);
+		$this->atts['showLine'] = sb_chart_block_array_get( $this->atts, 'showLine', true );
 	}
 
 	/**
@@ -373,9 +377,17 @@ class SB_chart_block {
 			$dataset                 =new stdClass;
 			$dataset->label          = $this->get_legend( $index );
 			$dataset->data           =$this->series[ $index ];
-			$dataset->backgroundColor= $this->get_backgroundColor( $index );
+			if ( $this->atts['backgroundColor']) {
+				$dataset->backgroundColor = $this->atts['backgroundColor'];
+			} else {
+				$dataset->backgroundColor = $this->get_backgroundColor($index);
+			}
 			if( 'pie' !== $this->atts['type']) {
-				$dataset->borderColor=$this->get_borderColor( $index );
+				if ( $this->atts['borderColor']) {
+					$dataset->borderColor = $this->atts['borderColor'];
+				} else {
+					$dataset->borderColor = $this->get_borderColor($index);
+				}
 			}
 			$dataset->borderWidth    = 1;
 			if ( $this->atts['barThickness']) {
@@ -383,6 +395,7 @@ class SB_chart_block {
 			}
 			$dataset->fill = $this->atts['fill'];
 			$dataset->tension = $this->atts['tension'];
+			$dataset->showLine = $this->atts['showLine'];
 			$datasets[]        =$dataset;
 		}
 		return $datasets;
@@ -452,7 +465,12 @@ class SB_chart_block {
 		$beginAt0 = $this->atts['beginYAxisAt0'];
 		$beginAt0_bool_string = $this->boolstring( $beginAt0 );
 		$options .= "beginAtZero: $beginAt0_bool_string,";
-		
+
+		$max = $this->atts['max'];
+		if ( $max ) {
+			$options .= "max: $max,";
+		}
+
 		$options .= "},";
 		return $options;
 	}
