@@ -166,8 +166,10 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 		}
 	} );
 
-
-
+	/**
+	 * Attempts to make sense of the error.
+	 * @returns {JSX.Element}
+	 */
 	const interpretError = () => {
 
 		if ( attributes.time ){
@@ -176,14 +178,13 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 			exampleDate = exampleDate.replace( 'Z', '');
 			var text = __("Error displaying chart. Please check your dates then choose Refresh, or change the Time unit.", 'sb-chart-block' );
 			var expected = __( "Expected date format: ccyy-mm-dd hh:mm:ss.ttt", 'sb-chart-block' );
-			var forexample = __( 'For example: ', 'sb-chart-block' ) + exampleDate;
-			var additional = __( 'Message: ' , 'sb-chart-block' );
-			return(  <p>{text}<br/>{expected}<br />{forexample}<br />{additional}{attributes.error.message}</p> );
+			var forexample = __( 'For example: ', 'sb-chart-block' ) + ' ' + exampleDate;
+			var additional = __( 'Message: ' , 'sb-chart-block' ) + ' ';
+			return( <p>{text}<br/>{expected}<br />{forexample}<br />{additional} {attributes.error.message}</p> );
 		} else {
 			return( <p>{__( "An error occurred displaying the chart.", 'sb-chart-block' )}
 				<br />{attributes.error.message}</p> );
 		}
-
 	}
 
 	var errorMessage = ( attributes.error) ? interpretError() : null;
