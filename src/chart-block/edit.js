@@ -174,13 +174,13 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 			var exampleDate = new Date().toISOString();
 			exampleDate = exampleDate.replace( 'T', ' ');
 			exampleDate = exampleDate.replace( 'Z', '');
-			var text = "Error displaying chart. Please check your dates then choose Refresh, or change the Time unit.";
-			var expected = "Expected date format: ccyy-mm-dd hh:mm:ss.ttt ";
-			var forexample = 'For example: ' + exampleDate;
-			var additional = 'Message: ';
+			var text = __("Error displaying chart. Please check your dates then choose Refresh, or change the Time unit.", 'sb-chart-block' );
+			var expected = __( "Expected date format: ccyy-mm-dd hh:mm:ss.ttt", 'sb-chart-block' );
+			var forexample = __( 'For example: ', 'sb-chart-block' ) + exampleDate;
+			var additional = __( 'Message: ' , 'sb-chart-block' );
 			return(  <p>{text}<br/>{expected}<br />{forexample}<br />{additional}{attributes.error.message}</p> );
 		} else {
-			return( <p>An error occurred displaying the chart.
+			return( <p>{__( "An error occurred displaying the chart.", 'sb-chart-block' )}
 				<br />{attributes.error.message}</p> );
 		}
 
@@ -201,10 +201,9 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 				<ChartToolbar value={attributes.type} onChange={ onChangeType } />
 				{ true &&
 				<ToolbarButton
-					label="Refresh"
+					label={__("Refresh", 'sb-chart-block' )}
 					onClick={ onRefreshButton }
-				>
-					Refresh
+				>{__('Refresh', 'sb-chart-block')}
 				</ToolbarButton>
 				}
 			</BlockControls>
@@ -243,7 +242,7 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 					</PanelRow>
 
 						<SelectControl label={__("Time unit (stepSize)",'sb-chart-block')} value={attributes.timeunit} onChange={onChangeTimeunit} options={mappedTimeunitOptions}  />
-					
+
 
 				</PanelBody>
 				<PanelBody>

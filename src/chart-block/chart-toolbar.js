@@ -34,12 +34,12 @@ then we get some CSS positioning problems.
 const DEFAULT_CHART_CONTROLS = [
 	{
 		icon: chartLine,
-		title: __( 'Line chart' ),
+		title: __( 'Line chart', 'sb-chart-block' ),
 		type: 'line',
 	},
 	{
 		icon: chartBar,
-		title: __( 'Bar chart' ),
+		title: __( 'Bar chart', 'sb-chart-block' ),
 		type: 'bar',
 	},
 	{
@@ -49,7 +49,7 @@ const DEFAULT_CHART_CONTROLS = [
 	},
 	{
 		icon: chartPie,
-		title: __( 'Pie chart' ),
+		title: __( 'Pie chart', 'sb-chart-block' ),
 		type: 'pie',
 	},
 ];
@@ -64,8 +64,8 @@ export function ChartToolbar( props ) {
 		value,
 		onChange,
 		typeControls = DEFAULT_CHART_CONTROLS,
-		label = __( 'Chart type' ),
-		describedBy = __( 'Change chart type' ),
+		label = __( 'Chart type', 'sb-chart-block' ),
+		describedBy = __( 'Change chart type', 'sb-chart-block' ),
 		isCollapsed = true,
 	} = props;
 
@@ -100,35 +100,30 @@ export function ChartToolbar( props ) {
 	}
 	const controlLine = {
 		icon: chartLine,
-		title: __('Line chart'),
+		title: __('Line chart', 'sb-chart-block'),
 		isActive: isLine(),
 		onClick: applyOrUnset( 'line' )
 	};
 	const controlBar = {
 		icon: chartBar,
-		title: __('Bar chart'),
+		title: __('Bar chart', 'sb-chart-block'),
 		isActive: isBar(),
 		onClick: applyOrUnset( 'bar' ),
 	};
 	const controlBarH = {
 		icon: chartBarH,
-		title: __('Horizontal bar chart'),
+		title: __('Horizontal bar chart', 'sb-chart-block'),
 		isActive: isBarH(),
 		onClick: applyOrUnset( 'horizontalBar' ),
 	};
-
 	const controlPie = {
 		icon: chartPie,
-		title: __('Pie chart'),
+		title: __('Pie chart', 'sb-chart-block'),
 		isActive: isPie(),
 		onClick: applyOrUnset( 'pie' ),
 	};
 
 	const controls = [ controlLine, controlBar, controlBarH, controlPie ];
-
-
-
-
 
 	return (
 		<ToolbarGroup
@@ -143,16 +138,3 @@ export function ChartToolbar( props ) {
 }
 
 export default ChartToolbar;
-
-/*
-typeControls.map( ( control ) => {
-				const { type } = control;
-				const isActive = value === type;
-
-				return {
-					...control,
-					isActive,
-					role: isCollapsed ? 'menuitemradio' : undefined,
-					onClick: applyOrUnset( type ),
-				};
- */
