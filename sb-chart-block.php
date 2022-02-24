@@ -19,7 +19,7 @@ function sb_chart_loaded() {
 
 /**
  * Registers the block using the metadata loaded from the `block.json` file.
- * Behind the scenes, it registers also all assets so they can be enqueued
+ * Behind the scenes it also registers all assets, so they can be enqueued
  * through the block editor in the corresponding context.
  *
  * @see https://developer.wordpress.org/block-editor/tutorials/block-tutorial/writing-your-first-block-type/
@@ -49,7 +49,6 @@ function sb_chart_block_block_init() {
  *
  * @return mixed
  */
-
 function sb_chart_block_block_type_metadata( $metadata ) {
 	//bw_trace2();
 	return $metadata;
@@ -70,7 +69,7 @@ function sb_chart_block_register_editor_script() {
 		_doing_it_wrong(
 			__FUNCTION__,
 			__( 'The asset file ( build/index.asset.php ) is missing.', 'sb-chart-block' ),
-			'0.4.0'
+			'1.0.0'
 		);
 		return false;
 	}
