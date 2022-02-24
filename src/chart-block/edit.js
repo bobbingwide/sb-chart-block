@@ -98,6 +98,7 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 
 	const onChangeTimeunit = ( value ) => {
 		setAttributes( { timeunit: value } );
+		onCaughtError( null );
 	};
 
 	const onChangeBarThickness = (value ) => {
@@ -136,26 +137,63 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 	var mappedTimeunitOptions = map(timeunitOptions, (key, label) => ({value: label, label: key}));
 	const myRef = useRef();
 
+	const onCaughtError = ( error ) => {
+		console.log( error );
+		setAttributes( { error: error});
+	}
+
 	const onRefreshButton = ( event ) => {
 		console.log( event );
+		onCaughtError( null );
 		var chartBlock = new SB_chart_block();
-		chartBlock.runChart( attributes, myRef );
+		try {
+			chartBlock.runChart(attributes, myRef);
+		} catch ( error) {
+			onCaughtError( error );
+
+		}
 	};
 
-
-
 	useEffect( () => {
-		if ( attributes.content  ) {
+		if ( attributes.content && !attributes.error  ) {
 			var chartBlock = new SB_chart_block();
+			try {
+				chartBlock.runChart(attributes, myRef)
+			} catch (error) {
+				onCaughtError( error );
 
-			chartBlock.runChart( attributes, myRef );
+			}
 		}
 	} );
+
+
+
+	const interpretError = () => {
+
+		if ( attributes.time ){
+			var exampleDate = new Date().toISOString();
+			exampleDate = exampleDate.replace( 'T', ' ');
+			exampleDate = exampleDate.replace( 'Z', '');
+			var text = "Error displaying chart. Please check your dates then choose Refresh, or change the Time unit.";
+			var expected = "Expected date format: ccyy-mm-dd hh:mm:ss.ttt ";
+			var forexample = 'For example: ' + exampleDate;
+			var additional = 'Message: ';
+			return(  <p>{text}<br/>{expected}<br />{forexample}<br />{additional}{attributes.error.message}</p> );
+		} else {
+			return( <p>An error occurred displaying the chart.
+				<br />{attributes.error.message}</p> );
+		}
+
+	}
+
+	var errorMessage = ( attributes.error) ? interpretError() : null;
 
 	const blockProps = useBlockProps();
 
 	//console.log( 'Edit()');
 	//console.log( attributes );
+
+
 
 	return (
 		<Fragment>
@@ -203,9 +241,9 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 							onChange={ onChangeTime }
 						/>
 					</PanelRow>
-					<PanelRow>
-						<SelectControl label={__("Time unit",'sb-chart-block')} value={attributes.timeunit} onChange={onChangeTimeunit} options={mappedTimeunitOptions}  />
-					</PanelRow>
+
+						<SelectControl label={__("Time unit (stepSize)",'sb-chart-block')} value={attributes.timeunit} onChange={onChangeTimeunit} options={mappedTimeunitOptions}  />
+					
 
 				</PanelBody>
 				<PanelBody>
@@ -282,7 +320,9 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 					<canvas id={attributes.myChartId} height="450px" ref={myRef}></canvas>
 				</div>
 				}
-
+				{ attributes.error &&
+				<div className={"error"}>{errorMessage}</div>
+				}
 				<PlainText
 					value={attributes.content}
 					placeholder={__('Enter Chart data in CSV format')}
