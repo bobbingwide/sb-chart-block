@@ -184,8 +184,17 @@ function sb_chart_enqueue_styles() {
  * @return string
  */
 function sb_chart_block_shortcode( $atts, $content, $tag ) {
-	$atts['beginYAxisAt0'] = sb_chart_block_array_get(  $atts, 'beginyaxisat0', 'false' );
-	$atts['barThickness'] = sb_chart_block_array_get( $atts, 'barthickness', null );
+	// This logic attempts to set atts which were converted to lower case when used in a shortcode.
+	// Only set beginyaxisat0 to true when it's needed.
+	$beginyaxisat0 = sb_chart_block_array_get(  $atts, 'beginyaxisat0', null );
+	if ( null !== $beginyaxisat0 ) {
+		$beginyaxisat0 = ( 'true' === $beginyaxisat0 ) ? true : false;
+	    $atts['beginYAxisAt0'] = sb_chart_block_array_get(  $atts, 'beginYaxisAt0', $beginyaxisat0 );
+	}
+	$barthickness =  sb_chart_block_array_get(  $atts, 'barthickness', null );
+	if ( null !== $barthickness ) {
+		$atts['barThickness'] = sb_chart_block_array_get( $atts, 'barThickness', $barthickness );
+	}
 	if ( $content ) {
 		require_once __DIR__ . '/libs/class-sb-chart-block.php';
 		$sb_chart_block = new SB_Chart_Block();
