@@ -100,7 +100,7 @@ class SB_chart_block {
 		$this->atts['timeunit'] = sb_chart_block_array_get( $this->atts, 'timeunit', 'hour');
 		$this->atts['timeunit'] = $this->validate_timeunit( $this->atts['timeunit'] );
 		$this->atts['barThickness'] = sb_chart_block_array_get( $this->atts, 'barThickness', null );
-		$this->atts['tension'] = sb_chart_block_array_get( $this->atts, 'tension', default: 0 );
+		$this->atts['tension'] = sb_chart_block_array_get( $this->atts, 'tension', 0 );
 		$this->atts['max'] = sb_chart_block_array_get( $this->atts, 'max', null );
 		$this->atts['backgroundColor'] = sb_chart_block_array_get( $this->atts, 'backgroundColor', null);
 		$this->atts['borderColor'] = sb_chart_block_array_get( $this->atts, 'borderColor', $this->atts['backgroundColor']);
