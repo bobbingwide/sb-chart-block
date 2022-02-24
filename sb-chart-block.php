@@ -166,8 +166,6 @@ function sb_chart_block_register_scripts() {
 
 }
 
-
-
 /**
  * Enqueues styles - if needed.
  */

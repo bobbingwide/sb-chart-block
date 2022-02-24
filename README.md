@@ -3,8 +3,8 @@
 * Contributors:      bobbingwide
 * Tags:              block, Chart, Line, Bar, Horizontal bar, Pie, stacked
 * Requires at least: 5.6.0
-* Tested up to:      5.8.1
-* Stable tag:        0.4.1
+* Tested up to:      5.9.1
+* Stable tag:        1.0.0
 * Requires PHP:      7.2.0
 * License:           GPL-2.0-or-later
 * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -50,16 +50,16 @@ Options to control the chart display are:
 - Stacked - Toggle on to stack line or bar charts
 - Begin Y axis at 0 toggle
 - Fill toggle for line charts
-- Height of the chart, in pixels.
+- Time line toggle for a date based axis, with selectable Time unit (stepSize)
 - Opacity - set the opacity of the background colours.
-
+- Height of the chart, in pixels
+- Bar thickness in pixels
+- Tension - for curved line charts
 
 # What Chart script does it use?  
 
-chartjs - from chartjs.org
-
-v0.3.0 enqueues the script from a local version of chart.min.js, version 3.1.0.
-When `SCRIPT_DEBUG` is true the debug version, chart.js, is loaded.
+v1.0.0 delivers [chartjs v3.7.1](https://github.com/chartjs/Chart.js/releases/tag/v3.7.1)
+and [chartjs-adapter-date-fns v2.0.0](https://github.com/chartjs/chartjs-adapter-date-fns)
 
 # What do I need to search for to find the block? 
 
@@ -87,6 +87,9 @@ If you do wish to modify the code then you can find instructions in the src fold
 5. Chart type toolbar selection
 
 ## Upgrade Notice 
+# 1.0.0 
+Update for time line support and improved internationalization and localization.
+
 # 0.4.1 
 Upgrade for compatibility with Gutenberg 11.4.0 and above.
 
@@ -133,6 +136,21 @@ First version to be used in Slog.
 Initial version copied from SB Children block
 
 ## Changelog 
+# 1.0.0 
+* Added: Add tension Range Control for Line charts #11
+* Added: Add support for Time line on x-axis, with timeunit and barThickness #17
+* Added: Support additional parameters for performance related charts #18
+* Changed: Update to chartjs v3.7.1 #11
+* Changed: Add chartjs-adapter-date-fns v2.0.0 #15
+* Changed: Catch and report errors when using Time line #17
+* Changed: Enable Time options for x or y axis #17
+* Changed: Improve support for the chartjs shortcode for beginYAxisAt0 #15
+* Changed: Reintroduced chartLine icon #14
+* Changed: Improved internationalization and localization #13
+* Tested: With WordPress 5.9.1
+* Tested: With Gutenberg 12.6.0
+* Tested: With PHP 8.0
+
 # 0.4.1 
 * Fixed: Chart block example doesn't show a chart #16
 * Tested: With Gutenberg 11.6.0
