@@ -2,7 +2,7 @@
 # This file is distributed under the GPL-2.0-or-later.
 msgid ""
 msgstr ""
-"Project-Id-Version: SB Chart block 1.0.0\n"
+"Project-Id-Version: SB Chart block 1.1.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/sb-chart-block\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Language: en_GB\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-02-24T14:22:39+00:00\n"
+"POT-Creation-Date: 2022-08-18T18:13:46+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.5.0\n"
 "X-Domain: sb-chart-block\n"
@@ -30,152 +30,143 @@ msgstr "bobbingwide"
 msgid "https://www.bobbingwide.com/about-bobbing-wide"
 msgstr "https://www.bobbingwide.com/about-bobbing-wide"
 
-#: sb-chart-block.php:72
+#: sb-chart-block.php:71
 msgid "The asset file ( build/index.asset.php ) is missing."
 msgstr "The asset file ( build/index.asset.php ) is missing."
 
-#: build/index.js:226
-#: build/index.js:284
-#: build/index.js:490
+#: build/index.js:1
 msgid "Line chart"
 msgstr "Line chart"
 
-#: build/index.js:230
-#: build/index.js:290
-#: build/index.js:491
+#: build/index.js:1
 msgid "Bar chart"
 msgstr "Bar chart"
 
-#: build/index.js:234
-#: build/index.js:296
-#: build/index.js:492
+#: build/index.js:1
 msgid "Horizontal bar chart"
 msgstr "Horizontal bar chart"
 
-#: build/index.js:238
-#: build/index.js:302
-#: build/index.js:493
+#: build/index.js:1
 msgid "Pie chart"
 msgstr "Pie chart"
 
-#: build/index.js:250
+#: build/index.js:1
 msgid "Chart type"
 msgstr "Chart type"
 
-#: build/index.js:251
+#: build/index.js:1
 msgid "Change chart type"
 msgstr "Change chart type"
 
-#: build/index.js:487
+#: build/index.js:1
 msgid "Choose Line, Bar, Horizontal bar or Pie."
 msgstr "Choose Line, Bar, Horizontal bar or Pie."
 
-#: build/index.js:497
+#: build/index.js:1
 msgid "Year"
 msgstr "Year"
 
-#: build/index.js:498
+#: build/index.js:1
 msgid "Quarter"
 msgstr "Quarter"
 
-#: build/index.js:499
+#: build/index.js:1
 msgid "Month"
 msgstr "Month"
 
-#: build/index.js:500
+#: build/index.js:1
 msgid "Week"
 msgstr "Week"
 
-#: build/index.js:501
+#: build/index.js:1
 msgid "Day"
 msgstr "Day"
 
-#: build/index.js:502
+#: build/index.js:1
 msgid "Hour"
 msgstr "Hour"
 
-#: build/index.js:503
+#: build/index.js:1
 msgid "Minute"
 msgstr "Minute"
 
-#: build/index.js:504
+#: build/index.js:1
 msgid "Second"
 msgstr "Second"
 
-#: build/index.js:505
+#: build/index.js:1
 msgid "Millisecond"
 msgstr "Millisecond"
 
-#: build/index.js:554
+#: build/index.js:1
 msgid "Error displaying chart. Please check your dates then choose Refresh, or change the Time unit."
 msgstr "Error displaying chart. Please check your dates then choose Refresh, or change the Time unit."
 
-#: build/index.js:556
+#: build/index.js:1
 msgid "Expected date format: ccyy-mm-dd hh:mm:ss.ttt"
 msgstr "Expected date format: ccyy-mm-dd hh:mm:ss.ttt"
 
-#: build/index.js:558
+#: build/index.js:1
 msgid "For example: "
 msgstr "For example: "
 
-#: build/index.js:560
+#: build/index.js:1
 msgid "Message: "
 msgstr "Message: "
 
-#: build/index.js:564
+#: build/index.js:1
 msgid "An error occurred displaying the chart."
 msgstr "An error occurred displaying the chart."
 
-#: build/index.js:576
-#: build/index.js:578
+#: build/index.js:1
 msgid "Refresh"
 msgstr "Refresh"
 
-#: build/index.js:579
+#: build/index.js:1
 msgid "Type"
 msgstr "Type"
 
-#: build/index.js:585
+#: build/index.js:1
 msgid "Stacked"
 msgstr "Stacked"
 
-#: build/index.js:589
+#: build/index.js:1
 msgid "Begin Y-axis at 0"
 msgstr "Begin Y-axis at 0"
 
-#: build/index.js:593
+#: build/index.js:1
 msgid "Fill"
 msgstr "Fill"
 
-#: build/index.js:597
+#: build/index.js:1
 msgid "Time line"
 msgstr "Time line"
 
-#: build/index.js:601
+#: build/index.js:1
 msgid "Time unit (stepSize)"
 msgstr "Time unit (stepSize)"
 
-#: build/index.js:606
+#: build/index.js:1
 msgid "Color palette"
 msgstr "Colour palette"
 
-#: build/index.js:611
+#: build/index.js:1
 msgid "Opacity"
 msgstr "Opacity"
 
-#: build/index.js:620
+#: build/index.js:1
 msgid "Height (pixels)"
 msgstr "Height (pixels)"
 
-#: build/index.js:628
+#: build/index.js:1
 msgid "Bar thickness (pixels)"
 msgstr "Bar thickness (pixels)"
 
-#: build/index.js:636
+#: build/index.js:1
 msgid "Tension"
 msgstr "Tension"
 
-#: build/index.js:733
+#: build/index.js:1
 msgid ""
 "Label,Value\n"
 "One,1\n"
