@@ -22,11 +22,11 @@
 		"l10n": "l10n sb-chart-block"
 	},
 	"devDependencies": {
-		"@wordpress/scripts": "^18.0.1"
+		"@wordpress/scripts": "^23.7.2"
 	},
 	"dependencies": {
 		"@types/tinycolor2": "^1.4.2",
-		"@wordpress/components": "^17.0.0",
-		"@wordpress/icons": "^5.0.2"
+		"@wordpress/components": "^19.17.0",
+		"@wordpress/icons": "^9.6.0"
 	}
 }
