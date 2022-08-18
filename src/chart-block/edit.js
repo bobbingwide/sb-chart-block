@@ -250,7 +250,6 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 					<SelectControl label={__("Color palette",'sb-chart-block')} value={attributes.theme} onChange={onChangeTheme} options={themeOptions}  />
 				</PanelBody>
 				<PanelBody>
-
 					<PanelRow>
 						<RangeControl
 							label={ __( "Opacity", 'sb-chart-block' ) }
@@ -264,10 +263,8 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 						/>
 
 					</PanelRow>
-
 				</PanelBody>
 				<PanelBody>
-
 					<PanelRow>
 						<RangeControl
 							label={ __( "Height (pixels)", 'sb-chart-block' ) }
@@ -280,6 +277,8 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 						/>
 
 					</PanelRow>
+				</PanelBody>
+				<PanelBody>
 					<PanelRow>
 						<RangeControl
 							label={ __( "Bar thickness (pixels)", 'sb-chart-block' ) }
@@ -292,9 +291,11 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 						/>
 
 					</PanelRow>
-					<PanelBody>
+				</PanelBody>
 
-						<PanelRow>
+				<PanelBody>
+
+					<PanelRow>
 							<RangeControl
 								label={ __( "Tension", 'sb-chart-block' ) }
 								value={ attributes.tension }
@@ -305,12 +306,7 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 								step={ 0.1}
 								allowReset
 							/>
-
-						</PanelRow>
-
-					</PanelBody>
-
-
+					</PanelRow>
 				</PanelBody>
 			</InspectorControls>
 
