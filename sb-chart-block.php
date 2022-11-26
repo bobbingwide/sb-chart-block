@@ -128,6 +128,27 @@ function sb_chart_block_array_get( $array, $index, $default=null ) {
 }
 
 /**
+ * Returns the two merged objects or default.
+ *
+ * @param $object
+ * @param $object
+ * @param null $default
+ *
+ * @return mixed|null
+ */
+function sb_chart_block_merge_objects( $object1, $object2, $default=null ) {
+	$value = null;
+	
+	if ( is_object( $object1 ) && is_object( $object2 ) ) {
+		$value = (object)array_merge((array)$object1, (array)$object2);
+	} else {
+		$value = $default;
+	}
+	
+	return $value;
+}
+
+/**
  * Enqueues the chartjs script.
  */
 function sb_chart_block_enqueue_scripts() {

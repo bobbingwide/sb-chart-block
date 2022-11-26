@@ -405,115 +405,86 @@ class SB_chart_block {
 	 * Returns the options.
 	 *
 	 * Option | Value | Purpose
-	 * ------- | ----- | -----
+	 * ------ | ----- | -------
 	 * maintainAspectRatio | false |
 	 * indexAxis | x or y | y for a horizontal bar chart
 	 * scales.y.beginAtZero | true | Start the axis from 0
 	 * scales.y.stacked | true/false | Show a stacked line / bar chart. https://www.chartjs.org/docs/latest/charts/line.html?h=stacked
 	 * scales.x.stacked | true | Only if a stacked chart is required.
 	 *
-	 * @TODO
-	 * Convert to using objects and json_encode.
-	 *
 	 * @return string
 	 */
 	function get_options() {
-		$options_html='';
-		$options_html="var	options = {";
-		$options = '';
-		$stacked = $this->atts['stacked'];
-		$stacked_bool_string = $this->boolstring( $stacked );
-
-		$indexAxis = '"' . $this->atts['indexAxis'] . '"';
-		$beginAt0 = $this->atts['beginYAxisAt0'];
-		$beginAt0_bool_string = $this->boolstring( $beginAt0 );
+		$options = new stdClass();
+		
 		switch ( $this->atts['type'] ) {
 			case 'line':
 			case 'bar':
 			case 'horizontalBar':
-				$options =" maintainAspectRatio: false,
-							indexAxis: $indexAxis,
-							scales: {";
-				$options .= $this->y_axis_options();
-				$options .= $this->x_axis_options();
-				$options .= "} ";
+				$options->maintainAspectRatio = false;
+				$options->indexAxis = $this->atts['indexAxis'];
+				$options->scales = (object)[
+					'y' => $this->axis_options( 'y' ),
+					'x' => $this->axis_options( 'x' ),
+				];
 				break;
+			
 			case 'pie':
-				$options ="maintainAspectRatio: false,";
+				$options->maintainAspectRatio = false;
 				break;
 		}
-		$options_html .= $options;
-		$options_html .= "};";
-		return $options_html;
+		
+		return 'var options = ' . json_encode( $options ) . ';';
 	}
 
 	/**
-	 * Returns the y-axis options.
+	 * Returns options for the specified axis.
 	 *
 	 * @param string $axis
-	 * @return string
+	 * @return object
 	 */
-	function y_axis_options( $axis="y") {
-		$options = "$axis : {";
+	function axis_options( $axis ) {
+		$options = new stdClass();
+		
+		if ( substr( $axis, 0, 1 ) === 'y' ) {
+			$options->beginAtZero = $this->boolstring( $this->atts['beginYAxisAt0'] );
+			
+			if ( $this->atts['max'] ) {
+				$options->max = $this->atts['max'];
+			}
+		}
+		
+		$options->stacked = $this->boolstring( $this->atts['stacked'] );
+		
 		if ( $this->atts['time'] ) {
-			$options .= $this->axis_time_options( $axis );
+			$options = sb_chart_block_merge_objects( $options, $this->axis_time_options( $axis ), $options );
 		}
-		$stacked = $this->atts['stacked'];
-		$stacked_bool_string = $this->boolstring( $stacked );
-		$options .= "stacked: $stacked_bool_string,";
-
-		$beginAt0 = $this->atts['beginYAxisAt0'];
-		$beginAt0_bool_string = $this->boolstring( $beginAt0 );
-		$options .= "beginAtZero: $beginAt0_bool_string,";
-
-		$max = $this->atts['max'];
-		if ( $max ) {
-			$options .= "max: $max,";
-		}
-
-		$options .= "},";
+		
 		return $options;
 	}
-
+	
 	/**
 	 * Returns the axis options for time line.
 	 *
 	 * @param $axis
-	 * @return string|null
+	 * @return object
 	 */
 	function axis_time_options( $axis ) {
-		$options = null;
-		if ( $axis === $this->atts['indexAxis']) {
-			wp_enqueue_script( "chartjs-adapter-date-fns-script" );
-			$options.='type: "time",';
-			$options.=" time: {
-			unit: '" . $this->atts['timeunit'] . "',
-            displayFormats: {
-				minute: 'dd MMM hh:mm',
-				hour: 'dd MMM hh:mm',
-				day: 'dd MMM',
-		    } },";
+		$options = new stdClass();
+		
+		if ( $axis === $this->atts['indexAxis'] ) {
+			wp_enqueue_script( 'chartjs-adapter-date-fns-script' );
+			$options->type = 'time';
+			$options->time = (object)[
+				'unit' => $this->atts['timeunit'],
+				'displayFormats' => (object)[
+					'minute' => 'dd MMM hh:mm',
+					'hour' => 'dd MMM hh:mm',
+					'day' => 'dd MMM',
+				],
+			];
 		}
-		return $options;
-	}
-
-	/**
-	 * Returns the x-axis options.
-	 *
-	 * @return string
-	 */
-	function x_axis_options() {
-		$options = null;
-		$options .= "x: {";
-		if ( $this->atts['time'] ) {
-			$options .= $this->axis_time_options( 'x');
-		}
-
-		if ( $this->atts['stacked'] ) {
-			$options .= " stacked: true ";
-		}
-
-		$options .= "}";
+		
 		return $options;
 	}
 
