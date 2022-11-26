@@ -17,9 +17,9 @@ class SB_chart_block {
 	private $atts;
 
 	/**
-	 * @var array $legend Legends for multiple lines or bars
+	 * @var array $legends Legends for multiple lines or bars
 	 */
-	private $legend;
+	private $legends;
 
 	/**
 	 * @var array $lines Content as CSV records
@@ -43,7 +43,7 @@ class SB_chart_block {
 	 */
 	function __construct() {
 		$this->atts = [];
-		$this->legend = [];
+		$this->legends = [];
 		$this->lines = [];
 		$this->series = [];
 		$this->load_color_palettes();
@@ -181,7 +181,10 @@ class SB_chart_block {
 		} else {
 			return "No content to chart?";
 		}
-		$this->legend=array_shift( $lines );
+		$legends = array_shift( $lines );
+		if (is_string( $legends )) {
+			$this->legends = explode( ',', $legends );
+		}
 		$this->lines = $lines;
 		$this->transpose( $lines );
 		return null;
@@ -290,8 +293,7 @@ class SB_chart_block {
 	}
 
 	function get_legend( $index ) {
-		$legends = explode( ',', $this->legend );
-		$legend = sb_chart_block_array_get( $legends, $index, 'undefined' );
+		$legend = sb_chart_block_array_get( $this->legends, $index, 'undefined' );
 		return $legend;
 	}
 
