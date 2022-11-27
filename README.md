@@ -75,7 +75,7 @@ If your first language is not English then you could try:
 
 ### Do I need to build this block? 
 No. The plugin is delivered with the production version of the block.
-If you do wish to modify the code then you can find instructions in the src folder.
+If you do wish to modify the code then you can find [instructions in the `src` folder](src/README.md).
 
 ### Are there hooks available for developers?
 
