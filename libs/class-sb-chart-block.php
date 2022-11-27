@@ -80,33 +80,60 @@ class SB_chart_block {
 			$atts = [];
 		}
 		$this->atts = $atts;
-
+		
 		$this->atts['type'] = isset( $this->atts['type'] ) ? $this->atts['type'] : 'line';
 		$this->atts['type'] = $this->validate_type( $this->atts['type'] );
+		
 		$this->atts['class'] = isset( $this->atts['class'] ) ? $this->atts['class'] : '';
+		
 		$this->atts['theme'] = isset( $this->atts['theme'] ) ? $this->atts['theme'] : $this->color_palettes->get_default();
 
-		// Using 0 to represent false used to be good enough
-		// but now we need to output a literal true or false.
-		// Not sure why this has changed!
-		$this->atts['stacked'] = isset( $this->atts['stacked'] ) ? $this->atts['stacked'] : 0;
+		$this->atts['stacked'] = isset( $this->atts['stacked'] ) ? $this->atts['stacked'] : false;
+		$this->atts['stacked'] = $this->validate_bool( $this->atts['stacked'] );
+			
 		$this->atts['fill'] = sb_chart_block_array_get( $this->atts, 'fill', false );
+		$this->atts['fill'] = $this->validate_bool( $this->atts['fill'] );
+			
 		$this->atts['height'] = sb_chart_block_array_get( $this->atts, 'height', null );
-		$this->atts['beginYAxisAt0'] = sb_chart_block_array_get( $this->atts, 'beginYAxisAt0', 0 );
+		
+		$this->atts['beginYAxisAt0'] = sb_chart_block_array_get( $this->atts, 'beginYAxisAt0', false );
+		$this->atts['beginYAxisAt0'] = $this->validate_bool( $this->atts['beginYAxisAt0'] );
+		
 		$this->atts['indexAxis'] = sb_chart_block_array_get( $this->atts, 'indexAxis', 'x' );
+		
 		$this->atts['opacity'] = sb_chart_block_array_get( $this->atts, 'opacity', '0.8');
+		
 		//bw_trace2( $this->atts, "this atts", false );
+		
 		$this->atts['time'] = sb_chart_block_array_get( $this->atts, 'time', null );
+		
 		$this->atts['timeunit'] = sb_chart_block_array_get( $this->atts, 'timeunit', 'hour');
 		$this->atts['timeunit'] = $this->validate_timeunit( $this->atts['timeunit'] );
+		
 		$this->atts['barThickness'] = sb_chart_block_array_get( $this->atts, 'barThickness', null );
+		
 		$this->atts['tension'] = sb_chart_block_array_get( $this->atts, 'tension', 0 );
+		
 		$this->atts['max'] = sb_chart_block_array_get( $this->atts, 'max', null );
-		$this->atts['backgroundColor'] = sb_chart_block_array_get( $this->atts, 'backgroundColor', null);
-		$this->atts['borderColor'] = sb_chart_block_array_get( $this->atts, 'borderColor', $this->atts['backgroundColor']);
+		
+		$this->atts['backgroundColor'] = sb_chart_block_array_get( $this->atts, 'backgroundColor', null );
+		
+		$this->atts['borderColor'] = sb_chart_block_array_get( $this->atts, 'borderColor', $this->atts['backgroundColor'] );
+		
 		$this->atts['showLine'] = sb_chart_block_array_get( $this->atts, 'showLine', true );
+		$this->atts['showLine'] = $this->validate_bool( $this->atts['showLine'] );
 	}
-
+	
+	/**
+	 * Validate boolean attributes.
+	 *
+	 * @param mixed $value The value to validate.
+	 * @return bool Returns true if $value equals 1, "1", true, "true", "on" and "yes". Returns false otherwise.
+	 */
+	function validate_bool( $value ) {
+		return filter_var( $value, FILTER_VALIDATE_BOOL );
+	}
+	
 	/**
 	 * Validates the chart type to the values we support.
 	 *
@@ -452,14 +479,14 @@ class SB_chart_block {
 		$options = new stdClass();
 		
 		if ( substr( $axis, 0, 1 ) === 'y' ) {
-			$options->beginAtZero = $this->boolstring( $this->atts['beginYAxisAt0'] );
+			$options->beginAtZero = $this->atts['beginYAxisAt0'];
 			
 			if ( $this->atts['max'] ) {
 				$options->max = $this->atts['max'];
 			}
 		}
 		
-		$options->stacked = $this->boolstring( $this->atts['stacked'] );
+		$options->stacked = $this->atts['stacked'];
 		
 		if ( $this->atts['time'] ) {
 			$options = sb_chart_block_merge_objects( $options, $this->axis_time_options( $axis ), $options );
@@ -491,10 +518,6 @@ class SB_chart_block {
 		}
 		
 		return $options;
-	}
-
-	function boolstring( $bool ) {
-		return $bool ? 'true' : 'false';
 	}
 
 	function get_newChart() {
