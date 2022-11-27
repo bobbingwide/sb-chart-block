@@ -170,6 +170,7 @@ class SB_chart_block {
 	 * @return string
 	 */
 	function prepare_content( $content ) {
+		$content = apply_filters( 'sb_chart_block_content', $content, $this->atts );
 		if ( $content ) {
 			$content=trim( $content );
 			$content = html_entity_decode( $content );
@@ -435,6 +436,8 @@ class SB_chart_block {
 				$options->maintainAspectRatio = false;
 				break;
 		}
+		
+		$options = apply_filters( 'sb_chart_block_options', $options, $this->atts, $this->series );
 		
 		return 'var options = ' . json_encode( $options ) . ';';
 	}
