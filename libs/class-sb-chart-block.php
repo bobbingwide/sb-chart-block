@@ -68,7 +68,7 @@ class SB_chart_block {
 	}
 
 	/**
-	 * Sets $atts from passed attributes.
+	 * Sets $atts from passed attributes. Attempts to set atts which were converted to lower case when used in a shortcode.
 	 *
 	 * @param $atts
 	 *
@@ -96,9 +96,15 @@ class SB_chart_block {
 			
 		$this->atts['height'] = sb_chart_block_array_get( $this->atts, 'height', null );
 		
+		if ( !isset( $this->atts['beginYAxisAt0'] ) && isset( $this->atts['beginyaxisat0'] ) ) {
+			$this->atts['beginYAxisAt0'] = $this->atts['beginyaxisat0'];
+		}
 		$this->atts['beginYAxisAt0'] = sb_chart_block_array_get( $this->atts, 'beginYAxisAt0', false );
 		$this->atts['beginYAxisAt0'] = $this->validate_bool( $this->atts['beginYAxisAt0'] );
 		
+		if ( !isset( $this->atts['indexAxis'] ) && isset( $this->atts['indexaxis'] ) ) {
+			$this->atts['indexAxis'] = $this->atts['indexaxis'];
+		}
 		$this->atts['indexAxis'] = sb_chart_block_array_get( $this->atts, 'indexAxis', 'x' );
 		
 		$this->atts['opacity'] = sb_chart_block_array_get( $this->atts, 'opacity', '0.8');
@@ -107,19 +113,34 @@ class SB_chart_block {
 		
 		$this->atts['time'] = sb_chart_block_array_get( $this->atts, 'time', null );
 		
-		$this->atts['timeunit'] = sb_chart_block_array_get( $this->atts, 'timeunit', 'hour');
-		$this->atts['timeunit'] = $this->validate_timeunit( $this->atts['timeunit'] );
+		if ( !isset( $this->atts['timeUnit'] ) && isset( $this->atts['timeunit'] ) ) {
+			$this->atts['timeUnit'] = $this->atts['timeunit'];
+		}
+		$this->atts['timeUnit'] = sb_chart_block_array_get( $this->atts, 'timeUnit', 'hour');
+		$this->atts['timeUnit'] = $this->validate_timeunit( $this->atts['timeUnit'] );
 		
+		if ( !isset( $this->atts['barThickness'] ) && isset( $this->atts['barthickness'] ) ) {
+			$this->atts['barThickness'] = $this->atts['barthickness'];
+		}
 		$this->atts['barThickness'] = sb_chart_block_array_get( $this->atts, 'barThickness', null );
 		
 		$this->atts['tension'] = sb_chart_block_array_get( $this->atts, 'tension', 0 );
 		
 		$this->atts['max'] = sb_chart_block_array_get( $this->atts, 'max', null );
 		
+		if ( !isset( $this->atts['backgroundColor'] ) && isset( $this->atts['backgroundcolor'] ) ) {
+			$this->atts['backgroundColor'] = $this->atts['backgroundcolor'];
+		}
 		$this->atts['backgroundColor'] = sb_chart_block_array_get( $this->atts, 'backgroundColor', null );
 		
+		if ( !isset( $this->atts['borderColor'] ) && isset( $this->atts['bordercolor'] ) ) {
+			$this->atts['borderColor'] = $this->atts['bordercolor'];
+		}
 		$this->atts['borderColor'] = sb_chart_block_array_get( $this->atts, 'borderColor', $this->atts['backgroundColor'] );
 		
+		if ( !isset( $this->atts['showLine'] ) && isset( $this->atts['showline'] ) ) {
+			$this->atts['showLine'] = $this->atts['showline'];
+		}
 		$this->atts['showLine'] = sb_chart_block_array_get( $this->atts, 'showLine', true );
 		$this->atts['showLine'] = $this->validate_bool( $this->atts['showLine'] );
 	}
@@ -508,7 +529,7 @@ class SB_chart_block {
 			wp_enqueue_script( 'chartjs-adapter-date-fns-script' );
 			$options->type = 'time';
 			$options->time = (object)[
-				'unit' => $this->atts['timeunit'],
+				'unit' => $this->atts['timeUnit'],
 				'displayFormats' => (object)[
 					'minute' => 'dd MMM hh:mm',
 					'hour' => 'dd MMM hh:mm',
