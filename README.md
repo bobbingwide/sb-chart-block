@@ -98,12 +98,18 @@ function change_legend_font_size($options, $atts, $series) {
 add_filter('sb_chart_block_options', 'change_legend_font_size', 10, 3);
 ```
 
-## Screenshots 
-1. Line chart - Gutenberg theme colors
-2. Bar chart - Chart theme colors
-3. Horizontal bar chart - Tertiary theme colors
-4. Pie chart - Visualizer theme colors
-5. Chart type toolbar selection
+## Screenshots
+
+1. Line chart with Gutenberg theme colors:  
+   ![Line chart with Gutenberg theme colors](assets/screenshot-1.jpg)
+2. Bar chart with Chart theme colors:  
+   ![Bar chart with Chart theme colors](assets/screenshot-2.jpg)
+3. Horizontal bar chart with Tertiary theme colors:  
+   ![Horizontal bar chart with Tertiary theme colors](assets/screenshot-3.jpg)
+4. Pie chart with Visualizer theme colors:  
+   ![Pie chart with Visualizer theme colors](assets/screenshot-4.jpg)
+5. Chart type toolbar selection:  
+   ![Chart type toolbar selection](assets/screenshot-5.jpg)
 
 ## Upgrade Notice 
 ### 1.1.0 
