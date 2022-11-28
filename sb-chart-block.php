@@ -79,6 +79,7 @@ function sb_chart_block_register_editor_script() {
 	if ( is_admin() ) {
 		sb_chart_block_register_scripts();
 		$script_asset['dependencies'][] = 'chartjs-script';
+		$script_asset['dependencies'][] = 'chartjs-adapter-date-fns-script';
 	}
 
 	wp_register_script(
