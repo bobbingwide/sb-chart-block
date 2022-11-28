@@ -128,15 +128,31 @@ class SB_chart_block {
 		
 		$this->atts['max'] = sb_chart_block_array_get( $this->atts, 'max', null );
 		
-		if ( !isset( $this->atts['backgroundColor'] ) && isset( $this->atts['backgroundcolor'] ) ) {
-			$this->atts['backgroundColor'] = $this->atts['backgroundcolor'];
+		if ( !isset( $this->atts['backgroundColors'] ) ) {
+			if ( isset( $this->atts['backgroundcolors'] ) ) {
+				$this->atts['backgroundColors'] = $this->atts['backgroundcolors'];
+			}
+			// For compatibility with previous versions:
+			else if ( isset( $this->atts['backgroundColor'] ) ) {
+				$this->atts['backgroundColors'] = $this->atts['backgroundColor'];
+			} else if ( isset( $this->atts['backgroundcolor'] ) ) {
+				$this->atts['backgroundColors'] = $this->atts['backgroundcolor'];
+			}
 		}
-		$this->atts['backgroundColor'] = sb_chart_block_array_get( $this->atts, 'backgroundColor', null );
+		$this->atts['backgroundColors'] = sb_chart_block_array_get( $this->atts, 'backgroundColors', null );
 		
-		if ( !isset( $this->atts['borderColor'] ) && isset( $this->atts['bordercolor'] ) ) {
-			$this->atts['borderColor'] = $this->atts['bordercolor'];
+		if ( !isset( $this->atts['borderColors'] ) ) {
+			if ( isset( $this->atts['bordercolors'] ) ) {
+				$this->atts['borderColors'] = $this->atts['bordercolors'];
+			}
+			// For compatibility with previous versions:
+			else if ( isset( $this->atts['borderColor'] ) ) {
+				$this->atts['borderColors'] = $this->atts['borderColor'];
+			} else if ( isset( $this->atts['bordercolor'] ) ) {
+				$this->atts['borderColors'] = $this->atts['bordercolor'];
+			}
 		}
-		$this->atts['borderColor'] = sb_chart_block_array_get( $this->atts, 'borderColor', $this->atts['backgroundColor'] );
+		$this->atts['borderColors'] = sb_chart_block_array_get( $this->atts, 'borderColors', $this->atts['backgroundColors'] );
 		
 		if ( !isset( $this->atts['showLine'] ) && isset( $this->atts['showline'] ) ) {
 			$this->atts['showLine'] = $this->atts['showline'];
@@ -347,8 +363,8 @@ class SB_chart_block {
 	}
 
 	/**
-	 * Returns the single background colour for the line/bar.
-	 * Returns all the background colours for a pie chart.
+	 * Returns the single background color for the line/bar.
+	 * Returns all the background colors for a pie chart.
 	 * @param $index
 	 *
 	 * @return string
@@ -364,31 +380,62 @@ class SB_chart_block {
 	}
 
 	/**
-	 * These are the chart.js border colors.
+	 * Returns the single border color for the line/bar.
 	 *
 	 * @param $index
 	 *
 	 * @return string
 	 */
 	function get_borderColor( $index ) {
-		$borderColors = $this->get_backgroundColors( 1.0 );
+		$borderColors = $this->get_borderColors(  $this->atts['opacity'] );
 		$choice = ($index-1) % count( $borderColors );
 		$borderColor = $borderColors[ $choice ];
 		return $borderColor;
 	}
 
 	/**
-	 * Returns an array of background colours.
+	 * Returns an array of background colors. Missing colors from the `backgroundColors` shortcode attribute are taken from the theme colors.
 	 *
 	 * @param $opacity
 	 * @return mixed
 	 */
 	function get_backgroundColors( $opacity ) {
 		$this->opacity = $opacity;
-		$backgroundColors = $this->color_palettes->get_backgroundColors( $this->atts['theme'], $opacity );
+		$customColors = [];
+		if ( $this->atts['backgroundColors'] ) {
+			$customColors = sb_chart_block_get_csv( $this->atts['backgroundColors'] );
+			foreach ( $customColors as $key => $color ) {
+				if ( '' !== $color ) {
+					$customColors[$key] = $this->color_palettes->rgba( $color, $opacity );
+				}
+			}
+		}
+		$themeColors = $this->color_palettes->get_backgroundColors( $this->atts['theme'], $opacity );
+		$backgroundColors = sb_chart_block_array_replace( $themeColors, $customColors );
 		return $backgroundColors;
 	}
 
+	/**
+	 * Returns an array of border colors. Missing colors from the `borderColors` shortcode attribute are taken from the background colors.
+	 *
+	 * @param $opacity
+	 * @return mixed
+	 */
+	function get_borderColors( $opacity ) {
+		$this->opacity = $opacity;
+		$customColors = [];
+		if ( $this->atts['borderColors'] ) {
+			$customColors = sb_chart_block_get_csv( $this->atts['borderColors'] );
+			foreach ( $customColors as $key => $color ) {
+				if ( '' !== $color ) {
+					$customColors[$key] = $this->color_palettes->rgba( $color, $opacity );
+				}
+			}
+		}
+		$themeColors = $this->get_backgroundColors( $opacity );
+		$borderColors = sb_chart_block_array_replace( $themeColors, $customColors );
+		return $borderColors;
+	}
 
 	/**
 	 *
@@ -428,17 +475,9 @@ class SB_chart_block {
 			$dataset                 =new stdClass;
 			$dataset->label          = $this->get_legend( $index );
 			$dataset->data           =$this->series[ $index ];
-			if ( $this->atts['backgroundColor']) {
-				$dataset->backgroundColor = $this->atts['backgroundColor'];
-			} else {
-				$dataset->backgroundColor = $this->get_backgroundColor($index);
-			}
-			if( 'pie' !== $this->atts['type']) {
-				if ( $this->atts['borderColor']) {
-					$dataset->borderColor = $this->atts['borderColor'];
-				} else {
-					$dataset->borderColor = $this->get_borderColor($index);
-				}
+			$dataset->backgroundColor = $this->get_backgroundColor($index);
+			if( 'pie' !== $this->atts['type'] ) {
+				$dataset->borderColor  = $this->get_borderColor( $index );
 			}
 			$dataset->borderWidth    = 1;
 			if ( $this->atts['barThickness']) {

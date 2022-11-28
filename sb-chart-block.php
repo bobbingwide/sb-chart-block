@@ -128,6 +128,45 @@ function sb_chart_block_array_get( $array, $index, $default=null ) {
 }
 
 /**
+ * Returns an array from a CSV string. If the data is empty or if it's not a string, an empty array is returned.
+ *
+ * @param string
+ *
+ * @return array
+ */
+function sb_chart_block_get_csv( $data ) {
+	$array = [];
+	
+	if ( is_string( $data ) && '' !== $data ) {
+		$array = str_getcsv( $data );
+	}
+	
+	return $array;
+}
+
+/**
+ * Replaces elements from the second array into the first array, unless elements are empty strings.
+ *
+ * @param array
+ * @param array
+ *
+ * @return array
+ */
+function sb_chart_block_array_replace( $array1, $array2 ) {
+	$replaced = [];
+	if ( is_array( $array1 ) && is_array( $array2 ) ) {
+		$replaced = $array1;
+		foreach ( $array2 as $key => $value ) {
+			if ( '' === $value ) {
+				continue;
+			}
+			$replaced[$key] = $value;
+		}
+	}
+	return $replaced;
+}
+
+/**
  * Returns the two merged objects or default.
  *
  * @param $object
