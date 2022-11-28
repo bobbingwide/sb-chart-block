@@ -129,17 +129,23 @@ function sb_chart_block_array_get( $array, $index, $default=null ) {
 }
 
 /**
- * Returns an array from a CSV string. If the data is empty or if it's not a string, an empty array is returned.
+ * Returns an array from a CSV string. If the data is empty or if it's not a string, an empty array is returned (unless "$min_nb_fields" > 0).
  *
- * @param string
+ * @param string $data CSV string.
+ * @param int $min_nb_fields Minimum number of fields. If the array has less than this number of fields, null items are added to reach the count.
  *
  * @return array
  */
-function sb_chart_block_get_csv( $data ) {
+function sb_chart_block_get_csv( $data, $min_nb_fields = 0 ) {
 	$array = [];
 	
 	if ( is_string( $data ) && '' !== $data ) {
 		$array = str_getcsv( $data );
+	}
+	
+	$nb_new_fields = $min_nb_fields - count( $array );
+	for ( $i = 0; $i < $nb_new_fields; $i++ ) { 
+		$array[] = null;
 	}
 	
 	return $array;

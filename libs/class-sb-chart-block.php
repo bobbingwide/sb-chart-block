@@ -236,10 +236,13 @@ class SB_chart_block {
 	function prepare_content( $content ) {
 		$content = apply_filters( 'sb_chart_block_content', $content, $this->atts );
 		if ( $content ) {
-			$content=trim( $content );
 			$content = html_entity_decode( $content );
-			$content=str_replace( '<br />', '', $content );
-			$lines  =explode( "\n", $content );
+			$content = str_replace(
+				['<br />', '<p>', '</p>', '”', '”'],
+				['',       '',    '',     '"', '"'],
+				$content
+			);
+			$lines = preg_split( '/\s*(\r\n|\r|\n)+\s*/', trim ( $content ) );
 			if ( count( $lines) < 2 ) {
 				//return "No data to chart?";
 			}
@@ -247,9 +250,7 @@ class SB_chart_block {
 			return "No content to chart?";
 		}
 		$legends = array_shift( $lines );
-		if (is_string( $legends )) {
-			$this->legends = explode( ',', $legends );
-		}
+		$this->legends = sb_chart_block_get_csv( $legends );
 		$this->lines = $lines;
 		$this->transpose( $lines );
 		return null;
@@ -326,15 +327,15 @@ class SB_chart_block {
 	 * Transposes the input CSV into the series array.
 	 *
 	 * $series[0] will be the labels for the x-axis - along the bottom
-	 * We assume that there's a value for each row and column.
 	 *
 	 * @param $lines
 	 * @return array
 	 */
 	function transpose( $lines ) {
 		$this->series = [];
+		$nb_columns = count( $this->legends );
 		foreach ( $lines as $line ) {
-			$values = explode( ',', $line);
+			$values = sb_chart_block_get_csv( $line, $nb_columns );
 			foreach ( $values as $key => $value ) {
 				$this->series[ $key ][] = $value;
 			}
