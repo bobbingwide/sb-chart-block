@@ -298,7 +298,11 @@ class SB_chart_block {
 	 * @return string
 	 */
 	function get_div_start() {
-		$html = '<div class="chartjs"';
+		$classes = 'chartjs';
+		if ( '' !== $this->atts['class'] ) {
+			$classes .= ' ' . $this->atts['class'];
+		}
+		$html = '<div class="' . $classes . '"';
 		if ( $this->atts['height']) {
 			$html.= ' style="position:relative; height:'. $this->atts['height'] . 'px;"';
 		}
