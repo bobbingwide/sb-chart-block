@@ -112,6 +112,7 @@ class SB_chart_block {
 		//bw_trace2( $this->atts, "this atts", false );
 		
 		$this->atts['time'] = sb_chart_block_array_get( $this->atts, 'time', null );
+		$this->atts['time'] = $this->validate_bool( $this->atts['time'] );
 		
 		if ( !isset( $this->atts['timeUnit'] ) && isset( $this->atts['timeunit'] ) ) {
 			$this->atts['timeUnit'] = $this->atts['timeunit'];
