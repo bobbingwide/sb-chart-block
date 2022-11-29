@@ -106,7 +106,7 @@ class SB_chart_block {
 		$this->atts['fill'] = sb_chart_block_array_get( $this->atts, 'fill', false );
 		$this->atts['fill'] = $this->validate_bool( $this->atts['fill'] );
 			
-		$this->atts['height'] = sb_chart_block_array_get( $this->atts, 'height', null );
+		$this->atts['height'] = sb_chart_block_array_get( $this->atts, 'height', 0 );
 		
 		if ( !isset( $this->atts['yAxes'] ) ) {
 			if ( isset( $this->atts['yaxes'] ) ) {
@@ -126,27 +126,27 @@ class SB_chart_block {
 		}
 		$this->atts['indexAxis'] = sb_chart_block_array_get( $this->atts, 'indexAxis', 'x' );
 		
-		$this->atts['opacity'] = sb_chart_block_array_get( $this->atts, 'opacity', '0.8');
+		$this->atts['opacity'] = sb_chart_block_array_get( $this->atts, 'opacity', 0.8 );
 		
 		//bw_trace2( $this->atts, "this atts", false );
 		
-		$this->atts['time'] = sb_chart_block_array_get( $this->atts, 'time', null );
+		$this->atts['time'] = sb_chart_block_array_get( $this->atts, 'time', false );
 		$this->atts['time'] = $this->validate_bool( $this->atts['time'] );
 		
 		if ( !isset( $this->atts['timeUnit'] ) && isset( $this->atts['timeunit'] ) ) {
 			$this->atts['timeUnit'] = $this->atts['timeunit'];
 		}
-		$this->atts['timeUnit'] = sb_chart_block_array_get( $this->atts, 'timeUnit', 'hour');
+		$this->atts['timeUnit'] = sb_chart_block_array_get( $this->atts, 'timeUnit', 'hour' );
 		$this->atts['timeUnit'] = $this->validate_timeunit( $this->atts['timeUnit'] );
 		
 		if ( !isset( $this->atts['barThickness'] ) && isset( $this->atts['barthickness'] ) ) {
 			$this->atts['barThickness'] = $this->atts['barthickness'];
 		}
-		$this->atts['barThickness'] = sb_chart_block_array_get( $this->atts, 'barThickness', null );
+		$this->atts['barThickness'] = sb_chart_block_array_get( $this->atts, 'barThickness', 0 );
 		
 		$this->atts['tension'] = sb_chart_block_array_get( $this->atts, 'tension', 0 );
 		
-		$this->atts['max'] = sb_chart_block_array_get( $this->atts, 'max', null );
+		$this->atts['max'] = sb_chart_block_array_get( $this->atts, 'max', -PHP_FLOAT_MAX );
 		
 		if ( !isset( $this->atts['backgroundColors'] ) ) {
 			if ( isset( $this->atts['backgroundcolors'] ) ) {
@@ -159,7 +159,7 @@ class SB_chart_block {
 				$this->atts['backgroundColors'] = $this->atts['backgroundcolor'];
 			}
 		}
-		$this->atts['backgroundColors'] = sb_chart_block_array_get( $this->atts, 'backgroundColors', null );
+		$this->atts['backgroundColors'] = sb_chart_block_array_get( $this->atts, 'backgroundColors', '' );
 		
 		if ( !isset( $this->atts['borderColors'] ) ) {
 			if ( isset( $this->atts['bordercolors'] ) ) {
@@ -238,7 +238,7 @@ class SB_chart_block {
 				break;
 
 			default:
-				$unit = 'day';
+				$unit = 'hour';
 		}
 		return $unit;
 	}
@@ -303,7 +303,7 @@ class SB_chart_block {
 			$classes .= ' ' . $this->atts['class'];
 		}
 		$html = '<div class="' . $classes . '"';
-		if ( $this->atts['height']) {
+		if ( $this->atts['height'] > 0 ) {
 			$html.= ' style="position:relative; height:'. $this->atts['height'] . 'px;"';
 		}
 		$html .= '>';
@@ -448,7 +448,7 @@ class SB_chart_block {
 	function get_backgroundColors( $opacity ) {
 		$this->opacity = $opacity;
 		$customColors = [];
-		if ( $this->atts['backgroundColors'] ) {
+		if ( '' !== $this->atts['backgroundColors'] ) {
 			$customColors = sb_chart_block_get_csv( $this->atts['backgroundColors'] );
 			foreach ( $customColors as $key => $color ) {
 				if ( '' !== $color ) {
@@ -470,7 +470,7 @@ class SB_chart_block {
 	function get_borderColors( $opacity ) {
 		$this->opacity = $opacity;
 		$customColors = [];
-		if ( $this->atts['borderColors'] ) {
+		if ( '' !== $this->atts['borderColors'] ) {
 			$customColors = sb_chart_block_get_csv( $this->atts['borderColors'] );
 			foreach ( $customColors as $key => $color ) {
 				if ( '' !== $color ) {
@@ -526,7 +526,7 @@ class SB_chart_block {
 				$dataset->borderColor  = $this->get_borderColor( $index );
 			}
 			$dataset->borderWidth    = 1;
-			if ( $this->atts['barThickness']) {
+			if ( $this->atts['barThickness'] > 0 ) {
 				$dataset->barThickness = $this->atts['barThickness'];
 			}
 			$dataset->fill = $this->atts['fill'];
@@ -591,7 +591,7 @@ class SB_chart_block {
 		if ( 'y' === $axis || 'y1' === $axis ) {
 			$options->beginAtZero = $this->atts['beginYAxisAt0'];
 			
-			if ( $this->atts['max'] ) {
+			if ( $this->atts['max'] > -PHP_FLOAT_MAX ) {
 				$options->max = $this->atts['max'];
 			}
 			
