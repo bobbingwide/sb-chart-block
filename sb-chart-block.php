@@ -141,6 +141,11 @@ function sb_chart_block_get_csv( $data, $min_nb_fields = 0 ) {
 	
 	if ( is_string( $data ) && '' !== $data ) {
 		$array = str_getcsv( $data );
+		foreach ( $array as $key => $value ) {
+			if ( '' === $value ) {
+				$array[$key] = null;
+			}
+		}
 	}
 	
 	$nb_new_fields = $min_nb_fields - count( $array );
