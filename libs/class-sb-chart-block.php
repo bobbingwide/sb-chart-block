@@ -22,6 +22,16 @@ class SB_chart_block {
 	private $legends;
 
 	/**
+	 * @var array $yAxes List of Y axes to which the datasets are bound
+	 */
+	private $yAxes;
+	
+	/**
+	 * @var bool
+	 */
+	private $hasMultipleYAxes;
+	
+	/**
 	 * @var array $lines Content as CSV records
 	 */
 	private $lines;
@@ -46,6 +56,8 @@ class SB_chart_block {
 		$this->legends = [];
 		$this->lines = [];
 		$this->series = [];
+		$this->yAxes = [];
+		$this->hasMultipleYAxes = false;
 		$this->load_color_palettes();
 	}
 
@@ -90,11 +102,18 @@ class SB_chart_block {
 
 		$this->atts['stacked'] = isset( $this->atts['stacked'] ) ? $this->atts['stacked'] : false;
 		$this->atts['stacked'] = $this->validate_bool( $this->atts['stacked'] );
-			
+		
 		$this->atts['fill'] = sb_chart_block_array_get( $this->atts, 'fill', false );
 		$this->atts['fill'] = $this->validate_bool( $this->atts['fill'] );
 			
 		$this->atts['height'] = sb_chart_block_array_get( $this->atts, 'height', null );
+		
+		if ( !isset( $this->atts['yAxes'] ) ) {
+			if ( isset( $this->atts['yaxes'] ) ) {
+				$this->atts['yAxes'] = $this->atts['yaxes'];
+			}
+		}
+		$this->atts['yAxes'] = sb_chart_block_array_get( $this->atts, 'yAxes', '' );
 		
 		if ( !isset( $this->atts['beginYAxisAt0'] ) && isset( $this->atts['beginyaxisat0'] ) ) {
 			$this->atts['beginYAxisAt0'] = $this->atts['beginyaxisat0'];
@@ -236,6 +255,7 @@ class SB_chart_block {
 	 */
 	function prepare_content( $content ) {
 		$content = apply_filters( 'sb_chart_block_content', $content, $this->atts );
+		
 		if ( $content ) {
 			$content = html_entity_decode( $content );
 			$content = str_replace(
@@ -243,17 +263,32 @@ class SB_chart_block {
 				['',       '',    '',     '"', '"'],
 				$content
 			);
+			
 			$lines = preg_split( '/\s*(\r\n|\r|\n)+\s*/', trim ( $content ) );
+			
 			if ( count( $lines) < 2 ) {
 				//return "No data to chart?";
 			}
 		} else {
 			return "No content to chart?";
 		}
+		
 		$legends = array_shift( $lines );
 		$this->legends = sb_chart_block_get_csv( $legends );
+		
+		$nb_columns = count( $this->legends );
+		$this->yAxes = sb_chart_block_get_csv( $this->atts['yAxes'], $nb_columns );
+		for ( $i = 0; $i < $nb_columns; $i++ ) {
+			if ( 'y' !== $this->yAxes[$i] && 'y1' !== $this->yAxes[$i] ) {
+				$this->yAxes[$i] = 'y';
+			} else if ( 'y1' === $this->yAxes[$i] ) {
+				$this->hasMultipleYAxes = true;
+			}
+		}
+		
 		$this->lines = $lines;
 		$this->transpose( $lines );
+		
 		return null;
 	}
 
@@ -362,6 +397,11 @@ class SB_chart_block {
 	function get_legend( $index ) {
 		$legend = sb_chart_block_array_get( $this->legends, $index, 'undefined' );
 		return $legend;
+	}
+
+	function get_yAxisID( $datasetIndex ) {
+		$index = $datasetIndex - 1;
+		return isset( $this->yAxes[$index] ) ? $this->yAxes[$index] : 'y';
 	}
 
 	/**
@@ -488,6 +528,7 @@ class SB_chart_block {
 			$dataset->fill = $this->atts['fill'];
 			$dataset->tension = $this->atts['tension'];
 			$dataset->showLine = $this->atts['showLine'];
+			$dataset->yAxisID = $this->get_yAxisID( $index );
 			$datasets[]        =$dataset;
 		}
 		return $datasets;
@@ -516,9 +557,12 @@ class SB_chart_block {
 				$options->maintainAspectRatio = false;
 				$options->indexAxis = $this->atts['indexAxis'];
 				$options->scales = (object)[
-					'y' => $this->axis_options( 'y' ),
 					'x' => $this->axis_options( 'x' ),
+					'y' => $this->axis_options( 'y' ),
 				];
+				if ( $this->hasMultipleYAxes ) {
+					$options->scales->y1 = $this->axis_options( 'y1' );
+				}
 				break;
 			
 			case 'pie':
@@ -540,11 +584,21 @@ class SB_chart_block {
 	function axis_options( $axis ) {
 		$options = new stdClass();
 		
-		if ( substr( $axis, 0, 1 ) === 'y' ) {
+		if ( 'y' === $axis || 'y1' === $axis ) {
 			$options->beginAtZero = $this->atts['beginYAxisAt0'];
 			
 			if ( $this->atts['max'] ) {
 				$options->max = $this->atts['max'];
+			}
+			
+			switch ($axis) {
+				case 'y1':
+					$options->position = 'right';
+					break;
+				
+				default:
+				$options->position = 'left';
+					break;
 			}
 		}
 		
