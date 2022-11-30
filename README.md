@@ -129,18 +129,49 @@ The following filter hooks are available:
 - `sb_chart_block_content`: filter allowing to manipulate the content before it's processed
 - `sb_chart_block_options`: filter allowing to add custom Chart.js options
 
-For example, to change the legend font size, use the `sb_chart_block_options` filter in your `functions.php` theme file as follows:
+For example, to customize the legend, use the `sb_chart_block_options` filter in your `functions.php` theme file as follows:
 
 ```php
-function change_legend_font_size($options, $atts, $series) {
-	if (is_object($options)) {
-		$custom_options['plugins']['legend']['labels']['font']['size'] = 20;
-		$options = (object)array_merge((array)$options, $custom_options);
+function customize_legend($options, $atts, $series) {
+	$custom_options = to_array($options);
+	
+	$custom_options['plugins']['legend']['labels']['font']['size'] = 16;
+	$custom_options['plugins']['legend']['labels']['color'] = '#0000FF';
+	
+	return json_decode(json_encode($custom_options));
+}
+add_filter('sb_chart_block_options', 'customize_legend', 10, 3);
+
+function to_array($data) {
+	$array = [];
+	
+	if (is_array($data) || is_object($data)) {
+		foreach ($data as $key => $value) {
+			$array[$key] = (is_array($value) || is_object($value)) ? to_array($value) : $value;
+		}
+	} else {
+		$array[] = $data;
 	}
+	
+	return $array;
+}
+```
+
+Here's another way (without array conversion):
+
+```php
+function customize_legend($options, $atts, $series) {
+	if (!isset($options->plugins)) $options->plugins = new stdClass();
+	if (!isset($options->plugins->legend)) $options->plugins->legend = new stdClass();
+	if (!isset($options->plugins->legend->labels)) $options->plugins->legend->labels = new stdClass();
+	if (!isset($options->plugins->legend->labels->font)) $options->plugins->legend->labels->font = new stdClass();
+	
+	$options->plugins->legend->labels->font->size = 16;
+	$options->plugins->legend->labels->color = '#0000FF';
 	
 	return $options;
 }
-add_filter('sb_chart_block_options', 'change_legend_font_size', 10, 3);
+add_filter('sb_chart_block_options', 'customize_legend', 10, 3);
 ```
 
 ## Screenshots
