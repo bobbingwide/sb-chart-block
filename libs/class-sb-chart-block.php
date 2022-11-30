@@ -277,7 +277,7 @@ class SB_chart_block {
 		$this->legends = sb_chart_block_get_csv( $legends );
 		
 		$nb_columns = count( $this->legends );
-		$this->yAxes = sb_chart_block_get_csv( $this->atts['yAxes'], $nb_columns );
+		$this->yAxes = sb_chart_block_get_csv( $this->atts['yAxes'], false, $nb_columns );
 		for ( $i = 0; $i < $nb_columns; $i++ ) {
 			if ( 'y' !== $this->yAxes[$i] && 'y1' !== $this->yAxes[$i] ) {
 				$this->yAxes[$i] = 'y';
@@ -375,7 +375,7 @@ class SB_chart_block {
 		$this->series = [];
 		$nb_columns = count( $this->legends );
 		foreach ( $lines as $line ) {
-			$values = sb_chart_block_get_csv( $line, $nb_columns );
+			$values = sb_chart_block_get_csv( $line, true, $nb_columns, null );
 			foreach ( $values as $key => $value ) {
 				$this->series[ $key ][] = $value;
 			}
