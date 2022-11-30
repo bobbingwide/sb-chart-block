@@ -1,0 +1,32 @@
+<div class="wp-block-oik-sb-chart">
+<div class="chartjs" style="position:relative; height:191px;">
+<canvas id="myChart4" width="400" height="400">
+</canvas>
+<script type="text/javascript">document.addEventListener( "DOMContentLoaded", function() {var ctx = document.getElementById('myChart4').getContext('2d');
+var   data = {labels:["One",
+"Two",
+"Three",
+"Four"],
+datasets:[{"label":"Value",
+"data":["1",
+"2",
+"3",
+"4"],
+"backgroundColor":"rgba( 255, 99, 132, 0.8 )",
+"borderColor":"rgba( 255, 99, 132, 1 )",
+"borderWidth":1,
+"fill":false,
+"tension":0,
+"showLine":true}]};
+var options = { maintainAspectRatio: false,
+
+       indexAxis: "y",
+
+       scales: {y : {stacked: true,beginAtZero: false,},x: { stacked: true }} };
+var myLineChart = new Chart(ctx, { type: 'bar', data: data, options: options });}, false );</script>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js">
+</script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js">
+</script>

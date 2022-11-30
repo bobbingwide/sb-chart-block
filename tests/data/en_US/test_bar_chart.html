@@ -1,0 +1,54 @@
+<div class="wp-block-oik-sb-chart">
+<div class="chartjs" style="position:relative; height:250px;">
+<canvas id="myChart3" width="400" height="400">
+</canvas>
+<script type="text/javascript">document.addEventListener( "DOMContentLoaded", function() {var ctx = document.getElementById('myChart3').getContext('2d');
+var   data = {labels:["2022-01-01",
+"2022-02-01",
+"2022-03-01",
+"2022-04-01"],
+datasets:[{"label":"Line 1",
+"data":["1",
+"1.1",
+"1.2",
+"1"],
+"backgroundColor":"rgba( 51, 102, 204, 0.8 )",
+"borderColor":"rgba( 51, 102, 204, 1 )",
+"borderWidth":1,
+"fill":false,
+"tension":0,
+"showLine":true},{"label":"Line 2",
+"data":["1",
+"1.2",
+"1.4",
+"3"],
+"backgroundColor":"rgba( 220, 57, 18, 0.8 )",
+"borderColor":"rgba( 220, 57, 18, 1 )",
+"borderWidth":1,
+"fill":false,
+"tension":0,
+"showLine":true}]};
+var options = { maintainAspectRatio: false,
+
+       indexAxis: "x",
+
+       scales: {y : {stacked: true,beginAtZero: true,},x: {type: "time", time: {
+
+   unit: 'month',
+
+            displayFormats: {
+
+    minute: 'dd MMM hh:mm',
+
+    hour: 'dd MMM hh:mm',
+
+    day: 'dd MMM',
+
+      } }, stacked: true }} };
+var myLineChart = new Chart(ctx, { type: 'bar', data: data, options: options });}, false );</script>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js">
+</script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js">
+</script>

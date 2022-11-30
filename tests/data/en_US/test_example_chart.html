@@ -1,0 +1,36 @@
+<div class="wp-block-oik-sb-chart">
+<div class="chartjs">
+<canvas id="myChart1" width="400" height="400">
+</canvas>
+<script type="text/javascript">document.addEventListener( "DOMContentLoaded", function() {var ctx = document.getElementById('myChart1').getContext('2d');
+var   data = {labels:["One",
+"Two",
+"Three"],
+datasets:[{"label":"Value",
+"data":["1",
+"2",
+"3"],
+"backgroundColor":["rgba( 255, 99, 132, 0.8 )",
+"rgba( 54, 162, 235, 0.8 )",
+"rgba( 255, 206, 86, 0.8 )",
+"rgba( 247, 141, 167, 0.8 )",
+"rgba( 75, 192, 192, 0.8 )",
+"rgba( 153, 102, 255, 0.8 )",
+"rgba( 255, 159, 64, 0.8 )",
+"rgba( 34, 113, 177, 0.8 )",
+"rgba( 100, 105, 112, 0.8 )",
+"rgba( 214, 54, 56, 0.8 )",
+"rgba( 150, 128, 0, 0.8 )",
+"rgba( 0, 138, 32, 0.8 )"],
+"borderWidth":1,
+"fill":false,
+"tension":0,
+"showLine":true}]};
+var options = {maintainAspectRatio: false,};
+var myLineChart = new Chart(ctx, { type: 'pie', data: data, options: options });}, false );</script>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js">
+</script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js">
+</script>
