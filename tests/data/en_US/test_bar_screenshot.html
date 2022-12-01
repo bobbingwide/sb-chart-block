@@ -1,0 +1,54 @@
+<div class="wp-block-oik-sb-chart">
+<div class="chartjs" style="position:relative; height:250px;">
+<canvas id="myChart7" width="400" height="400">
+</canvas>
+<script type="text/javascript">document.addEventListener( "DOMContentLoaded", function() {var ctx = document.getElementById('myChart7').getContext('2d');
+var   data = {labels:["2021-01",
+"2021-02",
+"2021-03",
+"2021-04"],
+datasets:[{"label":"Count",
+"data":["1",
+"6",
+"2",
+"5"],
+"backgroundColor":"rgba( 247, 141, 167, 0.3 )",
+"borderColor":"rgba( 247, 141, 167, 1 )",
+"borderWidth":1,
+"fill":false,
+"tension":0,
+"showLine":true},{"label":"Accum",
+"data":["1",
+"7",
+"9",
+"14"],
+"backgroundColor":"rgba( 207, 46, 46, 0.3 )",
+"borderColor":"rgba( 207, 46, 46, 1 )",
+"borderWidth":1,
+"fill":false,
+"tension":0,
+"showLine":true}]};
+var options = { maintainAspectRatio: false,
+
+       indexAxis: "x",
+
+       scales: {y : {stacked: false,beginAtZero: false,},x: {type: "time", time: {
+
+   unit: 'month',
+
+            displayFormats: {
+
+    minute: 'dd MMM hh:mm',
+
+    hour: 'dd MMM hh:mm',
+
+    day: 'dd MMM',
+
+      } },}} };
+var myLineChart = new Chart(ctx, { type: 'bar', data: data, options: options });}, false );</script>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js">
+</script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js">
+</script>

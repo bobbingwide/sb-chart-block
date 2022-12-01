@@ -88,6 +88,69 @@ class Test_chart_block extends BW_UnitTestCase {
 
 		$this->assertArrayEqualsFile($html);
 	}
+
+	/*
+	 * <!-- wp:oik-sb/chart {"content":"Variations,Count,Accum\n2021-01,1,1\n2021-02,6,7\n2021-03,2,9\n2021-04,5,14",
+	 * "myChartId":"myChart-1","height":250,"time":true,"timeunit":"month","tension":0.3} -->
+	 */
+	function test_line_chart_screenshot() {
+		$attributes = [ "content" => "Variations,Count,Accum\n2021-01,1,1\n2021-02,6,7\n2021-03,2,9\n2021-04,5,14",
+		 "height"=> 250, "time" => true, "timeunit"=> "month", "tension" => 0.3 ];
+		$html = sb_chart_block_dynamic_block($attributes);
+		$html = $this->prepare_expected_file( $html );
+		//$this->generate_expected_file($html);
+		$this->assertArrayEqualsFile($html);
+	}
+
+	/*
+	 * {"type":"horizontalBar","content":"Variations,Count,Accum\n2021-01,1,1\n2021-02,6,7\n2021-03,2,9\n2021-04,5,14",
+	 * "theme":"Tertiary","myChartId":"myChart-27","height":250,"time":true,"timeunit":"month"}
+	 */
+
+	function test_horizontal_bar_screenshot() {
+		$attributes = [ "type" => "horizontalBar",
+			"content" => "Variations,Count,Accum\n2021-01,1,1\n2021-02,6,7\n2021-03,2,9\n2021-04,5,14",
+			"theme" => "Tertiary","myChartId" => "myChart-27","height" => 250,"time" => true,"timeunit" => "month"];
+		$html = sb_chart_block_dynamic_block($attributes);
+		$html = $this->prepare_expected_file( $html );
+		//$this->generate_expected_file($html);
+		$this->assertArrayEqualsFile($html);
+
+	}
+
+	/**
+	 * {"type":"bar","content":"Variations,Count,Accum\n2021-01,1,1\n2021-02,6,7\n2021-03,2,9\n2021-04,5,14",
+	 * "theme":"Gutenberg","myChartId":"myChart-29","height":250,"opacity":0.3,"time":true,"timeunit":"month"}
+	 * @return void
+	 */
+	function test_bar_screenshot() {
+		$attributes = [ "type" => "bar",
+				"content" => "Variations,Count,Accum\n2021-01,1,1\n2021-02,6,7\n2021-03,2,9\n2021-04,5,14",
+				"theme" => "Gutenberg","myChartId" => "myChart-29","height" => 250,"opacity" => 0.3,"time" => true,"timeunit" => "month"
+			];
+		$html = sb_chart_block_dynamic_block($attributes);
+		$html = $this->prepare_expected_file( $html );
+		//$this->generate_expected_file($html);
+		$this->assertArrayEqualsFile($html);
+	}
+
+	/*
+	 * {"type":"pie","content":"Variations,Count,Accum\n2021-01,1\n2021-02,6\n2021-03,2\n2021-04,5",
+	 * "theme":"Visualizer","myChartId":"myChart-31","height":250,"time":true,"timeunit":"year","tension":0.3}
+	 *
+	 * Note: Pie charts ignore timeline and tension attributes
+	 */
+	function test_pie_screenshot() {
+		$attributes = [ "type" => "pie",
+			"content" => "Variations,Count,Accum\n2021-01,1\n2021-02,6\n2021-03,2\n2021-04,5",
+			"theme" => "Visualizer","myChartId" => "myChart-31","height" => 250,"time" => true,"timeunit" => "year","tension" => 0.3
+		];
+		$html = sb_chart_block_dynamic_block($attributes);
+		$html = $this->prepare_expected_file( $html );
+		//$this->generate_expected_file($html);
+		$this->assertArrayEqualsFile($html);
+	}
+
 	/**
 	 * Prints the ChartJS CDN scripts.
 	 *

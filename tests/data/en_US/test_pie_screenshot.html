@@ -1,0 +1,40 @@
+<div class="wp-block-oik-sb-chart">
+<div class="chartjs" style="position:relative; height:250px;">
+<canvas id="myChart8" width="400" height="400">
+</canvas>
+<script type="text/javascript">document.addEventListener( "DOMContentLoaded", function() {var ctx = document.getElementById('myChart8').getContext('2d');
+var   data = {labels:["2021-01",
+"2021-02",
+"2021-03",
+"2021-04"],
+datasets:[{"label":"Count",
+"data":["1",
+"6",
+"2",
+"5"],
+"backgroundColor":["rgba( 51, 102, 204, 0.8 )",
+"rgba( 220, 57, 18, 0.8 )",
+"rgba( 255, 153, 0, 0.8 )",
+"rgba( 16, 150, 24, 0.8 )",
+"rgba( 153, 0, 153, 0.8 )",
+"rgba( 0, 153, 198, 0.8 )",
+"rgba( 221, 68, 119, 0.8 )",
+"rgba( 102, 170, 0, 0.8 )",
+"rgba( 184, 46, 46, 0.8 )",
+"rgba( 49, 99, 149, 0.8 )",
+"rgba( 153, 68, 153, 0.8 )",
+"rgba( 34, 170, 153, 0.8 )",
+"rgba( 170, 170, 17, 0.8 )",
+"rgba( 102, 51, 204, 0.8 )"],
+"borderWidth":1,
+"fill":false,
+"tension":0.3,
+"showLine":true}]};
+var options = {maintainAspectRatio: false,};
+var myLineChart = new Chart(ctx, { type: 'pie', data: data, options: options });}, false );</script>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js">
+</script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js">
+</script>
