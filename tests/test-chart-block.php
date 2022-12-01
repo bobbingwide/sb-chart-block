@@ -152,6 +152,20 @@ class Test_chart_block extends BW_UnitTestCase {
 	}
 
 	/**
+	 * {" {"content":"Month,Import,Export\nSep,14,6.142\nOct,16,35\nNov,11,8.142\nDec,13,17",
+ * "theme":"Visualizer","myChartId":"myChart-1","fill":true,"opacity":0.6} -content":"Month,Import,Export\nSep,14,6.142\nOct,16,35\nNov,11,8.142\nDec,13,17","theme":"Visualizer","myChartId":"myChart-1","fill":true,"opacity":0.6} -
+	 */
+	function test_area_chart_line_with_fill() {
+		$attributes = [ "content" => "Month,Import,Export\nSep,14,6.142\nOct,16,35\nNov,11,8.142\nDec,13,17",
+				"theme" => "Visualizer","myChartId" => "myChart-1","fill" => true,"opacity" => 0.6
+			];
+		$html = sb_chart_block_dynamic_block($attributes);
+		$html = $this->prepare_expected_file( $html );
+		//$this->generate_expected_file($html);
+		$this->assertArrayEqualsFile($html);
+	}
+
+	/**
 	 * Prints the ChartJS CDN scripts.
 	 *
 	 * Enable the generated HTML file to be tested with the latest chart.js

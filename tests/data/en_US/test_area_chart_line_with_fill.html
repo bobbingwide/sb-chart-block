@@ -1,0 +1,42 @@
+<div class="wp-block-oik-sb-chart">
+<div class="chartjs">
+<canvas id="myChart9" width="400" height="400">
+</canvas>
+<script type="text/javascript">document.addEventListener( "DOMContentLoaded", function() {var ctx = document.getElementById('myChart9').getContext('2d');
+var   data = {labels:["Sep",
+"Oct",
+"Nov",
+"Dec"],
+datasets:[{"label":"Import",
+"data":["14",
+"16",
+"11",
+"13"],
+"backgroundColor":"rgba( 51, 102, 204, 0.6 )",
+"borderColor":"rgba( 51, 102, 204, 1 )",
+"borderWidth":1,
+"fill":true,
+"tension":0,
+"showLine":true},{"label":"Export",
+"data":["6.142",
+"35",
+"8.142",
+"17"],
+"backgroundColor":"rgba( 220, 57, 18, 0.6 )",
+"borderColor":"rgba( 220, 57, 18, 1 )",
+"borderWidth":1,
+"fill":true,
+"tension":0,
+"showLine":true}]};
+var options = { maintainAspectRatio: false,
+
+       indexAxis: "x",
+
+       scales: {y : {stacked: false,beginAtZero: false,},x: {}} };
+var myLineChart = new Chart(ctx, { type: 'line', data: data, options: options });}, false );</script>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js">
+</script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js">
+</script>
