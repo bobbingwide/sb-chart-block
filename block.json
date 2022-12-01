@@ -9,7 +9,10 @@
 	"textdomain": "sb-chart-block",
 	"supports": {
 		"html": false,
-	  	"align": false
+	  	"align": false,
+	  	"typography": {
+		  "fontSize": false
+		}
 	},
   	"attributes": {
 		"type": { "type": "string", "default": "line" },
@@ -24,7 +27,11 @@
 	  	"time": {"type":  "boolean", "default": false },
 	  	"timeunit": { "type": "string", "default": "day"},
 	  	"barThickness": { "type": "integer", "default":  null },
-	  	"tension": { "type": "number", "default": 0 }
+	  	"tension": { "type": "number", "default": 0 },
+	  	"labelsFontSize": { "type": "number", "default":  12 },
+	  	"xTicksFontSize": { "type": "number", "default": 12 },
+	  	"yTicksFontSize": { "type": "number", "default":  12 },
+	  	"y1TicksFontSize": { "type": "number", "default":  12 }
   	},
 	"editorScript": "oik-sb-chart-editor-script",
 	"editorStyle": "file:./build/index.css",

@@ -109,6 +109,14 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 		setAttributes( { tension: value });
 	}
 
+	const onChangelabelsFontSize = ( value ) => {
+		setAttributes( {labelsFontSize: value });
+	}
+
+	const onChangexTicksFontSize = ( value ) => {
+		setAttributes( {xTicksFontSize: value });
+	}
+
 	const help = __( "Choose Line, Bar, Horizontal bar or Pie.", 'sb-chart-block');
 
 	const typeOptions = {
@@ -306,6 +314,33 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 								step={ 0.1}
 								allowReset
 							/>
+					</PanelRow>
+				</PanelBody>
+				<PanelBody>
+
+					<PanelRow>
+						<RangeControl
+							label={ __( "Legend font size", 'sb-chart-block' ) }
+							value={ attributes.labelsFontSize }
+							initialPosition={ attributes.labelsFontSize }
+							onChange={ onChangelabelsFontSize }
+							min={ 6 }
+							max={ 100 }
+							step={ 2 }
+							allowReset
+						/>
+					</PanelRow>
+					<PanelRow>
+						<RangeControl
+							label={ __( "X-axis font size", 'sb-chart-block' ) }
+							value={ attributes.xTicksFontSize }
+							initialPosition={ attributes.xTicksFontSize }
+							onChange={ onChangexTicksFontSize }
+							min={ 6 }
+							max={ 100 }
+							step={ 2 }
+							allowReset
+						/>
 					</PanelRow>
 				</PanelBody>
 			</InspectorControls>

@@ -153,6 +153,18 @@ export class SB_chart_block {
 	getOptions() {
 		var options = new Object( {} );
 		options.maintainAspectRatio = false;
+		options.plugins = new Object( { legend: { labels: { font: {size: 12 }}}} );
+		options.plugins.legend.labels.font.size = this.attributes.labelsFontSize;
+		/*
+		plugins: {
+			legend: {
+				labels: {
+					font: {
+						size: 14
+					}
+				}
+
+		 */
 		if ( 'pie' == this.attributes.type ) {
 			return( options );
 		}
@@ -180,6 +192,9 @@ export class SB_chart_block {
 		options.scales.y.stacked = this.attributes.stacked;
 		options.scales.x.stacked = this.attributes.stacked;
 		//console.log( options );
+		options.scales.x.ticks = new Object( {  font: {size: this.attributes.xTicksFontSize }} );
+		//options.plugins.legend.labels.font.size = this.attributes.labelsFontSize;
+
 		return options;
 
 
@@ -209,7 +224,7 @@ export class SB_chart_block {
 	 * @param data
 	 * @param options
 	 */
-	showChart( ctx, type, data, options ) {
+	showChart( ctx, type, data, options, attributes ) {
 		var myLineChart = null;
 		Chart.helpers.each(Chart.instances, function(instance){
 			if( instance.ctx === ctx ) {
@@ -219,6 +234,8 @@ export class SB_chart_block {
 		if ( myLineChart ) {
 			myLineChart.destroy();
 		}
+		//console.log( Chart.defaults );
+		//Chart.defaults.font.size= attributes.labelsFontSize;
 		myLineChart = new Chart(ctx, {type: type, data: data, options: options});
 
 	}
@@ -254,7 +271,7 @@ export class SB_chart_block {
 			};
 			var options = this.getOptions();
 			var chartType = ( 'horizontalBar' === attributes.type ) ? 'bar' : attributes.type;
-			var myLineChart = this.showChart( ctx, chartType, data, options );
+			var myLineChart = this.showChart( ctx, chartType, data, options, attributes );
 			//var myLineChart = new Chart(ctx, {type: attributes.type, data: data, options: options});
 			//setAttributes( )
 			return myLineChart;
