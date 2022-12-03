@@ -31,7 +31,10 @@
 	  	"labelsFontSize": { "type": "number", "default":  12 },
 	  	"xTicksFontSize": { "type": "number", "default": 12 },
 	  	"yTicksFontSize": { "type": "number", "default":  12 },
-	  	"y1TicksFontSize": { "type": "number", "default":  12 }
+	  	"y1TicksFontSize": { "type": "number", "default":  12 },
+	  	"backgroundColors": { "type": "string", "default": "" },
+	  	"borderColors": { "type": "string", "default": "" },
+	  	"yAxes": { "type": "string", "default": "" }
   	},
 	"editorScript": "oik-sb-chart-editor-script",
 	"editorStyle": "file:./build/index.css",

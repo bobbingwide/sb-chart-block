@@ -11,8 +11,6 @@ import { __ } from '@wordpress/i18n';
  */
 import { Fragment } from '@wordpress/element';
 import { InspectorControls, PlainText, BlockControls } from '@wordpress/block-editor';
-//const { InspectorControls } = wp.blockEditor;
-// deprecated.js?ver=cd9e35508705772fbc5e2d9736bde31b:177 wp.editor.InspectorControls is deprecated. Please use wp.blockEditor.InspectorControls instead.
 import { TextControl, PanelBody, SelectControl, Toolbar, ToolbarButton, PanelRow, ToggleControl, RangeControl } from '@wordpress/components';
 import { map } from 'lodash';
 import { useEffect, useRef } from '@wordpress/element';
@@ -115,6 +113,18 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 
 	const onChangexTicksFontSize = ( value ) => {
 		setAttributes( {xTicksFontSize: value });
+	}
+
+	const onChangebackgroundColors = ( value ) => {
+		setAttributes( {backgroundColors: value });
+	}
+
+	const onChangeborderColors = ( value ) => {
+		setAttributes( {borderColors: value });
+	}
+
+	const onChangeyAxes = ( value ) => {
+		setAttributes( {yAxes: value });
 	}
 
 	const help = __( "Choose Line, Bar, Horizontal bar or Pie.", 'sb-chart-block');
@@ -251,11 +261,33 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 					</PanelRow>
 
 						<SelectControl label={__("Time unit (stepSize)",'sb-chart-block')} value={attributes.timeunit} onChange={onChangeTimeunit} options={mappedTimeunitOptions}  />
+					<PanelRow>
+						<TextControl
+							label={ __( "Y-axes", 'sb-chart-block' ) }
+							value={ attributes.yAxes }
+							onChange={ onChangeyAxes }
+						/>
+					</PanelRow>
 
 
 				</PanelBody>
 				<PanelBody>
 					<SelectControl label={__("Color palette",'sb-chart-block')} value={attributes.theme} onChange={onChangeTheme} options={themeOptions}  />
+					<PanelRow>
+					<TextControl
+						label={ __( "Background color overrides", 'sb-chart-block' ) }
+						value={ attributes.backgroundColors }
+						onChange={ onChangebackgroundColors }
+
+					/>
+					</PanelRow>
+					<PanelRow>
+						<TextControl
+							label={ __( "Border color overrides", 'sb-chart-block' ) }
+							value={ attributes.borderColors }
+							onChange={ onChangeborderColors }
+						/>
+					</PanelRow>
 				</PanelBody>
 				<PanelBody>
 					<PanelRow>
