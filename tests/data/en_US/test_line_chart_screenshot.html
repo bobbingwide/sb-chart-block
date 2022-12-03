@@ -17,7 +17,8 @@ datasets:[{"label":"Count",
 "borderWidth":1,
 "fill":false,
 "tension":0.3,
-"showLine":true},{"label":"Accum",
+"showLine":true,
+"yAxisID":"y"},{"label":"Accum",
 "data":["1",
 "7",
 "9",
@@ -27,24 +28,19 @@ datasets:[{"label":"Count",
 "borderWidth":1,
 "fill":false,
 "tension":0.3,
-"showLine":true}]};
-var options = { maintainAspectRatio: false,
-
-       indexAxis: "x",
-
-       scales: {y : {stacked: false,beginAtZero: false,},x: {type: "time", time: {
-
-   unit: 'month',
-
-            displayFormats: {
-
-    minute: 'dd MMM hh:mm',
-
-    hour: 'dd MMM hh:mm',
-
-    day: 'dd MMM',
-
-      } },}} };
+"showLine":true,
+"yAxisID":"y"}]};
+var options = {"maintainAspectRatio":false,
+"indexAxis":"x",
+"scales":{"x":{"stacked":false,
+"type":"time",
+"time":{"unit":"month",
+"displayFormats":{"minute":"dd MMM hh:mm",
+"hour":"dd MMM hh:mm",
+"day":"dd MMM"}}},
+"y":{"beginAtZero":false,
+"position":"left",
+"stacked":false}}};
 var myLineChart = new Chart(ctx, { type: 'line', data: data, options: options });}, false );</script>
 </div>
 </div>

@@ -17,12 +17,14 @@ datasets:[{"label":"Value",
 "borderWidth":1,
 "fill":false,
 "tension":0,
-"showLine":true}]};
-var options = { maintainAspectRatio: false,
-
-       indexAxis: "y",
-
-       scales: {y : {stacked: true,beginAtZero: false,},x: { stacked: true }} };
+"showLine":true,
+"yAxisID":"y"}]};
+var options = {"maintainAspectRatio":false,
+"indexAxis":"y",
+"scales":{"x":{"stacked":true},
+"y":{"beginAtZero":false,
+"position":"left",
+"stacked":true}}};
 var myLineChart = new Chart(ctx, { type: 'bar', data: data, options: options });}, false );</script>
 </div>
 </div>

@@ -135,14 +135,15 @@ class Test_chart_block extends BW_UnitTestCase {
 	}
 
 	/*
-	 * {"type":"pie","content":"Variations,Count,Accum\n2021-01,1\n2021-02,6\n2021-03,2\n2021-04,5",
+	 * {"type":"pie","content":"Variations,Count\n2021-01,1\n2021-02,6\n2021-03,2\n2021-04,5",
 	 * "theme":"Visualizer","myChartId":"myChart-31","height":250,"time":true,"timeunit":"year","tension":0.3}
 	 *
-	 * Note: Pie charts ignore timeline and tension attributes
+	 * Note: Pie charts ignore timeline and tension attributes.
+	 *
 	 */
 	function test_pie_screenshot() {
 		$attributes = [ "type" => "pie",
-			"content" => "Variations,Count,Accum\n2021-01,1\n2021-02,6\n2021-03,2\n2021-04,5",
+			"content" => "Variations,Count\n2021-01,1\n2021-02,6\n2021-03,2\n2021-04,5",
 			"theme" => "Visualizer","myChartId" => "myChart-31","height" => 250,"time" => true,"timeunit" => "year","tension" => 0.3
 		];
 		$html = sb_chart_block_dynamic_block($attributes);
@@ -163,6 +164,29 @@ class Test_chart_block extends BW_UnitTestCase {
 		$html = $this->prepare_expected_file( $html );
 		//$this->generate_expected_file($html);
 		$this->assertArrayEqualsFile($html);
+	}
+
+
+	/*
+	 *  [chartjs type="bar" barThickness="25" theme="Visualizer" backgroundColors=",#FFFF00" borderColors="#0000FF,,#008000"]Year,Dataset1,Dataset2,Dataset3,Dataset4
+    2018,50,25,32,45
+    2019,32,45,22,19
+    2020,25,49,35,23
+    2021,42,31,43,35[/chartjs]
+	 */
+	function test_background_border_color_overrides() {
+		$attributes = [ "type" => "bar",
+			"barThickness" => "25",
+			"theme" => "Visualizer",
+			"backgroundColors" => ",#FFFF00",
+			"borderColors" => "#0000FF,,#008000",
+			"content" => "Year,Dataset1,Dataset2,Dataset3,Dataset4\n2018,50,25,32,45\n2019,32,45,22,19\n2020,25,49,35,23\n2021,42,31,43,35",
+		];
+		$html = sb_chart_block_dynamic_block($attributes);
+		$html = $this->prepare_expected_file( $html );
+		//$this->generate_expected_file($html);
+		$this->assertArrayEqualsFile($html);
+
 	}
 
 	/**
