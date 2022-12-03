@@ -17,9 +17,19 @@ class SB_chart_block {
 	private $atts;
 
 	/**
-	 * @var array $legend Legends for multiple lines or bars
+	 * @var array $legends Legends for multiple lines or bars
 	 */
-	private $legend;
+	private $legends;
+
+	/**
+	 * @var array $yAxes List of Y axes to which the datasets are bound
+	 */
+	private $yAxes;
+
+	/**
+	 * @var bool
+	 */
+	private $hasMultipleYAxes;
 
 	/**
 	 * @var array $lines Content as CSV records
@@ -43,9 +53,11 @@ class SB_chart_block {
 	 */
 	function __construct() {
 		$this->atts = [];
-		$this->legend = [];
+		$this->legends = [];
 		$this->lines = [];
 		$this->series = [];
+		$this->yAxes = [];
+		$this->hasMultipleYAxes = false;
 		$this->load_color_palettes();
 	}
 
@@ -68,7 +80,7 @@ class SB_chart_block {
 	}
 
 	/**
-	 * Sets $atts from passed attributes.
+	 * Sets $atts from passed attributes. Attempts to set atts which were converted to lower case when used in a shortcode.
 	 *
 	 * @param $atts
 	 *
@@ -83,28 +95,100 @@ class SB_chart_block {
 
 		$this->atts['type'] = isset( $this->atts['type'] ) ? $this->atts['type'] : 'line';
 		$this->atts['type'] = $this->validate_type( $this->atts['type'] );
+
 		$this->atts['class'] = isset( $this->atts['class'] ) ? $this->atts['class'] : '';
+
 		$this->atts['theme'] = isset( $this->atts['theme'] ) ? $this->atts['theme'] : $this->color_palettes->get_default();
 
-		// Using 0 to represent false used to be good enough
-		// but now we need to output a literal true or false.
-		// Not sure why this has changed!
-		$this->atts['stacked'] = isset( $this->atts['stacked'] ) ? $this->atts['stacked'] : 0;
+		$this->atts['stacked'] = isset( $this->atts['stacked'] ) ? $this->atts['stacked'] : false;
+		$this->atts['stacked'] = $this->validate_bool( $this->atts['stacked'] );
+
 		$this->atts['fill'] = sb_chart_block_array_get( $this->atts, 'fill', false );
-		$this->atts['height'] = sb_chart_block_array_get( $this->atts, 'height', null );
-		$this->atts['beginYAxisAt0'] = sb_chart_block_array_get( $this->atts, 'beginYAxisAt0', 0 );
+		$this->atts['fill'] = $this->validate_bool( $this->atts['fill'] );
+
+		$this->atts['height'] = sb_chart_block_array_get( $this->atts, 'height', 0 );
+
+		if ( !isset( $this->atts['yAxes'] ) ) {
+			if ( isset( $this->atts['yaxes'] ) ) {
+				$this->atts['yAxes'] = $this->atts['yaxes'];
+			}
+		}
+		$this->atts['yAxes'] = sb_chart_block_array_get( $this->atts, 'yAxes', '' );
+
+		if ( !isset( $this->atts['beginYAxisAt0'] ) && isset( $this->atts['beginyaxisat0'] ) ) {
+			$this->atts['beginYAxisAt0'] = $this->atts['beginyaxisat0'];
+		}
+		$this->atts['beginYAxisAt0'] = sb_chart_block_array_get( $this->atts, 'beginYAxisAt0', false );
+		$this->atts['beginYAxisAt0'] = $this->validate_bool( $this->atts['beginYAxisAt0'] );
+
+		if ( !isset( $this->atts['indexAxis'] ) && isset( $this->atts['indexaxis'] ) ) {
+			$this->atts['indexAxis'] = $this->atts['indexaxis'];
+		}
 		$this->atts['indexAxis'] = sb_chart_block_array_get( $this->atts, 'indexAxis', 'x' );
-		$this->atts['opacity'] = sb_chart_block_array_get( $this->atts, 'opacity', '0.8');
+
+		$this->atts['opacity'] = sb_chart_block_array_get( $this->atts, 'opacity', 0.8 );
+
 		//bw_trace2( $this->atts, "this atts", false );
-		$this->atts['time'] = sb_chart_block_array_get( $this->atts, 'time', null );
-		$this->atts['timeunit'] = sb_chart_block_array_get( $this->atts, 'timeunit', 'hour');
-		$this->atts['timeunit'] = $this->validate_timeunit( $this->atts['timeunit'] );
-		$this->atts['barThickness'] = sb_chart_block_array_get( $this->atts, 'barThickness', null );
+
+		$this->atts['time'] = sb_chart_block_array_get( $this->atts, 'time', false );
+		$this->atts['time'] = $this->validate_bool( $this->atts['time'] );
+
+		if ( !isset( $this->atts['timeUnit'] ) && isset( $this->atts['timeunit'] ) ) {
+			$this->atts['timeUnit'] = $this->atts['timeunit'];
+		}
+		$this->atts['timeUnit'] = sb_chart_block_array_get( $this->atts, 'timeUnit', 'hour' );
+		$this->atts['timeUnit'] = $this->validate_timeunit( $this->atts['timeUnit'] );
+
+		if ( !isset( $this->atts['barThickness'] ) && isset( $this->atts['barthickness'] ) ) {
+			$this->atts['barThickness'] = $this->atts['barthickness'];
+		}
+		$this->atts['barThickness'] = sb_chart_block_array_get( $this->atts, 'barThickness', 0 );
+
 		$this->atts['tension'] = sb_chart_block_array_get( $this->atts, 'tension', 0 );
-		$this->atts['max'] = sb_chart_block_array_get( $this->atts, 'max', null );
-		$this->atts['backgroundColor'] = sb_chart_block_array_get( $this->atts, 'backgroundColor', null);
-		$this->atts['borderColor'] = sb_chart_block_array_get( $this->atts, 'borderColor', $this->atts['backgroundColor']);
+
+		$this->atts['max'] = sb_chart_block_array_get( $this->atts, 'max', -PHP_FLOAT_MAX );
+
+		if ( !isset( $this->atts['backgroundColors'] ) ) {
+			if ( isset( $this->atts['backgroundcolors'] ) ) {
+				$this->atts['backgroundColors'] = $this->atts['backgroundcolors'];
+			}
+			// For compatibility with previous versions:
+			else if ( isset( $this->atts['backgroundColor'] ) ) {
+				$this->atts['backgroundColors'] = $this->atts['backgroundColor'];
+			} else if ( isset( $this->atts['backgroundcolor'] ) ) {
+				$this->atts['backgroundColors'] = $this->atts['backgroundcolor'];
+			}
+		}
+		$this->atts['backgroundColors'] = sb_chart_block_array_get( $this->atts, 'backgroundColors', '' );
+
+		if ( !isset( $this->atts['borderColors'] ) ) {
+			if ( isset( $this->atts['bordercolors'] ) ) {
+				$this->atts['borderColors'] = $this->atts['bordercolors'];
+			}
+			// For compatibility with previous versions:
+			else if ( isset( $this->atts['borderColor'] ) ) {
+				$this->atts['borderColors'] = $this->atts['borderColor'];
+			} else if ( isset( $this->atts['bordercolor'] ) ) {
+				$this->atts['borderColors'] = $this->atts['bordercolor'];
+			}
+		}
+		$this->atts['borderColors'] = sb_chart_block_array_get( $this->atts, 'borderColors', $this->atts['backgroundColors'] );
+
+		if ( !isset( $this->atts['showLine'] ) && isset( $this->atts['showline'] ) ) {
+			$this->atts['showLine'] = $this->atts['showline'];
+		}
 		$this->atts['showLine'] = sb_chart_block_array_get( $this->atts, 'showLine', true );
+		$this->atts['showLine'] = $this->validate_bool( $this->atts['showLine'] );
+	}
+
+	/**
+	 * Validate boolean attributes.
+	 *
+	 * @param mixed $value The value to validate.
+	 * @return bool Returns true if $value equals 1, "1", true, "true", "on" and "yes". Returns false otherwise.
+	 */
+	function validate_bool( $value ) {
+		return filter_var( $value, FILTER_VALIDATE_BOOL );
 	}
 
 	/**
@@ -154,7 +238,7 @@ class SB_chart_block {
 				break;
 
 			default:
-				$unit = 'day';
+				$unit = 'hour';
 		}
 		return $unit;
 	}
@@ -170,20 +254,41 @@ class SB_chart_block {
 	 * @return string
 	 */
 	function prepare_content( $content ) {
+		$content = apply_filters( 'sb_chart_block_content', $content, $this->atts );
+
 		if ( $content ) {
-			$content=trim( $content );
 			$content = html_entity_decode( $content );
-			$content=str_replace( '<br />', '', $content );
-			$lines  =explode( "\n", $content );
+			$content = str_replace(
+				['<br />', '<p>', '</p>', '”', '”'],
+				['',       '',    '',     '"', '"'],
+				$content
+			);
+
+			$lines = preg_split( '/\s*(\r\n|\r|\n)+\s*/', trim ( $content ) );
+
 			if ( count( $lines) < 2 ) {
 				//return "No data to chart?";
 			}
 		} else {
 			return "No content to chart?";
 		}
-		$this->legend=array_shift( $lines );
+
+		$legends = array_shift( $lines );
+		$this->legends = sb_chart_block_get_csv( $legends );
+
+		$nb_columns = count( $this->legends );
+		$this->yAxes = sb_chart_block_get_csv( $this->atts['yAxes'], false, $nb_columns );
+		for ( $i = 0; $i < $nb_columns; $i++ ) {
+			if ( 'y' !== $this->yAxes[$i] && 'y1' !== $this->yAxes[$i] ) {
+				$this->yAxes[$i] = 'y';
+			} else if ( 'y1' === $this->yAxes[$i] ) {
+				$this->hasMultipleYAxes = true;
+			}
+		}
+
 		$this->lines = $lines;
 		$this->transpose( $lines );
+
 		return null;
 	}
 
@@ -193,8 +298,12 @@ class SB_chart_block {
 	 * @return string
 	 */
 	function get_div_start() {
-		$html = '<div class="chartjs"';
-		if ( $this->atts['height']) {
+		$classes = 'chartjs';
+		if ( '' !== $this->atts['class'] ) {
+			$classes .= ' ' . $this->atts['class'];
+		}
+		$html = '<div class="' . $classes . '"';
+		if ( $this->atts['height'] > 0 ) {
 			$html.= ' style="position:relative; height:'. $this->atts['height'] . 'px;"';
 		}
 		$html .= '>';
@@ -258,15 +367,15 @@ class SB_chart_block {
 	 * Transposes the input CSV into the series array.
 	 *
 	 * $series[0] will be the labels for the x-axis - along the bottom
-	 * We assume that there's a value for each row and column.
 	 *
 	 * @param $lines
 	 * @return array
 	 */
 	function transpose( $lines ) {
 		$this->series = [];
+		$nb_columns = count( $this->legends );
 		foreach ( $lines as $line ) {
-			$values = explode( ',', $line);
+			$values = sb_chart_block_get_csv( $line, true, $nb_columns, null );
 			foreach ( $values as $key => $value ) {
 				$this->series[ $key ][] = $value;
 			}
@@ -290,14 +399,18 @@ class SB_chart_block {
 	}
 
 	function get_legend( $index ) {
-		$legends = explode( ',', $this->legend );
-		$legend = sb_chart_block_array_get( $legends, $index, 'undefined' );
+		$legend = sb_chart_block_array_get( $this->legends, $index, 'undefined' );
 		return $legend;
 	}
 
+	function get_yAxisID( $datasetIndex ) {
+		$index = $datasetIndex - 1;
+		return isset( $this->yAxes[$index] ) ? $this->yAxes[$index] : 'y';
+	}
+
 	/**
-	 * Returns the single background colour for the line/bar.
-	 * Returns all the background colours for a pie chart.
+	 * Returns the single background color for the line/bar.
+	 * Returns all the background colors for a pie chart.
 	 * @param $index
 	 *
 	 * @return string
@@ -313,31 +426,62 @@ class SB_chart_block {
 	}
 
 	/**
-	 * These are the chart.js border colors.
+	 * Returns the single border color for the line/bar.
 	 *
 	 * @param $index
 	 *
 	 * @return string
 	 */
 	function get_borderColor( $index ) {
-		$borderColors = $this->get_backgroundColors( 1.0 );
+		$borderColors = $this->get_borderColors( 1.0 );
 		$choice = ($index-1) % count( $borderColors );
 		$borderColor = $borderColors[ $choice ];
 		return $borderColor;
 	}
 
 	/**
-	 * Returns an array of background colours.
+	 * Returns an array of background colors. Missing colors from the `backgroundColors` shortcode attribute are taken from the theme colors.
 	 *
 	 * @param $opacity
 	 * @return mixed
 	 */
 	function get_backgroundColors( $opacity ) {
 		$this->opacity = $opacity;
-		$backgroundColors = $this->color_palettes->get_backgroundColors( $this->atts['theme'], $opacity );
+		$customColors = [];
+		if ( '' !== $this->atts['backgroundColors'] ) {
+			$customColors = sb_chart_block_get_csv( $this->atts['backgroundColors'] );
+			foreach ( $customColors as $key => $color ) {
+				if ( '' !== $color ) {
+					$customColors[$key] = $this->color_palettes->rgba( $color, $opacity );
+				}
+			}
+		}
+		$themeColors = $this->color_palettes->get_backgroundColors( $this->atts['theme'], $opacity );
+		$backgroundColors = sb_chart_block_array_replace( $themeColors, $customColors );
 		return $backgroundColors;
 	}
 
+	/**
+	 * Returns an array of border colors. Missing colors from the `borderColors` shortcode attribute are taken from the background colors.
+	 *
+	 * @param $opacity
+	 * @return mixed
+	 */
+	function get_borderColors( $opacity ) {
+		$this->opacity = $opacity;
+		$customColors = [];
+		if ( '' !== $this->atts['borderColors'] ) {
+			$customColors = sb_chart_block_get_csv( $this->atts['borderColors'] );
+			foreach ( $customColors as $key => $color ) {
+				if ( '' !== $color ) {
+					$customColors[$key] = $this->color_palettes->rgba( $color, $opacity );
+				}
+			}
+		}
+		$themeColors = $this->get_backgroundColors( $opacity );
+		$borderColors = sb_chart_block_array_replace( $themeColors, $customColors );
+		return $borderColors;
+	}
 
 	/**
 	 *
@@ -377,25 +521,18 @@ class SB_chart_block {
 			$dataset                 =new stdClass;
 			$dataset->label          = $this->get_legend( $index );
 			$dataset->data           =$this->series[ $index ];
-			if ( $this->atts['backgroundColor']) {
-				$dataset->backgroundColor = $this->atts['backgroundColor'];
-			} else {
-				$dataset->backgroundColor = $this->get_backgroundColor($index);
-			}
-			if( 'pie' !== $this->atts['type']) {
-				if ( $this->atts['borderColor']) {
-					$dataset->borderColor = $this->atts['borderColor'];
-				} else {
-					$dataset->borderColor = $this->get_borderColor($index);
-				}
+			$dataset->backgroundColor = $this->get_backgroundColor($index);
+			if( 'pie' !== $this->atts['type'] ) {
+				$dataset->borderColor  = $this->get_borderColor( $index );
 			}
 			$dataset->borderWidth    = 1;
-			if ( $this->atts['barThickness']) {
+			if ( $this->atts['barThickness'] > 0 ) {
 				$dataset->barThickness = $this->atts['barThickness'];
 			}
 			$dataset->fill = $this->atts['fill'];
 			$dataset->tension = $this->atts['tension'];
 			$dataset->showLine = $this->atts['showLine'];
+			$dataset->yAxisID = $this->get_yAxisID( $index );
 			$datasets[]        =$dataset;
 		}
 		return $datasets;
@@ -405,73 +542,76 @@ class SB_chart_block {
 	 * Returns the options.
 	 *
 	 * Option | Value | Purpose
-	 * ------- | ----- | -----
+	 * ------ | ----- | -------
 	 * maintainAspectRatio | false |
 	 * indexAxis | x or y | y for a horizontal bar chart
 	 * scales.y.beginAtZero | true | Start the axis from 0
 	 * scales.y.stacked | true/false | Show a stacked line / bar chart. https://www.chartjs.org/docs/latest/charts/line.html?h=stacked
 	 * scales.x.stacked | true | Only if a stacked chart is required.
 	 *
-	 * @TODO
-	 * Convert to using objects and json_encode.
-	 *
 	 * @return string
 	 */
 	function get_options() {
-		$options_html='';
-		$options_html="var	options = {";
-		$options = '';
-		$stacked = $this->atts['stacked'];
-		$stacked_bool_string = $this->boolstring( $stacked );
+		$options = new stdClass();
 
-		$indexAxis = '"' . $this->atts['indexAxis'] . '"';
-		$beginAt0 = $this->atts['beginYAxisAt0'];
-		$beginAt0_bool_string = $this->boolstring( $beginAt0 );
 		switch ( $this->atts['type'] ) {
 			case 'line':
 			case 'bar':
 			case 'horizontalBar':
-				$options =" maintainAspectRatio: false,
-							indexAxis: $indexAxis,
-							scales: {";
-				$options .= $this->y_axis_options();
-				$options .= $this->x_axis_options();
-				$options .= "} ";
+				$options->maintainAspectRatio = false;
+				$options->indexAxis = $this->atts['indexAxis'];
+				$options->scales = (object)[
+					'x' => $this->axis_options( 'x' ),
+					'y' => $this->axis_options( 'y' ),
+				];
+				if ( $this->hasMultipleYAxes ) {
+					$options->scales->y1 = $this->axis_options( 'y1' );
+				}
 				break;
+
 			case 'pie':
-				$options ="maintainAspectRatio: false,";
+				$options->maintainAspectRatio = false;
 				break;
 		}
-		$options_html .= $options;
-		$options_html .= "};";
-		return $options_html;
+
+		$options = apply_filters( 'sb_chart_block_options', $options, $this->atts, $this->series );
+
+		return 'var options = ' . json_encode( $options ) . ';';
 	}
 
 	/**
-	 * Returns the y-axis options.
+	 * Returns options for the specified axis.
 	 *
 	 * @param string $axis
-	 * @return string
+	 * @return object
 	 */
-	function y_axis_options( $axis="y") {
-		$options = "$axis : {";
+	function axis_options( $axis ) {
+		$options = new stdClass();
+
+		if ( 'y' === $axis || 'y1' === $axis ) {
+			$options->beginAtZero = $this->atts['beginYAxisAt0'];
+
+			if ( $this->atts['max'] > -PHP_FLOAT_MAX ) {
+				$options->max = $this->atts['max'];
+			}
+
+			switch ($axis) {
+				case 'y1':
+					$options->position = 'right';
+					break;
+
+				default:
+				$options->position = 'left';
+					break;
+			}
+		}
+
+		$options->stacked = $this->atts['stacked'];
+
 		if ( $this->atts['time'] ) {
-			$options .= $this->axis_time_options( $axis );
-		}
-		$stacked = $this->atts['stacked'];
-		$stacked_bool_string = $this->boolstring( $stacked );
-		$options .= "stacked: $stacked_bool_string,";
-
-		$beginAt0 = $this->atts['beginYAxisAt0'];
-		$beginAt0_bool_string = $this->boolstring( $beginAt0 );
-		$options .= "beginAtZero: $beginAt0_bool_string,";
-
-		$max = $this->atts['max'];
-		if ( $max ) {
-			$options .= "max: $max,";
+			$options = sb_chart_block_merge_objects( $options, $this->axis_time_options( $axis ), $options );
 		}
 
-		$options .= "},";
 		return $options;
 	}
 
@@ -479,46 +619,25 @@ class SB_chart_block {
 	 * Returns the axis options for time line.
 	 *
 	 * @param $axis
-	 * @return string|null
+	 * @return object
 	 */
 	function axis_time_options( $axis ) {
-		$options = null;
-		if ( $axis === $this->atts['indexAxis']) {
-			wp_enqueue_script( "chartjs-adapter-date-fns-script" );
-			$options.='type: "time",';
-			$options.=" time: {
-			unit: '" . $this->atts['timeunit'] . "',
-            displayFormats: {
-				minute: 'dd MMM hh:mm',
-				hour: 'dd MMM hh:mm',
-				day: 'dd MMM',
-		    } },";
+		$options = new stdClass();
+
+		if ( $axis === $this->atts['indexAxis'] ) {
+			wp_enqueue_script( 'chartjs-adapter-date-fns-script' );
+			$options->type = 'time';
+			$options->time = (object)[
+				'unit' => $this->atts['timeUnit'],
+				'displayFormats' => (object)[
+					'minute' => 'dd MMM hh:mm',
+					'hour' => 'dd MMM hh:mm',
+					'day' => 'dd MMM',
+				],
+			];
 		}
+
 		return $options;
-	}
-
-	/**
-	 * Returns the x-axis options.
-	 *
-	 * @return string
-	 */
-	function x_axis_options() {
-		$options = null;
-		$options .= "x: {";
-		if ( $this->atts['time'] ) {
-			$options .= $this->axis_time_options( 'x');
-		}
-
-		if ( $this->atts['stacked'] ) {
-			$options .= " stacked: true ";
-		}
-
-		$options .= "}";
-		return $options;
-	}
-
-	function boolstring( $bool ) {
-		return $bool ? 'true' : 'false';
 	}
 
 	function get_newChart() {

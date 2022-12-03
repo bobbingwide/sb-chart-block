@@ -1,0 +1,71 @@
+<div class="wp-block-oik-sb-chart">
+<div class="chartjs">
+<canvas id="myChart10" width="400" height="400">
+</canvas>
+<script type="text/javascript">document.addEventListener( "DOMContentLoaded", function() {var ctx = document.getElementById('myChart10').getContext('2d');
+var   data = {labels:["2018",
+"2019",
+"2020",
+"2021"],
+datasets:[{"label":"Dataset1",
+"data":["50",
+"32",
+"25",
+"42"],
+"backgroundColor":"rgba( 51, 102, 204, 0.8 )",
+"borderColor":"rgba( 0, 0, 255, 1 )",
+"borderWidth":1,
+"barThickness":"25",
+"fill":false,
+"tension":0,
+"showLine":true,
+"yAxisID":"y"},{"label":"Dataset2",
+"data":["25",
+"45",
+"49",
+"31"],
+"backgroundColor":"rgba( 255, 255, 0, 0.8 )",
+"borderColor":"rgba( 255, 255, 0, 1 )",
+"borderWidth":1,
+"barThickness":"25",
+"fill":false,
+"tension":0,
+"showLine":true,
+"yAxisID":"y"},{"label":"Dataset3",
+"data":["32",
+"22",
+"35",
+"43"],
+"backgroundColor":"rgba( 255, 153, 0, 0.8 )",
+"borderColor":"rgba( 0, 128, 0, 1 )",
+"borderWidth":1,
+"barThickness":"25",
+"fill":false,
+"tension":0,
+"showLine":true,
+"yAxisID":"y"},{"label":"Dataset4",
+"data":["45",
+"19",
+"23",
+"35"],
+"backgroundColor":"rgba( 16, 150, 24, 0.8 )",
+"borderColor":"rgba( 16, 150, 24, 1 )",
+"borderWidth":1,
+"barThickness":"25",
+"fill":false,
+"tension":0,
+"showLine":true,
+"yAxisID":"y"}]};
+var options = {"maintainAspectRatio":false,
+"indexAxis":"x",
+"scales":{"x":{"stacked":false},
+"y":{"beginAtZero":false,
+"position":"left",
+"stacked":false}}};
+var myLineChart = new Chart(ctx, { type: 'bar', data: data, options: options });}, false );</script>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js">
+</script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js">
+</script>

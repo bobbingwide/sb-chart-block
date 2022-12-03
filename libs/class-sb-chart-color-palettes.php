@@ -71,6 +71,9 @@ class SB_Chart_Color_Palettes {
 	 * @return string
 	 */
 	function rgba( $hex, $opacity ) {
+		if ( $opacity < 0 || $opacity > 1 ) {
+			$opacity = $this->opacity;
+		}
 		$red = hexdec( substr( $hex, 1,2 ));
 		$green = hexdec( substr( $hex, 3, 2 ));
 		$blue = hexdec( substr( $hex, 5, 2 ));

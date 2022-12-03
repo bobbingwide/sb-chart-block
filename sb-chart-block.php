@@ -79,6 +79,7 @@ function sb_chart_block_register_editor_script() {
 	if ( is_admin() ) {
 		sb_chart_block_register_scripts();
 		$script_asset['dependencies'][] = 'chartjs-script';
+		$script_asset['dependencies'][] = 'chartjs-adapter-date-fns-script';
 	}
 
 	wp_register_script(
@@ -124,6 +125,81 @@ function sb_chart_block_array_get( $array, $index, $default=null ) {
 	} else {
 		$value = $default;
 	}
+	return $value;
+}
+
+/**
+ * Returns an array from a CSV string. If the data is empty or if it's not a string, an empty array is returned (unless "$min_nb_fields" > 0).
+ *
+ * @param string $data CSV string.
+ * @param bool $empty_to_null Replace empty strings with `null` (useful to prevent Chart.js to draw empty data).
+ * @param int $min_nb_fields Minimum number of fields. If the array has less than this number of fields, items are added to reach the count.
+ * @param mixed $new_item_value Value to use if some items are added to reach the minimum number of fields.
+ *
+ * @return array
+ */
+function sb_chart_block_get_csv( $data, $empty_to_null = false, $min_nb_fields = 0, $new_item_value = '' ) {
+	$array = [];
+	
+	if ( is_string( $data ) && '' !== $data ) {
+		$array = str_getcsv( $data );
+		if ($empty_to_null) {
+			foreach ( $array as $key => $value ) {
+				if ( '' === $value ) {
+					$array[$key] = null;
+				}
+			}
+		}
+	}
+	
+	$nb_new_fields = $min_nb_fields - count( $array );
+	for ( $i = 0; $i < $nb_new_fields; $i++ ) { 
+		$array[] = $new_item_value;
+	}
+	
+	return $array;
+}
+
+/**
+ * Replaces elements from the second array into the first array, unless elements are empty strings.
+ *
+ * @param array
+ * @param array
+ *
+ * @return array
+ */
+function sb_chart_block_array_replace( $array1, $array2 ) {
+	$replaced = [];
+	if ( is_array( $array1 ) && is_array( $array2 ) ) {
+		$replaced = $array1;
+		foreach ( $array2 as $key => $value ) {
+			if ( '' === $value ) {
+				continue;
+			}
+			$replaced[$key] = $value;
+		}
+	}
+	return $replaced;
+}
+
+/**
+ * Returns the two merged objects or default.
+ *
+ * @param $object
+ * @param $object
+ * @param null $default
+ *
+ * @return mixed|null
+ */
+function sb_chart_block_merge_objects( $object1, $object2, $default=null ) {
+	$value = null;
+	
+	if ( is_object( $object1 ) && is_object( $object2 ) ) {
+		$value = (object)array_merge((array)$object1, (array)$object2);
+	} else {
+		$value = $default;
+	}
+	
 	return $value;
 }
 
@@ -181,24 +257,13 @@ function sb_chart_enqueue_styles() {
  * @return string
  */
 function sb_chart_block_shortcode( $atts, $content, $tag ) {
-	// This logic attempts to set atts which were converted to lower case when used in a shortcode.
-	// Only set beginyaxisat0 to true when it's needed.
-	$beginyaxisat0 = sb_chart_block_array_get(  $atts, 'beginyaxisat0', null );
-	if ( null !== $beginyaxisat0 ) {
-		$beginyaxisat0 = ( 'true' === $beginyaxisat0 ) ? true : false;
-	    $atts['beginYAxisAt0'] = sb_chart_block_array_get(  $atts, 'beginYaxisAt0', $beginyaxisat0 );
-	}
-	$barthickness =  sb_chart_block_array_get(  $atts, 'barthickness', null );
-	if ( null !== $barthickness ) {
-		$atts['barThickness'] = sb_chart_block_array_get( $atts, 'barThickness', $barthickness );
-	}
+	$html = '';
 	if ( $content ) {
 		require_once __DIR__ . '/libs/class-sb-chart-block.php';
 		$sb_chart_block = new SB_Chart_Block();
 		$html = $sb_chart_block->render( $atts, $content );
-		return $html;
 	}
-	return '';
+	return $html;
 }
 
 sb_chart_loaded();

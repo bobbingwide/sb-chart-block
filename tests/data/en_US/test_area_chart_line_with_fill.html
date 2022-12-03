@@ -17,7 +17,8 @@ datasets:[{"label":"Import",
 "borderWidth":1,
 "fill":true,
 "tension":0,
-"showLine":true},{"label":"Export",
+"showLine":true,
+"yAxisID":"y"},{"label":"Export",
 "data":["6.142",
 "35",
 "8.142",
@@ -27,12 +28,14 @@ datasets:[{"label":"Import",
 "borderWidth":1,
 "fill":true,
 "tension":0,
-"showLine":true}]};
-var options = { maintainAspectRatio: false,
-
-       indexAxis: "x",
-
-       scales: {y : {stacked: false,beginAtZero: false,},x: {}} };
+"showLine":true,
+"yAxisID":"y"}]};
+var options = {"maintainAspectRatio":false,
+"indexAxis":"x",
+"scales":{"x":{"stacked":false},
+"y":{"beginAtZero":false,
+"position":"left",
+"stacked":false}}};
 var myLineChart = new Chart(ctx, { type: 'line', data: data, options: options });}, false );</script>
 </div>
 </div>
