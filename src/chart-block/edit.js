@@ -200,6 +200,7 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 			var additional = __( 'Message: ' , 'sb-chart-block' ) + ' ';
 			return( <p>{text}<br/>{expected}<br />{forexample}<br />{additional} {attributes.error.message}</p> );
 		} else {
+			console.log( attributes.error );
 			return( <p>{__( "An error occurred displaying the chart.", 'sb-chart-block' )}
 				<br />{attributes.error.message}</p> );
 		}

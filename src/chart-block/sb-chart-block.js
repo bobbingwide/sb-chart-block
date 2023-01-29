@@ -28,6 +28,7 @@
 const _ = require( 'lodash' );
 
 import { getBackgroundColors, getBackgroundColor, getBorderColor } from './theme-colors';
+import { getOverrideBackgroundColors, getOverrideBackgroundColor, getOverrideBorderColor } from './override-colors';
 
 export class SB_chart_block {
 
@@ -101,10 +102,11 @@ export class SB_chart_block {
 		dataset.label = this.getLegend( i );
 		dataset.data = this.series[i];
 		if ( 'pie' === this.attributes.type ) {
-			dataset.backgroundColor = getBackgroundColors(this.theme, this.attributes.opacity);
+			//dataset.backgroundColor = getBackgroundColors(this.theme, this.attributes.opacity);
+			dataset.backgroundColor = getOverrideBackgroundColors( this.theme, this.attributes.opacity, this.attributes.backgroundColors );
 		} else {
-			dataset.backgroundColor = getBackgroundColor(i, this.theme, this.attributes.opacity );
-			dataset.borderColor = getBorderColor( i, this.theme );
+			dataset.backgroundColor = getOverrideBackgroundColor(i, this.theme, this.attributes.opacity, this.attributes.backgroundColors );
+			dataset.borderColor = getOverrideBorderColor( i, this.theme, this.attributes.opacity, this.attributes.backgroundColors, this.attributes.borderColors );
 		}
 
 		dataset.borderWidth = 1;
