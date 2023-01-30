@@ -99,9 +99,11 @@ function getOverrideBorderColor( i, theme, opacity, backgroundColors, borderColo
 	return borderColor;
 }
 
-
-
 /**
+ * Parses a CSV into a 2 dimensional array.
+ *
+ * Note: If the input is a single line then the result is an array with the parsed data in row 0.
+ *
  * https://stackoverflow.com/questions/1293147/how-to-parse-csv-data
  * @param str
  * @returns {*[]}
@@ -145,4 +147,4 @@ function parseCSV(str) {
 	return arr;
 }
 
-export { getOverrideBackgroundColors, getOverrideBackgroundColor, getOverrideBorderColor };
+export { getOverrideBackgroundColors, getOverrideBackgroundColor, getOverrideBorderColor, parseCSV };
