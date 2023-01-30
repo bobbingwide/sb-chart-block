@@ -181,8 +181,8 @@ class SB_chart_block {
 		$this->atts['showLine'] = $this->validate_bool( $this->atts['showLine'] );
 
 		/** Following code relies on the newer logic for sb_chart_block_array_get()  */
-		$this->atts['labelsFontSize'] = sb_chart_block_array_get( $this->atts, 'labelsFontSize', 16 );
-		$this->atts['xTicksFontSize'] = sb_chart_block_array_get( $this->atts, 'xTicksFontSize', 14 );
+		$this->atts['labelsFontSize'] = sb_chart_block_array_get( $this->atts, 'labelsFontSize', null );
+		$this->atts['xTicksFontSize'] = sb_chart_block_array_get( $this->atts, 'xTicksFontSize', null );
 
 	}
 
@@ -579,14 +579,16 @@ class SB_chart_block {
 				break;
 		}
 
-		$options->plugins = (object) ['legend' => ['labels' => ['font' => ['size' => $this->atts['labelsFontSize']]]]];
+		if ( null !== $this->atts['labelsFontSize' ] ) {
+			$options->plugins=(object) [ 'legend'=>[ 'labels'=>[ 'font'=>[ 'size'=>$this->atts['labelsFontSize'] ] ] ] ];
+		}
 
 
 		$options = apply_filters( 'sb_chart_block_options', $options, $this->atts, $this->series );
 
 		return 'var options = ' . json_encode( $options ) . ';';
 	}
-	
+
 	/**
 	 * Returns options for the specified axis.
 	 *
@@ -621,7 +623,9 @@ class SB_chart_block {
 		}
 
 		if ( 'x' === $axis ) {
-			$options->ticks = (object) ['font' => ['size' => $this->atts['xTicksFontSize'] ] ] ;
+			if ( null !== $this->atts['xTicksFontSize']) {
+				$options->ticks=(object) [ 'font'=>[ 'size'=>$this->atts['xTicksFontSize'] ] ];
+			}
 		}
 
 		return $options;
