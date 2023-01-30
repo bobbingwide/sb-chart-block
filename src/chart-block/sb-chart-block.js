@@ -28,7 +28,7 @@
 const _ = require( 'lodash' );
 
 import { getBackgroundColors, getBackgroundColor, getBorderColor } from './theme-colors';
-import { getOverrideBackgroundColors, getOverrideBackgroundColor, getOverrideBorderColor } from './override-colors';
+import { getOverrideBackgroundColors, getOverrideBackgroundColor, getOverrideBorderColor, parseCSV } from './override-colors';
 
 export class SB_chart_block {
 
@@ -115,6 +115,7 @@ export class SB_chart_block {
 			dataset.barThickness = this.attributes.barThickness;
 		}
 		dataset.tension = this.attributes.tension;
+		dataset.yAxisID = this.getyAxisID( i, this.attributes.yAxes);
 
 		return dataset;
 		/*
@@ -184,18 +185,27 @@ export class SB_chart_block {
 		var timeOptions = this.getAxisTimeOptions();
 		options.scales.y = new Object( {} );
 		options.scales.x = new Object( {} );
+
 		if ( 'horizontalBar' === this.attributes.type ) {
 			options.indexAxis = 'y';
 			options.scales.y = timeOptions;
 		} else {
 			options.scales.x = timeOptions;
 		}
+
 		options.scales.y.beginAtZero = beginAtZero;
 		options.scales.y.stacked = this.attributes.stacked;
 		options.scales.x.stacked = this.attributes.stacked;
 		//console.log( options );
 		options.scales.x.ticks = new Object( {  font: {size: this.attributes.xTicksFontSize }} );
 		//options.plugins.legend.labels.font.size = this.attributes.labelsFontSize;
+
+		if ( this.attributes.yAxes.includes( 'y1' ) ) {
+			options.scales.y1 = new Object({});
+			options.scales.y1.beginAtZero = beginAtZero;
+			options.scales.y1.stacked = this.attributes.stacked;
+			options.scales.y1.position = 'right';
+		}
 
 		return options;
 
@@ -216,6 +226,36 @@ export class SB_chart_block {
 			});
 		}
 		return timeOptions;
+	}
+
+	/**
+	 * Gets the yAxis for the selected dataset.
+	 *
+	 * Only accepts y and y1. Any other value non-null value treated as y.
+	 *
+	 * @param i
+	 * @param yAxesStr
+	 * @returns {string}
+	 */
+	getyAxisID( i, yAxesStr ) {
+		//console.log( i );
+		var axis = 'y';
+		var yAxes = parseCSV( yAxesStr);
+		if ( yAxes !== undefined ) {
+			yAxes = yAxes[0];
+
+			//console.log(yAxes);
+			if ( yAxes !== undefined ) {
+				if (i - 1 in yAxes) {
+					axis = yAxes[i - 1];
+					if ( axis !== 'y' && axis !== 'y1') {
+						axis = 'y';
+					}
+				}
+			}
+		}
+
+		return axis;
 	}
 
 	/**
