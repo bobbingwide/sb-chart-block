@@ -179,6 +179,11 @@ class SB_chart_block {
 		}
 		$this->atts['showLine'] = sb_chart_block_array_get( $this->atts, 'showLine', true );
 		$this->atts['showLine'] = $this->validate_bool( $this->atts['showLine'] );
+
+		/** Following code relies on the newer logic for sb_chart_block_array_get()  */
+		$this->atts['labelsFontSize'] = sb_chart_block_array_get( $this->atts, 'labelsFontSize', 16 );
+		$this->atts['xTicksFontSize'] = sb_chart_block_array_get( $this->atts, 'xTicksFontSize', 14 );
+
 	}
 
 	/**
@@ -574,11 +579,14 @@ class SB_chart_block {
 				break;
 		}
 
+		$options->plugins = (object) ['legend' => ['labels' => ['font' => ['size' => $this->atts['labelsFontSize']]]]];
+
+
 		$options = apply_filters( 'sb_chart_block_options', $options, $this->atts, $this->series );
 
 		return 'var options = ' . json_encode( $options ) . ';';
 	}
-
+	
 	/**
 	 * Returns options for the specified axis.
 	 *
@@ -610,6 +618,10 @@ class SB_chart_block {
 
 		if ( $this->atts['time'] ) {
 			$options = sb_chart_block_merge_objects( $options, $this->axis_time_options( $axis ), $options );
+		}
+
+		if ( 'x' === $axis ) {
+			$options->ticks = (object) ['font' => ['size' => $this->atts['xTicksFontSize'] ] ] ;
 		}
 
 		return $options;
