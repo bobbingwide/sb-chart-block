@@ -224,13 +224,14 @@ function sb_chart_block_enqueue_scripts() {
  * WordPress plugins are not supposed to enqueue resources from 3rd parties.
  * Enqueue chart.js from a local version.
  * Since v3.0.0 chart.js file name is lower case.
+ * Since v4.2.0 chart.js is the ESM version. We have to use the UMD version.
  */
 function sb_chart_block_register_scripts() {
 	if ( defined( 'SCRIPT_DEBUG')  && SCRIPT_DEBUG  ) {
-		$file = 'js/chart.js';
+		$file = 'js/chart.umd.js';
 		$version = filemtime( __DIR__ . '/' . $file );
 	} else {
-		$file = 'js/chart.min.js';
+		$file = 'js/chart.umd.min.js';
 		$version = null;
 	}
 	$file_url = plugin_dir_url( __FILE__ ) . $file;
