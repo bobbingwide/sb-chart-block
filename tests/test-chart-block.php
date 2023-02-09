@@ -189,6 +189,25 @@ class Test_chart_block extends BW_UnitTestCase {
 
 	}
 
+	/*
+	<!-- wp:oik-sb/chart {"type":"bar",
+	"content":"Year,Dataset1,Dataset2,Dataset3,Dataset4\n2018,50,25,32,45\n2019,32,45,22,19\n2020,25,49,35,23\n2021,42,31,43,35",
+	"theme":"Visualizer","myChartId":"myChart-3","barThickness":25,"backgroundColors":",#FFFF00","borderColors":"#0000FF,,#008000"} -->
+<div class="wp-block-oik-sb-chart"><div class="chartjs"><canvas id="myChart-3"></canvas></div></div>
+<!-- /wp:oik-sb/chart -->
+	*/
+	function test_custom_colors() {
+		$attributes = json_decode( '{"type":"bar",
+	"content":"Year,Dataset1,Dataset2,Dataset3,Dataset4\n2018,50,25,32,45\n2019,32,45,22,19\n2020,25,49,35,23\n2021,42,31,43,35",
+	"theme":"Visualizer","myChartId":"myChart-3","barThickness":25,"backgroundColors":",#FFFF00","borderColors":"#0000FF,,#008000"}', true );
+		//print_r( $attributes );
+		$html = sb_chart_block_dynamic_block($attributes);
+		$html = $this->prepare_expected_file( $html );
+		//$this->generate_expected_file($html);
+		$this->assertArrayEqualsFile($html);
+
+	}
+
 	/**
 	 * Prints the ChartJS CDN scripts.
 	 *
