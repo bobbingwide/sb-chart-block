@@ -382,9 +382,15 @@ class SB_chart_block {
 		foreach ( $lines as $line ) {
 			$values = sb_chart_block_get_csv( $line, true, $nb_columns, null );
 			foreach ( $values as $key => $value ) {
-				$this->series[ $key ][] = $value;
+				if ( null === $value || 0 === strlen( trim( $value ) ) ){
+					$this->series[ $key ][]= null;
+				} else {
+					$this->series[ $key ][] = $value;
+				}
 			}
+
 		}
+		bw_trace2( $this->series, "series" );
 		return $this->series;
 	}
 

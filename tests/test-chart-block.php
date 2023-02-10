@@ -209,6 +209,21 @@ class Test_chart_block extends BW_UnitTestCase {
 	}
 
 	/**
+	 * <!-- wp:oik-sb/chart {"content":"Year,Dataset1,Dataset2,Dataset3\n2018,250\n2019,250, ,120\n    2020,,175,125\n 2021  ,220,125,75\n2022,230,215,90","myChartId":"myChart-1","height":250,"barThickness":1} -->
+	<div class="wp-block-oik-sb-chart"><div class="chartjs" style="height:250px"><canvas id="myChart-1"></canvas></div></div>
+	<!-- /wp:oik-sb/chart -->
+	 */
+	function test_partial_lines() {
+		$attributes = json_decode( '{"content":"Year,Dataset1,Dataset2,Dataset3\n2018,250\n2019,250, ,120\n    2020,,175,125\n 2021  ,220,125,75\n2022,230,215,90","myChartId":"myChart-1","height":250,"barThickness":1}', true );
+		//print_r( $attributes );
+		$html = sb_chart_block_dynamic_block($attributes);
+		$html = $this->prepare_expected_file( $html );
+		//$this->generate_expected_file($html);
+		$this->assertArrayEqualsFile($html);
+
+	}
+
+	/**
 	 * Prints the ChartJS CDN scripts.
 	 *
 	 * Enable the generated HTML file to be tested with the latest chart.js

@@ -55,10 +55,14 @@ export class SB_chart_block {
 		console.log(this.lines);
 
 		// Convert the first line into an array of series labels.
+		// Uses parseCSV to allow commas in double quoted label strings
 		this.labels = this.lines.shift();
-		this.labels = this.labels.split(',');
+		this.labels = parseCSV( this.labels );
+		this.labels = this.labels[0];
+		//console.log( this.labels );
 
-		this.asMatrix(this.lines);
+		this.asMatrix(this.lines.join( "\n"));
+
 		this.series = this.transpose(this.matrix);
 		// 	this.datasets = [];
 		console.log(this.series);
@@ -66,10 +70,8 @@ export class SB_chart_block {
 	}
 
 	asMatrix(lines) {
-		this.matrix = [];
-		for (const line of lines) {
-			this.matrix.push(line.split(','));
-		}
+		this.matrix = parseCSV( lines );
+
 	}
 
 	transpose(matrix) {
@@ -100,7 +102,8 @@ export class SB_chart_block {
 
 		var dataset = new Object( {} );
 		dataset.label = this.getLegend( i );
-		dataset.data = this.series[i];
+		// Convert empty string values to undefined, otherwise they're mapped to 0.
+		dataset.data= this.series[i].map( x =>  (x === undefined ) || (  0 === x.trim().length ) ? undefined : x );
 		if ( 'pie' === this.attributes.type ) {
 			//dataset.backgroundColor = getBackgroundColors(this.theme, this.attributes.opacity);
 			dataset.backgroundColor = getOverrideBackgroundColors( this.theme, this.attributes.opacity, this.attributes.backgroundColors );
