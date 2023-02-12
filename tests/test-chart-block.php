@@ -224,6 +224,21 @@ class Test_chart_block extends BW_UnitTestCase {
 	}
 
 	/**
+	 * <!-- wp:oik-sb/chart {"content":"Year,\u0022Dataset 1: Lorem ipsum, dolor sit\u0022,\u0022Dataset 2: id dapibus, dui rhoncus\u0022\n    2017,9,12\n    2018,5,17\n    2019,10,15\n    2020,1,19\n    2021,14,22\n    2022,9,23","myChartId":"myChart-3"} -->
+	 * @return void
+	 */
+
+	function test_commas_in_legends() {
+		$attributes = json_decode( '{"content":"Year,\u0022Dataset 1: Lorem ipsum, dolor sit\u0022,\u0022Dataset 2: id dapibus, dui rhoncus\u0022\n    2017,9,12\n    2018,5,17\n    2019,10,15\n    2020,1,19\n    2021,14,22\n    2022,9,23","myChartId":"myChart-3"}', true );
+		//print_r( $attributes );
+		$html = sb_chart_block_dynamic_block($attributes);
+		$html = $this->prepare_expected_file( $html );
+		//$this->generate_expected_file($html);
+		$this->assertArrayEqualsFile($html);
+
+	}
+
+	/**
 	 * Prints the ChartJS CDN scripts.
 	 *
 	 * Enable the generated HTML file to be tested with the latest chart.js
