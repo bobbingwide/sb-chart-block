@@ -79,7 +79,7 @@ export class SB_chart_block {
 	}
 
 	getLegend(i) {
-		return this.labels[i];
+		return this.labels[i].trim();
 	}
 
 
@@ -103,7 +103,7 @@ export class SB_chart_block {
 		var dataset = new Object( {} );
 		dataset.label = this.getLegend( i );
 		// Convert empty string values to undefined, otherwise they're mapped to 0.
-		dataset.data= this.series[i].map( x =>  (x === undefined ) || (  0 === x.trim().length ) ? undefined : x );
+		dataset.data= this.series[i].map( x =>  (x === undefined ) || (  0 === x.trim().length ) ? undefined : x.trim() );
 		if ( 'pie' === this.attributes.type ) {
 			//dataset.backgroundColor = getBackgroundColors(this.theme, this.attributes.opacity);
 			dataset.backgroundColor = getOverrideBackgroundColors( this.theme, this.attributes.opacity, this.attributes.backgroundColors );
@@ -153,7 +153,7 @@ export class SB_chart_block {
 		}
 
 	getLabels() {
-		return this.series[0];
+		return this.series[0].map( x =>  (x === undefined ) || (  0 === x.trim().length ) ? undefined : x.trim() );
 	}
 
 	getOptions() {

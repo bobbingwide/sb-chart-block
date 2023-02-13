@@ -385,7 +385,7 @@ class SB_chart_block {
 				if ( null === $value || 0 === strlen( trim( $value ) ) ){
 					$this->series[ $key ][]= null;
 				} else {
-					$this->series[ $key ][] = $value;
+					$this->series[ $key ][] = trim( $value );
 				}
 			}
 
