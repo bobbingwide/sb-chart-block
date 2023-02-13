@@ -291,7 +291,7 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 					</PanelRow>
 				</PanelBody>
 				<PanelBody>
-					<PanelRow>
+
 						<RangeControl
 							label={ __( "Opacity", 'sb-chart-block' ) }
 							value={ attributes.opacity }
@@ -299,14 +299,11 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 							onChange={ onChangeOpacity }
 							min={ 0 }
 							max={ 1 }
-							step={ 0.1}
+							step={ 0.01}
 							allowReset
 						/>
 
-					</PanelRow>
-				</PanelBody>
-				<PanelBody>
-					<PanelRow>
+
 						<RangeControl
 							label={ __( "Height (pixels)", 'sb-chart-block' ) }
 							value={ attributes.height }
@@ -317,10 +314,8 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 							allowReset
 						/>
 
-					</PanelRow>
-				</PanelBody>
-				<PanelBody>
-					<PanelRow>
+
+
 						<RangeControl
 							label={ __( "Bar thickness (pixels)", 'sb-chart-block' ) }
 							value={ attributes.barThickness }
@@ -331,13 +326,7 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 							allowReset
 						/>
 
-					</PanelRow>
-				</PanelBody>
-
-				<PanelBody>
-
-					<PanelRow>
-							<RangeControl
+						<RangeControl
 								label={ __( "Tension", 'sb-chart-block' ) }
 								value={ attributes.tension }
 								initialPosition={ attributes.tension }
@@ -347,11 +336,7 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 								step={ 0.1}
 								allowReset
 							/>
-					</PanelRow>
-				</PanelBody>
-				<PanelBody>
 
-					<PanelRow>
 						<RangeControl
 							label={ __( "Legend font size", 'sb-chart-block' ) }
 							value={ attributes.labelsFontSize }
@@ -362,8 +347,7 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 							step={ 2 }
 							allowReset
 						/>
-					</PanelRow>
-					<PanelRow>
+
 						<RangeControl
 							label={ __( "X-axis font size", 'sb-chart-block' ) }
 							value={ attributes.xTicksFontSize }
@@ -374,7 +358,7 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 							step={ 2 }
 							allowReset
 						/>
-					</PanelRow>
+
 				</PanelBody>
 			</InspectorControls>
 
