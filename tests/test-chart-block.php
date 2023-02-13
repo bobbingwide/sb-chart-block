@@ -227,9 +227,25 @@ class Test_chart_block extends BW_UnitTestCase {
 	 * <!-- wp:oik-sb/chart {"content":"Year,\u0022Dataset 1: Lorem ipsum, dolor sit\u0022,\u0022Dataset 2: id dapibus, dui rhoncus\u0022\n    2017,9,12\n    2018,5,17\n    2019,10,15\n    2020,1,19\n    2021,14,22\n    2022,9,23","myChartId":"myChart-3"} -->
 	 * @return void
 	 */
-
 	function test_commas_in_legends() {
 		$attributes = json_decode( '{"content":"Year,\u0022Dataset 1: Lorem ipsum, dolor sit\u0022,\u0022Dataset 2: id dapibus, dui rhoncus\u0022\n    2017,9,12\n    2018,5,17\n    2019,10,15\n    2020,1,19\n    2021,14,22\n    2022,9,23","myChartId":"myChart-3"}', true );
+		//print_r( $attributes );
+		$html = sb_chart_block_dynamic_block($attributes);
+		$html = $this->prepare_expected_file( $html );
+		//$this->generate_expected_file($html);
+		$this->assertArrayEqualsFile($html);
+
+	}
+
+	/**
+	 * <!-- wp:oik-sb/chart {"content":"Year,Sales,Expenses\n2020-08,5421.32,1151.21\n2021-02,4823.99,887.23\n2021-03,4945.32,958.00\n2021-10,7086.65,1854.35\n2022-05,7385.21,2009.01",
+	 * "theme":"Visualizer","myChartId":"myChart-1","fill":true,"opacity":0.3,"time":true,"timeunit":"month",
+	 * "tension":0.2,"backgroundColors":"#008000","yAxes":"y,y1"} -->
+	 */
+	function test_multiple_y_axis_scales() {
+		$attributes = json_decode( '{"content":"Year,Sales,Expenses\n2020-08,5421.32,1151.21\n2021-02,4823.99,887.23\n2021-03,4945.32,958.00\n2021-10,7086.65,1854.35\n2022-05,7385.21,2009.01",
+	  "theme":"Visualizer","myChartId":"myChart-1","fill":true,"opacity":0.3,"time":true,"timeunit":"month",
+	  "tension":0.2,"backgroundColors":"#008000","yAxes":"y,y1"}', true );
 		//print_r( $attributes );
 		$html = sb_chart_block_dynamic_block($attributes);
 		$html = $this->prepare_expected_file( $html );

@@ -1,0 +1,56 @@
+<div class="wp-block-oik-sb-chart">
+<div class="chartjs">
+<canvas id="myChart14" width="400" height="400">
+</canvas>
+<script type="text/javascript">document.addEventListener( "DOMContentLoaded", function() {var ctx = document.getElementById('myChart14').getContext('2d');
+var   data = {labels:["2020-08",
+"2021-02",
+"2021-03",
+"2021-10",
+"2022-05"],
+datasets:[{"label":"Sales",
+"data":["5421.32",
+"4823.99",
+"4945.32",
+"7086.65",
+"7385.21"],
+"backgroundColor":"rgba( 0, 128, 0, 0.3 )",
+"borderColor":"rgba( 0, 128, 0, 1 )",
+"borderWidth":1,
+"fill":true,
+"tension":0.2,
+"showLine":true,
+"yAxisID":"y"},{"label":"Expenses",
+"data":["1151.21",
+"887.23",
+"958.00",
+"1854.35",
+"2009.01"],
+"backgroundColor":"rgba( 220, 57, 18, 0.3 )",
+"borderColor":"rgba( 220, 57, 18, 1 )",
+"borderWidth":1,
+"fill":true,
+"tension":0.2,
+"showLine":true,
+"yAxisID":"y1"}]};
+var options = {"maintainAspectRatio":false,
+"indexAxis":"x",
+"scales":{"x":{"stacked":false,
+"type":"time",
+"time":{"unit":"month",
+"displayFormats":{"minute":"dd MMM hh:mm",
+"hour":"dd MMM hh:mm",
+"day":"dd MMM"}}},
+"y":{"beginAtZero":false,
+"position":"left",
+"stacked":false},
+"y1":{"beginAtZero":false,
+"position":"right",
+"stacked":false}}};
+var myLineChart = new Chart(ctx, { type: 'line', data: data, options: options });}, false );</script>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js">
+</script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js">
+</script>
