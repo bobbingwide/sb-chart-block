@@ -1,0 +1,55 @@
+<div class="wp-block-oik-sb-chart">
+<div class="chartjs" style="position:relative; height:250px;">
+<canvas id="myChart17" width="400" height="400">
+</canvas>
+<script type="text/javascript">document.addEventListener( "DOMContentLoaded", function() {var ctx = document.getElementById('myChart17').getContext('2d');
+var   data = {labels:["A",
+"B",
+"C"],
+datasets:[{"label":"y1",
+"data":["1",
+"2",
+"3"],
+"backgroundColor":"rgba( 247, 141, 167, 0.8 )",
+"borderColor":"rgba( 153, 153, 153, 1 )",
+"borderWidth":1,
+"fill":false,
+"tension":0,
+"showLine":true,
+"yAxisID":"y1"},{"label":"y",
+"data":["30",
+"40",
+"50"],
+"backgroundColor":"rgba( 207, 46, 46, 0.8 )",
+"borderColor":"rgba( 207, 46, 46, 1 )",
+"borderWidth":1,
+"fill":false,
+"tension":0,
+"showLine":true,
+"yAxisID":"y"},{"label":"y",
+"data":["50",
+"60",
+"70"],
+"backgroundColor":"rgba( 255, 105, 0, 0.8 )",
+"borderColor":"rgba( 255, 105, 0, 1 )",
+"borderWidth":1,
+"fill":false,
+"tension":0,
+"showLine":true,
+"yAxisID":"y"}]};
+var options = {"maintainAspectRatio":false,
+"indexAxis":"x",
+"scales":{"x":{"stacked":false},
+"y":{"beginAtZero":true,
+"position":"left",
+"stacked":false},
+"y1":{"beginAtZero":true,
+"position":"right",
+"stacked":false}}};
+var myLineChart = new Chart(ctx, { type: 'bar', data: data, options: options });}, false );</script>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js">
+</script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js">
+</script>

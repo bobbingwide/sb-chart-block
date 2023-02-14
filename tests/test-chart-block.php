@@ -255,6 +255,65 @@ class Test_chart_block extends BW_UnitTestCase {
 	}
 
 	/**
+	 * Test multiple y-axes and label and x-tick font size
+	 * @return void
+	 */
+	function test_y_axis_yyy_88() {
+		$attributes = json_decode( '{"type":"bar","content":"Item,y,y,y\nA,1,30,50\nB,2,40,60\nC,3,50,70",
+			"theme":"Gutenberg","myChartId":"myChart-1","height":250,"beginYAxisAt0":true,
+			"labelsFontSize":8,"xTicksFontSize":8,"borderColors":"#999999"}', true );
+		//print_r( $attributes );
+		$html = sb_chart_block_dynamic_block($attributes);
+		$html = $this->prepare_expected_file( $html );
+		//$this->generate_expected_file($html);
+		$this->assertArrayEqualsFile($html);
+	}
+
+	/**
+	 * Test multiple y-axes and label and x-tick font size
+	 * @return void
+	 */
+	function test_y_axis_yy1y1_1010() {
+		$attributes = json_decode( '{"type":"bar","content":"Item,y,y1,y1\nA,1,30,50\nB,2,40,60\nC,3,50,70",
+			"theme":"Gutenberg","myChartId":"myChart-3","height":250,"beginYAxisAt0":true,
+			"labelsFontSize":10,"xTicksFontSize":10,"borderColors":"#999999","yAxes":"y,y1,y1"} ', true );
+		//print_r( $attributes );
+		$html = sb_chart_block_dynamic_block($attributes);
+		$html = $this->prepare_expected_file( $html );
+		//$this->generate_expected_file($html);
+		$this->assertArrayEqualsFile($html);
+	}
+
+	/**
+	 * Test multiple y-axes and label and x-tick font size
+	 * @return void
+	 */
+	function test_y_axis_y1yy_1212() {
+		$attributes = json_decode( '{"type":"bar","content":"Item,y1,y,y\nA,1,30,50\nB,2,40,60\nC,3,50,70",
+		"theme":"Gutenberg","myChartId":"myChart-15","height":250,"beginYAxisAt0":true,"borderColors":"#999999","yAxes":"y1"}', true );
+		//print_r( $attributes );
+		$html = sb_chart_block_dynamic_block($attributes);
+		$html = $this->prepare_expected_file( $html );
+		//$this->generate_expected_file($html);
+		$this->assertArrayEqualsFile($html);
+	}
+
+	/**
+	 * Test multiple y-axes and label and x-tick font size
+	 * @return void
+	 */
+	function test_y_axis_yy1y_1414() {
+		$attributes = json_decode( '{"type":"bar","content":"Item,y,y1,y\nA,1,30,50\nB,2,40,60\nC,3,50,70",
+		"theme":"Gutenberg","myChartId":"myChart-17","height":250,"beginYAxisAt0":true,"labelsFontSize":14,"xTicksFontSize":14,"borderColors":"#999999","yAxes":"y,y1,y"}', true );
+		//print_r( $attributes );
+		$html = sb_chart_block_dynamic_block($attributes);
+		$html = $this->prepare_expected_file( $html );
+		//$this->generate_expected_file($html);
+		$this->assertArrayEqualsFile($html);
+	}
+
+
+	/**
 	 * Prints the ChartJS CDN scripts.
 	 *
 	 * Enable the generated HTML file to be tested with the latest chart.js
