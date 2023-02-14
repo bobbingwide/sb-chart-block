@@ -79,7 +79,11 @@ export class SB_chart_block {
 	}
 
 	getLegend(i) {
-		return this.labels[i].trim();
+		var legend = this.labels[i];
+		if ( legend !== undefined ) {
+			legend = legend.trim();
+		}
+		return legend;
 	}
 
 
@@ -203,7 +207,7 @@ export class SB_chart_block {
 		options.scales.x.ticks = new Object( {  font: {size: this.attributes.xTicksFontSize }} );
 		//options.plugins.legend.labels.font.size = this.attributes.labelsFontSize;
 
-		if ( this.attributes.yAxes.includes( 'y1' ) ) {
+		if ( undefined !== this.attributes.yAxes && this.attributes.yAxes.includes( 'y1' ) ) {
 			options.scales.y1 = new Object({});
 			options.scales.y1.beginAtZero = beginAtZero;
 			options.scales.y1.stacked = this.attributes.stacked;
