@@ -3,8 +3,8 @@
 * Contributors:      bobbingwide
 * Tags:              block, Chart, Line, Bar, Horizontal bar, Pie, stacked
 * Requires at least: 5.6.0
-* Tested up to:      6.0.1
-* Stable tag:        1.1.0
+* Tested up to:      6.1.1
+* Stable tag:        1.2.0
 * Requires PHP:      7.2.0
 * License:           GPL-2.0-or-later
 * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -28,7 +28,7 @@ OR with the authority to install plugins
 1. And the block will be inserted into your content.
 
 ## Frequently Asked Questions 
-### What types of chart can I display? 
+# What types of chart can I display? 
 
 So far...
 
@@ -37,33 +37,41 @@ So far...
 - Horizontal bar and stacked horizontal bar
 - Pie
 
-### How do I choose the chart colors? 
+# How do I choose the chart colors? 
 
 There are 6 predefined color palettes:
 choose the color palette from a drop down list.
 
-### What options are there? 
+Use the Background color overrides and border color overrides fields to set custom color values.
+
+# What options are there? 
 Options to control the chart display are:
 
 - Stacked - Toggle on to stack line or bar charts
 - Begin Y axis at 0 toggle
 - Fill toggle for line charts
 - Time line toggle for a date based axis, with selectable Time unit (stepSize)
+- Y-axes for multi axis charts
+- Color palette dropdown
+- Background color overrides. Enter comma separated hex codes.
+- Border color overrides. Enter comma separated hex codes.
 - Opacity - set the opacity of the background colours.
 - Height of the chart, in pixels
 - Bar thickness in pixels
 - Tension - for curved line charts
+- Legend font size
+- X-axis font size
 
-### What Chart script does it use?  
+# What Chart script does it use?  
 
-v1.1.0 delivers [chartjs v3.9.1](https://github.com/chartjs/Chart.js/releases/tag/v3.9.1)
+v1.2.0 delivers [chartjs v4.2.1](https://cdnjs.com/libraries/Chart.js)
 and [chartjs-adapter-date-fns v2.0.0](https://github.com/chartjs/chartjs-adapter-date-fns)
 
-### What do I need to search for to find the block? 
+# What do I need to search for to find the block? 
 
 Chart or SB Chart
 
-### What if my first language is not English? 
+# What if my first language is not English? 
 
 If your first language is not English then you could try:
 
@@ -73,9 +81,9 @@ If your first language is not English then you could try:
 - Italian - grafico
 - Spanish - gráfico
 
-### Do I need to build this block? 
+# Do I need to build this block? 
 No. The plugin is delivered with the production version of the block.
-If you do wish to modify the code then you can find [instructions in the `src` folder](src/README.md).
+If you do wish to modify the code then you can find instructions in the src folder.
 
 ### Are there shortcodes available?
 
@@ -89,24 +97,24 @@ Several attributes can be added at the same time. Example:
 
 Here's the list of supported attributes:
 
-- `backgroundColors` (string): list of custom background colors (separated by comma) to use for datasets. For example, if there are 3 datasets (`d1`, `d2` and `d3`) and we want `d1` to use the color `#0000FF`, `d2` to use `#FFFF00` and `d3` to use `#008000`, the value of the attribute must be `#0000FF,#FFFF00,#008000`. If some colors are missing (ex.: `#0000FF,,#008000`), default colors from the theme (set with the attribute `theme`) are used as fallback (`#0000FF,second theme color,#008000`); default is no custom colors used
-- `barThickness` (int): thickness (in pixels) of a bar in bar charts; default is the default Chart.js thickness
-- `beginYAxisAt0` (bool): make sure the Y axis begins at 0; default is `false`
-- `borderColors` (string): list of custom border colors (separated by comma) to use for datasets. See the description of the attribute `backgroundColors` for more details; default is the value of the attribute `backgroundColors`
-- `class` (string): class or classes to be added to the chart container; default is an empty string
-- `fill` (bool): fill the area under the line; default is `false`
-- `height` (int): chart height (in pixels); default is the default Chart.js height
-- `indexAxis` (string): axis to use as index; choices are `x`, `y`; note that `y` is automatically used for horizontal bar charts; default is `x`
-- `max` (float): maximum value for Y axes; default is no maximum value
-- `opacity` (float): opacity to apply to the lines or bars; it must be between `0` and `1`; default is `0.8`
-- `showLine` (bool): show (draw) lines; default is `true`
-- `stacked` (bool): enable stacking for line/bar charts; default is `false`
-- `tension` (float): add Bezier curve tension to lines; when set to `0`, lines are straight; default is `0`
-- `theme` (string): theme used for the chart colors; choices are `Chart`, `Gutenberg`, `Rainbow`, `Tertiary`, `Visualizer`, `Wordpress`; default is `Chart`
-- `time` (bool): add support for time line on the X axis; default is `false`
-- `timeUnit` (string): time unit to use if time line is enabled; choices are `year`, `quarter`, `month`, `week`, `day`, `hour`, `minute`, `second`, `millisecond`; default is `hour`
-- `type` (string): type of chart; choices are `bar`, `horizontalbar`, `line`, `pie`; default is `line`
-- `yAxes` (string): list of Y axes to which the datasets are bound. It allows to enable multi-axis charts. For example, if there are 3 datasets (`d1`, `d2` and `d3`) and we want `d1` to use the first Y axis, and `d2` and `d3` to use the second Y axis, the attribute value must be `y,y1,y1`; default is an empty string, so multi-axis feature is disabled and all datasets are automatically bound to the first (and only) Y axis `y`
+* - `backgroundColors` (string): list of custom background colors (separated by comma) to use for datasets. For example, if there are 3 datasets (`d1`, `d2` and `d3`) and we want `d1` to use the color `#0000FF`, `d2` to use `#FFFF00` and `d3` to use `#008000`, the value of the attribute must be `#0000FF,#FFFF00,#008000`. If some colors are missing (ex.: `#0000FF,,#008000`), default colors from the theme (set with the attribute `theme`) are used as fallback (`#0000FF,second theme color,#008000`); default is no custom colors used
+* - `barThickness` (int): thickness (in pixels) of a bar in bar charts; default is the default Chart.js thickness
+* - `beginYAxisAt0` (bool): make sure the Y axis begins at 0; default is `false`
+* - `borderColors` (string): list of custom border colors (separated by comma) to use for datasets. See the description of the attribute `backgroundColors` for more details; default is the value of the attribute `backgroundColors`
+* - `class` (string): class or classes to be added to the chart container; default is an empty string
+* - `fill` (bool): fill the area under the line; default is `false`
+* - `height` (int): chart height (in pixels); default is the default Chart.js height
+* - `indexAxis` (string): axis to use as index; choices are `x`, `y`; note that `y` is automatically used for horizontal bar charts; default is `x`
+* - `max` (float): maximum value for Y axes; default is no maximum value
+* - `opacity` (float): opacity to apply to the lines or bars; it must be between `0` and `1`; default is `0.8`
+* - `showLine` (bool): show (draw) lines; default is `true`
+* - `stacked` (bool): enable stacking for line/bar charts; default is `false`
+* - `tension` (float): add Bezier curve tension to lines; when set to `0`, lines are straight; default is `0`
+* - `theme` (string): theme used for the chart colors; choices are `Chart`, `Gutenberg`, `Rainbow`, `Tertiary`, `Visualizer`, `Wordpress`; default is `Chart`
+* - `time` (bool): add support for time line on the X axis; default is `false`
+* - `timeUnit` (string): time unit to use if time line is enabled; choices are `year`, `quarter`, `month`, `week`, `day`, `hour`, `minute`, `second`, `millisecond`; default is `hour`
+* - `type` (string): type of chart; choices are `bar`, `horizontalbar`, `line`, `pie`; default is `line`
+* - `yAxes` (string): list of Y axes to which the datasets are bound. It allows to enable multi-axis charts. For example, if there are 3 datasets (`d1`, `d2` and `d3`) and we want `d1` to use the first Y axis, and `d2` and `d3` to use the second Y axis, the attribute value must be `y,y1,y1`; default is an empty string, so multi-axis feature is disabled and all datasets are automatically bound to the first (and only) Y axis `y`
 
 Here's a fully functional example:
 
@@ -126,33 +134,33 @@ Here's the result:
 
 The following filter hooks are available:
 
-- `sb_chart_block_content`: filter allowing to manipulate the content before it's processed
-- `sb_chart_block_options`: filter allowing to add custom Chart.js options
+* - `sb_chart_block_content`: filter allowing to manipulate the content before it's processed
+* - `sb_chart_block_options`: filter allowing to add custom Chart.js options
 
 For example, to customize the legend, use the `sb_chart_block_options` filter in your `functions.php` theme file as follows:
 
 ```php
 function customize_legend($options, $atts, $series) {
 	$custom_options = to_array($options);
-	
+
 	$custom_options['plugins']['legend']['labels']['font']['size'] = 16;
 	$custom_options['plugins']['legend']['labels']['color'] = '#0000FF';
-	
+
 	return json_decode(json_encode($custom_options));
 }
 add_filter('sb_chart_block_options', 'customize_legend', 10, 3);
 
 function to_array($data) {
 	$array = [];
-	
+
 	if (is_array($data) || is_object($data)) {
 		foreach ($data as $key => $value) {
-			$array[$key] = (is_array($value) || is_object($value)) ? to_array($value) : $value;
+* 			$array[$key] = (is_array($value) || is_object($value)) ? to_array($value) : $value;
 		}
 	} else {
 		$array[] = $data;
 	}
-	
+
 	return $array;
 }
 ```
@@ -165,39 +173,47 @@ function customize_legend($options, $atts, $series) {
 	if (!isset($options->plugins->legend)) $options->plugins->legend = new stdClass();
 	if (!isset($options->plugins->legend->labels)) $options->plugins->legend->labels = new stdClass();
 	if (!isset($options->plugins->legend->labels->font)) $options->plugins->legend->labels->font = new stdClass();
-	
+
 	$options->plugins->legend->labels->font->size = 16;
 	$options->plugins->legend->labels->color = '#0000FF';
-	
+
 	return $options;
 }
 add_filter('sb_chart_block_options', 'customize_legend', 10, 3);
 ```
 
-## Screenshots
 
-1. Line chart with Gutenberg theme colors:  
-   ![Line chart with Gutenberg theme colors](assets/screenshot-1.jpg)
-2. Bar chart with Chart theme colors:  
-   ![Bar chart with Chart theme colors](assets/screenshot-2.jpg)
-3. Horizontal bar chart with Tertiary theme colors:  
-   ![Horizontal bar chart with Tertiary theme colors](assets/screenshot-3.jpg)
-4. Pie chart with Visualizer theme colors:  
-   ![Pie chart with Visualizer theme colors](assets/screenshot-4.jpg)
-5. Chart type toolbar selection:  
-   ![Chart type toolbar selection](assets/screenshot-5.jpg)
+## Screenshots 
+1. Line chart - Gutenberg theme colors
+2. Bar chart - Chart theme colors
+3. Horizontal bar chart - Tertiary theme colors
+4. Pie chart - Visualizer theme colors
+5. Chart type toolbar selection
 
 ## Upgrade Notice 
-### 1.1.0 
-Now uses chart.js v3.9.1. Tested with WordPress 6.0.1 and Gutenberg 13.8.2
+# 1.2.0 
+Update for custom colors, font size options and multiple y-axis charts. Now uses chart.js v4.2.1.
 
 ## Changelog 
-### 1.1.0 
-* Changed: Updated wp-scripts #13
-* Changed: Put Height and Bar thickness in separate panelbody tags #17
-* Changed: Update chart.js to v3.9.1 #11
-* Fixed: Fix Fatal on PHP 7.4 Remove default: #11
-* Tested: With WordPress 6.0.1 and WordPress Multi Site
-* Tested: With Gutenberg 13.8.2
+# 1.2.0 
+* Added: Multi axis line chart #22
+* Added: PHPUnit test cases #25
+* Added: Per row color control - background and border colors #20
+* Added: Set font size for legend labels and X-axis ticks #21
+* Changed: Add filter hooks for options and content #23
+* Changed: Added documentation about the [chartjs] shortcode #23
+* Changed: Adds the value of the atribute `class` to the class list of the chart container #23
+* Changed: Allow 2 decimals for Opacity. #31
+* Changed: Chart options as object #23
+* Changed: Extract utility functions to libs/sb-chart-block.php #29
+* Changed: Improve parsing of the chart content to support CSV format & partial lines #30
+* Changed: Improve sb_chart_block_array_get() to allow for lower cased attributes for shortcodes #21
+* Changed: Improved validation for shortcode parameters #23
+* Changed: New parameters for sb_chart_block_get_csv() to replace empty strings with null only when necessary #23
+* Changed: Trim leading and trailing white space #30
+* Changed: Update chart.js UMD v4.2.1 #26
+* Fixed: Error in block when pasting in charts #28
+* Fixed: Re-enable sliders for RangeControls; remove enclosing PanelRows #31
+* Tested: With Gutenberg 15.1.0
 * Tested: With PHP 8.0
-
+* Tested: With WordPress 6.1.1 and WordPress Multi Site
