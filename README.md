@@ -64,7 +64,7 @@ Options to control the chart display are:
 
 # What Chart script does it use?  
 
-v1.2.0 delivers [chartjs v4.2.1](https://cdnjs.com/libraries/Chart.js)
+v1.2.2 delivers [chartjs v4.2.1](https://cdnjs.com/libraries/Chart.js)
 and [chartjs-adapter-date-fns v2.0.0](https://github.com/chartjs/chartjs-adapter-date-fns)
 
 # What do I need to search for to find the block? 
@@ -191,10 +191,13 @@ add_filter('sb_chart_block_options', 'customize_legend', 10, 3);
 5. Chart type toolbar selection
 
 ## Upgrade Notice 
-# 1.2.1 
-Update for custom colors, font size options and multiple y-axis charts. Now uses chart.js v4.2.1.
+# 1.2.2 
+Update for custom colors, font size options and multiple y-axis charts. Now uses chart.js v1.4.2
 
 ## Changelog 
+# 1.2.2 
+* Changed: Rebuilt language versions
+
 # 1.2.1 
 * Fixed: Warning: Use of undefined constant FILTER_VALIDATE_BOOL in PHP 7.4 #32
 

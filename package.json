@@ -1,6 +1,6 @@
 {
 	"name": "sb-chart-block",
-	"version": "1.0.0",
+	"version": "1.2.2",
 	"description": "Displays a chart from CSV content.",
 	"author": "bobbingwide",
 	"license": "GPL-2.0-or-later",
