@@ -193,6 +193,9 @@ class SB_chart_block {
 	 * @return bool Returns true if $value equals 1, "1", true, "true", "on" and "yes". Returns false otherwise.
 	 */
 	function validate_bool( $value ) {
+		if ( !defined( 'FILTER_VALIDATE_BOOL')) {
+			define( 'FILTER_VALIDATE_BOOL', FILTER_VALIDATE_BOOLEAN);
+		}
 		return filter_var( $value, FILTER_VALIDATE_BOOL );
 	}
 
