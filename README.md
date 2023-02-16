@@ -4,7 +4,7 @@
 * Tags:              block, Chart, Line, Bar, Horizontal bar, Pie, stacked
 * Requires at least: 5.6.0
 * Tested up to:      6.1.1
-* Stable tag:        1.2.0
+* Stable tag:        1.2.1
 * Requires PHP:      7.2.0
 * License:           GPL-2.0-or-later
 * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -191,10 +191,13 @@ add_filter('sb_chart_block_options', 'customize_legend', 10, 3);
 5. Chart type toolbar selection
 
 ## Upgrade Notice 
-# 1.2.0 
+# 1.2.1 
 Update for custom colors, font size options and multiple y-axis charts. Now uses chart.js v4.2.1.
 
 ## Changelog 
+# 1.2.1 
+* Fixed: Warning: Use of undefined constant FILTER_VALIDATE_BOOL in PHP 7.4 #32
+
 # 1.2.0 
 * Added: Multi axis line chart #22
 * Added: PHPUnit test cases #25
