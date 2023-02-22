@@ -393,7 +393,7 @@ class SB_chart_block {
 			}
 
 		}
-		bw_trace2( $this->series, "series" );
+		//bw_trace2( $this->series, "series" );
 		return $this->series;
 	}
 
