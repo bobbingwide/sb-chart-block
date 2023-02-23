@@ -1,4 +1,7 @@
 == Upgrade Notice ==
+= 1.2.2 =
+Update for custom colors, font size options and multiple y-axis charts. Now uses chart.js v1.4.2
+
 = 1.2.1 =
 Update for custom colors, font size options and multiple y-axis charts. Now uses chart.js v4.2.1.
 
@@ -57,6 +60,9 @@ First version to be used in Slog.
 Initial version copied from SB Children block
 
 == Changelog ==
+= 1.2.2 =
+* Changed: Rebuilt language versions
+
 = 1.2.1 =
 * Fixed: Warning: Use of undefined constant FILTER_VALIDATE_BOOL in PHP 7.4 #32
 

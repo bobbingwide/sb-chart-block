@@ -4,7 +4,7 @@
 * Tags:              block, Chart, Line, Bar, Horizontal bar, Pie, stacked
 * Requires at least: 5.6.0
 * Tested up to:      6.1.1
-* Stable tag:        1.2.1
+* Stable tag:        1.2.2
 * Requires PHP:      7.2.0
 * License:           GPL-2.0-or-later
 * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -191,35 +191,11 @@ add_filter('sb_chart_block_options', 'customize_legend', 10, 3);
 5. Chart type toolbar selection
 
 ## Upgrade Notice 
-# 1.2.2 
-Update for custom colors, font size options and multiple y-axis charts. Now uses chart.js v1.4.2
+# 1.2.3 
+Fixes a bug introduced in v1.2.0
+
 
 ## Changelog 
-# 1.2.2 
-* Changed: Rebuilt language versions
+# 1.2.3 
+* Fixed: Fatal error - undefined function bw_trace2() #34
 
-# 1.2.1 
-* Fixed: Warning: Use of undefined constant FILTER_VALIDATE_BOOL in PHP 7.4 #32
-
-# 1.2.0 
-* Added: Multi axis line chart #22
-* Added: PHPUnit test cases #25
-* Added: Per row color control - background and border colors #20
-* Added: Set font size for legend labels and X-axis ticks #21
-* Changed: Add filter hooks for options and content #23
-* Changed: Added documentation about the [chartjs] shortcode #23
-* Changed: Adds the value of the atribute `class` to the class list of the chart container #23
-* Changed: Allow 2 decimals for Opacity. #31
-* Changed: Chart options as object #23
-* Changed: Extract utility functions to libs/sb-chart-block.php #29
-* Changed: Improve parsing of the chart content to support CSV format & partial lines #30
-* Changed: Improve sb_chart_block_array_get() to allow for lower cased attributes for shortcodes #21
-* Changed: Improved validation for shortcode parameters #23
-* Changed: New parameters for sb_chart_block_get_csv() to replace empty strings with null only when necessary #23
-* Changed: Trim leading and trailing white space #30
-* Changed: Update chart.js UMD v4.2.1 #26
-* Fixed: Error in block when pasting in charts #28
-* Fixed: Re-enable sliders for RangeControls; remove enclosing PanelRows #31
-* Tested: With Gutenberg 15.1.0
-* Tested: With PHP 8.0
-* Tested: With WordPress 6.1.1 and WordPress Multi Site
