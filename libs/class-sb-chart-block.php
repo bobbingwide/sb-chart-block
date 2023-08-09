@@ -368,7 +368,7 @@ class SB_chart_block {
 	}
 
 	function get_labels() {
-		return $this->series[0];
+		return $this->series[0] ?? '';
 	}
 
 	/**
