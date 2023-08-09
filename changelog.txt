@@ -1,6 +1,9 @@
 == Upgrade Notice ==
+= 1.2.3 =
+Fixes a bug introduced in v1.2.0
+
 = 1.2.2 =
-Update for custom colors, font size options and multiple y-axis charts. Now uses chart.js v1.4.2
+Update for custom colors, font size options and multiple y-axis charts. Now uses chart.js v4.2.1.
 
 = 1.2.1 =
 Update for custom colors, font size options and multiple y-axis charts. Now uses chart.js v4.2.1.
@@ -60,6 +63,9 @@ First version to be used in Slog.
 Initial version copied from SB Children block
 
 == Changelog ==
+= 1.2.3 =
+* Fixed: Fatal error - undefined function bw_trace2() #34
+
 = 1.2.2 =
 * Changed: Rebuilt language versions
 
@@ -96,7 +102,7 @@ Initial version copied from SB Children block
 * Fixed: Fix Fatal on PHP 7.4 Remove default: #11
 * Tested: With WordPress 6.0.1 and WordPress Multi Site
 * Tested: With Gutenberg 13.8.2
-* Tested: With PHP 8.0 
+* Tested: With PHP 8.0
 
 = 1.0.0 =
 * Added: Add tension Range Control for Line charts #11

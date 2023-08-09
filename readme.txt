@@ -2,8 +2,8 @@
 Contributors:      bobbingwide
 Tags:              block, Chart, Line, Bar, Horizontal bar, Pie, stacked
 Requires at least: 5.6.0
-Tested up to:      6.1.1
-Stable tag:        1.2.3
+Tested up to:      6.3.0
+Stable tag:        1.2.4
 Requires PHP:      7.2.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -63,8 +63,8 @@ Options to control the chart display are:
 
 = What Chart script does it use?  =
 
-v1.2.2 delivers [chartjs v4.2.1](https://cdnjs.com/libraries/Chart.js)
-and [chartjs-adapter-date-fns v2.0.0](https://github.com/chartjs/chartjs-adapter-date-fns)
+v1.2.4 delivers [chartjs v4.3.3](https://cdnjs.com/libraries/Chart.js)
+and [chartjs-adapter-date-fns v3.0.0](https://github.com/chartjs/chartjs-adapter-date-fns)
 
 = What do I need to search for to find the block? =
 
@@ -190,11 +190,16 @@ add_filter('sb_chart_block_options', 'customize_legend', 10, 3);
 5. Chart type toolbar selection
 
 == Upgrade Notice ==
-= 1.2.3 =
-Fixes a bug introduced in v1.2.0  
-
+= 1.2.4 =
+Uses latest chart.js, updated wp-scripts and tested with WordPress 6.3.
 
 == Changelog ==
-= 1.2.3 =
-* Fixed: Fatal error - undefined function bw_trace2() #34 
-
+= 1.2.4 =
+* Changed: Update chart.js to v4.3.3 #35
+* Changed: Update chartjs-adapter-date-fns to v3.0.0 #35
+* Changed: Update wp-scripts #35
+* Fixed: Avoid error when no series are defined #35
+* Tested: With WordPress 6.3 and WordPress Multisite
+* Tested: With Gutenberg 16.3.0
+* Tested: With P|HP 8.0
+* Tested: With PHPUnit 9
