@@ -36,6 +36,7 @@ export class SB_chart_block {
 		console.log('constructor');
 		this.datasets = [];
 		this.labels = [];
+		this.series = [];
 	}
 
 	setStuff(attributes) {
@@ -157,6 +158,9 @@ export class SB_chart_block {
 		}
 
 	getLabels() {
+		if ( undefined === this.series[0] ) {
+			return '';
+		}
 		return this.series[0].map( x =>  (x === undefined ) || (  0 === x.trim().length ) ? undefined : x.trim() );
 	}
 
