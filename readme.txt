@@ -201,5 +201,5 @@ Uses latest chart.js, updated wp-scripts and tested with WordPress 6.3.
 * Fixed: Avoid error when no series are defined #35
 * Tested: With WordPress 6.3 and WordPress Multisite
 * Tested: With Gutenberg 16.3.0
-* Tested: With P|HP 8.0
+* Tested: With PHP 8.0
 * Tested: With PHPUnit 9
