@@ -1,4 +1,7 @@
 == Upgrade Notice ==
+= 1.2.4 =
+Uses latest chart.js, updated wp-scripts and tested with WordPress 6.3.
+
 = 1.2.3 =
 Fixes a bug introduced in v1.2.0
 
@@ -63,6 +66,16 @@ First version to be used in Slog.
 Initial version copied from SB Children block
 
 == Changelog ==
+= 1.2.4 =
+* Changed: Update chart.js to v4.3.3 #35
+* Changed: Update chartjs-adapter-date-fns to v3.0.0 #35
+* Changed: Update wp-scripts #35
+* Fixed: Avoid error when no series are defined #35
+* Tested: With WordPress 6.3 and WordPress Multisite
+* Tested: With Gutenberg 16.3.0
+* Tested: With PHP 8.0
+* Tested: With PHPUnit 9
+
 = 1.2.3 =
 * Fixed: Fatal error - undefined function bw_trace2() #34
 
