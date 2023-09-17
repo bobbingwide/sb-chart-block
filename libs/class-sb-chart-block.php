@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright (C) Bobbing Wide 2021
+ * @copyright (C) Bobbing Wide 2021, 2023
  * @package sb-chart-block
  *
  * Class SB_chart_block
@@ -47,6 +47,8 @@ class SB_chart_block {
 	private $theme;
 
 	private $color_palettes = null;
+	private $id;
+	private $opacity;
 
 	/**
 	 * SB_chart_block constructor.
