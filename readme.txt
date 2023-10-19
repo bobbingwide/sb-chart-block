@@ -2,7 +2,7 @@
 Contributors:      bobbingwide
 Tags:              block, Chart, Line, Bar, Horizontal bar, Pie, stacked
 Requires at least: 5.6.0
-Tested up to:      6.3.1
+Tested up to:      6.4-RC1
 Stable tag:        1.2.5
 Requires PHP:      7.2.0
 License:           GPL-2.0-or-later
@@ -195,7 +195,7 @@ Upgrade for PHP 8.1 and PHP 8.1 support
 
 == Changelog ==
 = 1.2.5 =
-* Changed: PCR 8.2 Declare class properties #36
-* Tested: With WordPress 6.3.1 and WordPress Multisite
-* Tested: With PHP 8.2
+* Changed: PHP 8.2 Declare class properties #36
+* Tested: With WordPress 6.4-RC1 and WordPress Multisite
+* Tested: With PHP 8.1 and PHP 8.2
 * Tested: With PHPUnit 9.6

@@ -1,6 +1,9 @@
-<?php // (C) Copyright Bobbing Wide 2022
+<?php // (C) Copyright Bobbing Wide 2022, 2023
 /**
  * @group sb-chart-block
+ *
+ * Note: These tests assume that the current locale is en_US
+ * and will fail if it's en_GB or some other value.
  */
 class Test_chart_block extends BW_UnitTestCase {
 
