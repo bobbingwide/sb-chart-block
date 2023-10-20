@@ -191,7 +191,7 @@ add_filter('sb_chart_block_options', 'customize_legend', 10, 3);
 
 == Upgrade Notice ==
 = 1.2.5 =
-Upgrade for PHP 8.1 and PHP 8.1 support
+Upgrade for PHP 8.1 and PHP 8.2 support
 
 == Changelog ==
 = 1.2.5 =
