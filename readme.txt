@@ -2,8 +2,8 @@
 Contributors:      bobbingwide
 Tags:              block, Chart, Line, Bar, Horizontal bar, Pie, stacked
 Requires at least: 5.6.0
-Tested up to:      6.4-RC1
-Stable tag:        1.2.5
+Tested up to:      6.5.3
+Stable tag:        1.2.6
 Requires PHP:      7.2.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -63,7 +63,7 @@ Options to control the chart display are:
 
 = What Chart script does it use?  =
 
-v1.2.4 delivers [chartjs v4.3.3](https://cdnjs.com/libraries/Chart.js)
+v1.2.6 delivers [chartjs v4.4.2](https://www.jsdelivr.com/package/npm/chart.js?path=dist)
 and [chartjs-adapter-date-fns v3.0.0](https://github.com/chartjs/chartjs-adapter-date-fns)
 
 = What do I need to search for to find the block? =
@@ -190,12 +190,12 @@ add_filter('sb_chart_block_options', 'customize_legend', 10, 3);
 5. Chart type toolbar selection
 
 == Upgrade Notice ==
-= 1.2.5 =
-Upgrade for PHP 8.1 and PHP 8.2 support
+= 1.2.6 =
+Upgrade for PHP 8.3 support. Now uses chart.js v4.4.2
 
 == Changelog ==
-= 1.2.5 =
-* Changed: PHP 8.2 Declare class properties #36
-* Tested: With WordPress 6.4-RC1 and WordPress Multisite
-* Tested: With PHP 8.1 and PHP 8.2
+= 1.2.6 =
+* Changed: Update wp-script and chart.js #35
+* Tested: With WordPress 6.5.3 and WordPress Multisite
+* Tested: With PHP 8.3
 * Tested: With PHPUnit 9.6
