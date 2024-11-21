@@ -1,5 +1,5 @@
 {
-  	"apiVersion": 2,
+  	"apiVersion": 3,
 	"name": "oik-sb/chart",
 	"title": "Chart",
 	"category": "widgets",
@@ -18,7 +18,6 @@
 		"type": { "type": "string", "default": "line" },
 		"content": { "type": "string", "default": "" },
 		"theme": { "type": "string", "default": "Chart" },
-		"myChartId": { "type": "string", "default": "myChart-" },
 		"stacked": { "type": "boolean", "default": false },
 		"fill": { "type": "boolean", "default": false },
 		"height": { "type": "integer", "default": null },
