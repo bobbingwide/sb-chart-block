@@ -50,9 +50,9 @@ import { getThemeOptions } from './theme-colors';
 function edit ( { attributes, className, isSelected, setAttributes, instanceId } )   {
 
 	//console.log( instanceId );
-	const myChartId = `myChart-${ instanceId }`;
+	//const myChartId = '' `myChart-${ instanceId }`;
 	//console.log( myChartId );
-	setAttributes( { myChartId: myChartId });
+	//setAttributes( { myChartId: myChartId });
 
 
 	const onChangeType = ( event ) => {
@@ -365,7 +365,7 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
 			<div { ...blockProps}>
 				{attributes.content &&
 				<div className={"chartjs"} style={ { height: attributes.height} }>
-					<canvas id={attributes.myChartId} height="450px" ref={myRef}></canvas>
+					<canvas height="450px" ref={myRef}></canvas>
 				</div>
 				}
 				{ attributes.error &&
@@ -388,7 +388,6 @@ function edit ( { attributes, className, isSelected, setAttributes, instanceId }
  * I honestly don't understand Higher Order Components,
    but this seems to wrap the edit component with withInstanceId,
    which enables the function to access the instance ID.
-   The save() function doesn't get this parameter, but it does get attributes.
-   So we use the myChartId attribute to pass the ID for the canvas.
+
  */
 export default withInstanceId( edit );
