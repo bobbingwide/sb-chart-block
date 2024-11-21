@@ -2,8 +2,8 @@
 Contributors:      bobbingwide
 Tags:              block, Chart, Line, Bar, Horizontal bar, Pie, stacked
 Requires at least: 5.6.0
-Tested up to:      6.5.3
-Stable tag:        1.2.6
+Tested up to:      6.7.1
+Stable tag:        1.3.0
 Requires PHP:      7.2.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -190,12 +190,12 @@ add_filter('sb_chart_block_options', 'customize_legend', 10, 3);
 5. Chart type toolbar selection
 
 == Upgrade Notice ==
-= 1.2.6 =
-Upgrade for PHP 8.3 support. Now uses chart.js v4.4.2
+= 1.3.0 =
+Update for improved compatibility with the WordPress 6.7 site editor.
 
 == Changelog ==
-= 1.2.6 =
-* Changed: Update wp-script and chart.js #35
-* Tested: With WordPress 6.5.3 and WordPress Multisite
+= 1.3.0 =
+* Changed: Avoid unexpected reporting of "The following has been modified" from the site editor #37
+* Tested: With WordPress 6.7.1 and WordPress Multisite
 * Tested: With PHP 8.3
 * Tested: With PHPUnit 9.6

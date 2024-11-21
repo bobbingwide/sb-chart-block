@@ -1,4 +1,7 @@
 == Upgrade Notice ==
+= 1.2.6 =
+Upgrade for PHP 8.3 support. Now uses chart.js v4.4.2
+
 = 1.2.5 =
 Upgrade for PHP 8.1 and PHP 8.2 support
 
@@ -69,6 +72,12 @@ First version to be used in Slog.
 Initial version copied from SB Children block
 
 == Changelog ==
+= 1.2.6 =
+* Changed: Update wp-script and chart.js #35
+* Tested: With WordPress 6.5.3 and WordPress Multisite
+* Tested: With PHP 8.3
+* Tested: With PHPUnit 9.6
+
 = 1.2.5 =
 * Changed: PHP 8.2 Declare class properties #36
 * Tested: With WordPress 6.4-RC1 and WordPress Multisite
