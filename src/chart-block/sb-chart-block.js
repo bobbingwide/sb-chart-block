@@ -294,7 +294,7 @@ export class SB_chart_block {
 	}
 
 	/**
-	 * Runs the chart indicated by myChartId.
+	 * Runs the chart indicated by chartRef
 	 *
 	 * This appears to create multiple charts in the same canvas.
 	 * How do we use update() if the myLineChart already exists?
@@ -329,7 +329,7 @@ export class SB_chart_block {
 			//setAttributes( )
 			return myLineChart;
 		} else {
-			console.log( "No ctx for: " + attributes.myChartId );
+			console.log( "No ctx for: " + chartRef.current );
 		}
 	}
 
