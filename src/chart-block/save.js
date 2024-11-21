@@ -16,7 +16,7 @@ export default function save( { attributes } ) {
 	return(
 		<div {...blockProps}>
 			<div className={"chartjs"} style={ { height: attributes.height} }>
-				<canvas id={ attributes.myChartId }></canvas>
+				<canvas></canvas>
 			</div>
 		</div>
 	);
