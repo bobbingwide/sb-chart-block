@@ -42,7 +42,7 @@ function sb_chart_block_get_csv( $data, $empty_to_null = false, $min_nb_fields =
 	$array = [];
 
 	if ( is_string( $data ) && '' !== $data ) {
-		$array = str_getcsv( $data );
+		$array = str_getcsv( $data, ",", '"', "" );
 		if ($empty_to_null) {
 			foreach ( $array as $key => $value ) {
 				if ( '' === $value ) {
