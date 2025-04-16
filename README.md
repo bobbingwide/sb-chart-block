@@ -1,10 +1,10 @@
 # SB Chart block 
 ![banner](assets/sb-chart-block-banner-772x250.jpg)
 * Contributors:      bobbingwide
-* Tags:              block, Chart, Line, Bar, Horizontal bar, Pie, stacked
+* Tags:              block, Line chart, Bar chart, Pie chart, Horizontal bar chart
 * Requires at least: 5.6.0
-* Tested up to:      6.7.1
-* Stable tag:        1.3.0
+* Tested up to:      6.8
+* Stable tag:        1.3.1
 * Requires PHP:      7.2.0
 * License:           GPL-2.0-or-later
 * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -191,12 +191,13 @@ add_filter('sb_chart_block_options', 'customize_legend', 10, 3);
 5. Chart type toolbar selection
 
 ## Upgrade Notice 
-# 1.3.0 
-Update for improved compatibility with the WordPress 6.7 site editor.
+# 1.3.1 
+Update for support for PHP 8.4 and a minor security fix
 
 ## Changelog 
-# 1.3.0 
-* Changed: Avoid unexpected reporting of "The following has been modified" from the site editor #37
-* Tested: With WordPress 6.7.1 and WordPress Multisite
-* Tested: With PHP 8.3
+# 1.3.1 
+* Changed: Run esc_attr() against the classNames attribute. Props: Peter Thaleikis (Wordfence)  #38
+* Changed: Support PHP 8.4's str_getcsv() changes #38
+* Tested: With WordPress 6.8 and WordPress Multisite
+* Tested: With PHP 8.3 and PHP 8.4
 * Tested: With PHPUnit 9.6
