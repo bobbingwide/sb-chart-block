@@ -101,7 +101,7 @@ function sb_chart_block_dynamic_block( $attributes ) {
 	//load_plugin_textdomain( 'sb-chart-block', false, 'sb-chart-block/languages' );
 	$className = isset( $attributes['className']) ? $attributes['className'] : 'wp-block-oik-sb-chart';
 	$content = isset( $attributes['content'] ) ? $attributes['content'] : null;
-	$html = '<div class="'. $className . '">';
+	$html = '<div class="'. esc_attr($className) . '">';
 	$html .= sb_chart_block_shortcode( $attributes, $content, 'chartjs' );
 	$html .= '</div>';
 	return $html;
